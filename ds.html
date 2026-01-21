@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fffaf7;
+  --pink: #ff6b81;
+  --orange: #ffa94d;
+  --card-bg: #ffffff;
+  --text-dark: #2c3e50;
+  --muted: #6c757d;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Base */
+body {margin:0; background:var(--bg); color:var(--text-dark); line-height:1.6;}
+
+/* Header */
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 40px;
+  background:white;
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.header-left {display:flex; align-items:center; gap:15px;}
+.header-left img {height:60px; width:auto; border-radius:10px;}
+.header-left h2 {font-size:1.2rem; color:var(--muted); margin:0;}
+
+.header-right {display:flex; align-items:center; gap:20px;}
+.lang-select {
+  padding:8px 12px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-weight:600;
+  background:white;
+}
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  overflow: hidden;
+  min-width: 160px;
+  z-index: 999;
+  transition: all 0.2s ease;
+}
+
+.dropdown.show {
+  display: block;
+}
+/* Profile */
+.profile-container {position:relative;}
+.profile-icon {
+  background-color:#a67c68;
+  color:white;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:1rem;
+  cursor:pointer;
+  box-shadow:0 2px 5px rgba(0,0,0,0.15);
+}
+.profile-dropdown {
+  display:none;
+  position:absolute;
+  right:0;
+  top:50px;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  overflow:hidden;
+  min-width:150px;
+  z-index:20;
+}
+.profile-dropdown a {
+  display:block;
+  padding:10px 15px;
+  text-decoration:none;
+  color:#333;
+}
+.profile-dropdown a:hover {background-color:#f9ecef; color:var(--pink);}
+.profile-container:hover .profile-dropdown {display:block;}
+
+/* Hero */
+.hero {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:linear-gradient(to right, #ffe5e0, #fff3e0);
+  border-radius:16px;
+  padding:40px;
+  margin:30px 50px;
+}
+.hero-content {max-width:60%;}
+.hero-content h1 {font-size:2.3rem; color:#1c1c1c; margin-bottom:10px;}
+.hero-content p {color:#555; font-size:1.1rem;}
+.cta-button {
+  margin-top:20px;
+  background-color:var(--pink);
+  color:white;
+  border:none;
+  padding:12px 26px;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+}
+.cta-button:hover {background-color:#ff4d4d;}
+.hero-image {flex-shrink:0;}
+.hero-image svg {width:220px; height:220px;}
+
+/* Cards Grid (2 rows, 3 columns fixed) */
+.cards {
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:30px;
+  padding:0 50px 50px;
+}
+.card {
+  background:var(--card-bg);
+  border-radius:16px;
+  padding:25px;
+  text-align:left;
+  box-shadow:0 6px 15px rgba(0,0,0,0.08);
+  transition:transform 0.3s;
+  text-decoration:none;
+  color:var(--text-dark);
+}
+.card:hover {transform:translateY(-8px);}
+.card-icon {font-size:2rem; margin-bottom:10px;}
+.card h3 {margin:0 0 10px; font-size:1.3rem; color:var(--pink);}
+.card p {color:var(--muted); margin:0; font-size:0.95rem;}
+
+/* Footer */
+footer {
+  text-align:center;
+  padding:20px;
+  color:var(--muted);
+  font-size:14px;
+  border-top:1px solid #eee;
+}
+
+/* Responsive */
+@media (max-width:992px){
+  .cards {grid-template-columns: repeat(2, 1fr);}
+}
+@media (max-width:768px){
+  .hero{flex-direction:column;text-align:center;}
+  .hero-content{max-width:100%;}
+  .hero-image{margin-top:20px;}
+  .cards {grid-template-columns: 1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <img src="digisakhi.png" alt="DigiSakhi Logo">
+    <h2>Learn digital skills, access opportunities</h2>
+  </div>
+  <div class="header-right">
+    <select id="lang" class="lang-select">
+      <option value="en">English</option>
+      <option value="hi">हिन्दी</option>
+      <option value="mr">मराठी</option>
+    </select>
+
+   <div class="profile-container">
+  <div class="profile-icon" id="profileIcon">
+    <span id="profileInitial">R</span>
+  </div>
+  <div class="profile-dropdown">
+    <a href="profile.html">My Profile</a>
+    <a href="settings.html">Settings</a>
+    <a href="login.html">Logout</a>
+  </div>
+</div>
+
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1 id="hero-title">Welcome to DigiSakhi</h1>
+    <p id="hero-desc">Short, practical lessons in local languages — phone basics, money, health, rights, and small business skills.</p>
+    <button class="cta-button" id="get-started">Get Started</button>
+  </div>
+  <div class="hero-image">
+    <!-- Shirt SVG -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <path fill="#FFD966" d="M128 32h256l32 96v320H96V128z"/>
+      <path fill="#00C4B3" d="M192 32l32 96h64l32-96h-128z"/>
+      <path fill="#F4B183" d="M160 160h192v256H160z"/>
+      <path fill="#00A99D" d="M232 160h48v256h-48z"/>
+      <circle cx="256" cy="200" r="8" fill="#fff"/>
+      <circle cx="256" cy="240" r="8" fill="#fff"/>
+      <circle cx="256" cy="280" r="8" fill="#fff"/>
+    </svg>
+  </div>
+</section>
+
+<section class="cards">
+  <a href="legalrights.html" class="card">
+    <div class="card-icon">⚖️</div>
+    <h3 id="card1-title">Legal Rights</h3>
+    <p id="card1-desc">Know your rights — domestic, workplace, property, and how to get help.</p>
+  </a>
+  <a href="health.html" class="card">
+    <div class="card-icon">🩺</div>
+    <h3 id="card2-title">Health & Wellness</h3>
+    <p id="card2-desc">Maternal care, nutrition, mental health, and digital health access for women.</p>
+  </a>
+  <a href="digitalskills.html" class="card">
+    <div class="card-icon">📱</div>
+    <h3 id="card3-title">Digital Skills</h3>
+    <p id="card3-desc">Smartphone use, internet safety, and essential online tools.</p>
+  </a>
+  <a href="entrepreneurship.html" class="card">
+  <div class="card-icon">💡</div>
+  <h3 data-key="card-ent-title">Digital Entrepreneurship</h3>
+  <p data-key="card-ent-text">Learn how to sell products online, use business apps & grow your income.</p>
+</a>
+
+  <a href="financial.html" class="card">
+    <div class="card-icon">💰</div>
+    <h3 id="card5-title">Financial Literacy</h3>
+    <p id="card5-desc">Banking, UPI, savings, budgeting, and government support schemes.</p>
+  </a>
+  <a href="schemes.html" class="card">
+    <div class="card-icon">🏛️</div>
+    <h3 id="card6-title">Government Schemes</h3>
+    <p id="card6-desc">Step-by-step guides to access welfare and entrepreneurship support.</p>
+  </a>
+</section>
+
+<footer>© 2025 DigiSakhi | Digital Literacy for Every Woman</footer>
+
+<script>
+// Language Translations
+const translations = {
+  hi: {
+    "hero-title": "DigiSakhi में आपका स्वागत है",
+    "hero-desc": "स्थानीय भाषाओं में छोटे, व्यावहारिक पाठ — फोन, पैसा, स्वास्थ्य, अधिकार और व्यापार कौशल।",
+    "get-started": "शुरू करें",
+    "card1-title": "कानूनी अधिकार",
+    "card1-desc": "अपने अधिकार जानें — घरेलू, कार्यस्थल, संपत्ति और मदद कैसे लें।",
+    "card2-title": "स्वास्थ्य और कल्याण",
+    "card2-desc": "महिला स्वास्थ्य, पोषण, मानसिक स्वास्थ्य और डिजिटल स्वास्थ्य तक पहुंच।",
+    "card3-title": "डिजिटल कौशल",
+    "card3-desc": "स्मार्टफोन, इंटरनेट सुरक्षा और ऑनलाइन उपकरण सीखें।",
+    "card4-title": "उद्यमिता",
+    "card4-desc": "छोटे व्यवसाय शुरू करें, ऑनलाइन विपणन करें और ग्राहकों का प्रबंधन करें।",
+    "card5-title": "वित्तीय साक्षरता",
+    "card5-desc": "बैंकिंग, यूपीआई, बचत, बजट और सरकारी योजनाएं।",
+    "card6-title": "सरकारी योजनाएं",
+    "card6-desc": "कल्याण और व्यापार योजनाओं तक पहुंच के लिए मार्गदर्शिकाएं।"
+  },
+  mr: {
+    "hero-title": "DigiSakhi मध्ये आपले स्वागत आहे",
+    "hero-desc": "स्थानिक भाषांमध्ये लहान, व्यावहारिक धडे — फोन, पैसा, आरोग्य, हक्क आणि व्यवसाय कौशल्ये.",
+    "get-started": "सुरू करा",
+    "card1-title": "कायदेशीर हक्क",
+    "card1-desc": "तुमचे हक्क जाणून घ्या — घरगुती, कार्यस्थळ, मालमत्ता आणि मदत कशी घ्यावी.",
+    "card2-title": "आरोग्य आणि कल्याण",
+    "card2-desc": "महिला आरोग्य, पोषण, मानसिक आरोग्य आणि डिजिटल आरोग्य प्रवेश.",
+    "card3-title": "डिजिटल कौशल्ये",
+    "card3-desc": "स्मार्टफोन वापर, इंटरनेट सुरक्षा आणि ऑनलाइन साधने शिका.",
+    "card4-title": "उद्योजकता",
+    "card4-desc": "लघुउद्योग सुरू करा, ऑनलाइन विपणन करा आणि ग्राहकांचे व्यवस्थापन करा.",
+    "card5-title": "आर्थिक साक्षरता",
+    "card5-desc": "बँकिंग, यूपीआय, बचत, बजेट आणि सरकारी योजना.",
+    "card6-title": "सरकारी योजना",
+    "card6-desc": "कल्याण आणि व्यवसाय योजनांमध्ये प्रवेशासाठी मार्गदर्शक."
+  }
+};
+
+document.getElementById('lang').addEventListener('change', (e) => {
+  const lang = e.target.value;
+  const t = translations[lang] || {};
+  for (const id in t) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = t[id];
+  }
+});
+window.addEventListener("DOMContentLoaded", () => {
+  const iconDiv = document.getElementById("profileIcon");
+  const initialSpan = document.getElementById("profileInitial");
+
+  // Get data from localStorage
+  const uname = localStorage.getItem("username") || "";
+  const photo = localStorage.getItem("photo");
+
+  // If user has uploaded a photo → show it
+  if (photo) {
+    iconDiv.innerHTML = ""; // clear initials
+    const img = document.createElement("img");
+    img.src = photo;
+    img.alt = "Profile";
+    img.style.width = "40px";
+    img.style.height = "40px";
+    img.style.borderRadius = "50%";
+    img.style.objectFit = "cover";
+    iconDiv.appendChild(img);
+  } else {
+    // Otherwise → show first letter of username or default “U”
+    initialSpan.textContent = uname ? uname.charAt(0).toUpperCase() : "U";
+  }
+});
+window.addEventListener("DOMContentLoaded", () => {
+  const profileImg = document.getElementById("profileImage");
+  const dropdown = document.getElementById("profileDropdown");
+  const container = document.getElementById("profileContainer");
+
+  // 🖼️ Load stored profile photo
+  const storedPhoto = localStorage.getItem("photo");
+  if (storedPhoto) profileImg.src = storedPhoto;
+
+  // ✅ Toggle dropdown on click of profile image only
+  profileImg.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle("show");
+  });
+
+  // ✅ Prevent closing when clicking inside dropdown
+  dropdown.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  // ❌ Close dropdown when clicking outside
+  document.addEventListener("click", () => {
+    dropdown.classList.remove("show");
+  });
+});
+</script>
+
+</body>
+</html>

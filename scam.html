@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | OTP & Scam Safety</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ------------------ HYBRID CYBER SAFETY THEME ------------------ */
+
+:root{
+  --brand-blue:#2A6FDB;       /* information */
+  --brand-orange:#FFA73A;     /* attention */
+  --brand-red:#E63946;        /* danger / scam */
+  --brand-green:#1DBF73;      /* safe */
+  --bg:#F8FAFF;               /* soft cyber background */
+  --text:#1f2937;             /* deep grey */
+  --muted:#6b7280;            /* subtle text */
+  --card:#FFFFFF;             /* clean white */
+  --shadow:0 6px 14px rgba(0,0,0,.06);
+  font-family:'Inter',sans-serif;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+
+.container{max-width:1100px;margin:auto;padding:24px}
+
+/* ------------------ DigiSakhi Header ------------------ */
+.header{display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{height:60px;border-radius:10px}
+.title{font-size:1.8rem;font-weight:900;color:var(--brand-blue)}
+.nav{display:flex;gap:14px;align-items:center}
+.lang-select{padding:10px 14px;border:1px solid #d1d5db;border-radius:12px;background:#fff;font-weight:600}
+.profile{position:relative}
+.profile img{height:44px;width:44px;border-radius:50%;cursor:pointer;object-fit:cover}
+.dropdown{display:none;position:absolute;right:0;top:54px;background:#fff;border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
+.dropdown a{display:block;padding:10px 14px;text-decoration:none;color:var(--text);font-weight:600}
+.dropdown a:hover{background:var(--brand-blue);color:#fff}
+.profile:hover .dropdown{display:block}
+
+/* ------------------ Hero ------------------ */
+.hero{
+  margin-top:16px;
+  padding:50px 24px;
+  border-radius:20px;
+  text-align:center;
+  color:#fff;
+  background:linear-gradient(135deg,var(--brand-blue),var(--brand-orange));
+}
+.hero h1{font-size:2.3rem;margin-bottom:6px}
+
+/* ------------------ Info Sections ------------------ */
+.section{margin-top:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{
+  background:#fff;
+  border-radius:20px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  transition:.2s;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,.08)}
+.card h3{margin:8px 0 6px}
+.card p{color:var(--muted);margin:0}
+.icon{font-size:30px;color:var(--brand-orange)}
+
+/* ------------------ Panels (Games) ------------------ */
+.panel{
+  background:#fff;
+  border-radius:20px;
+  margin-top:28px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.panel .topbar{
+  background:var(--brand-blue);
+  color:#fff;
+  padding:14px 16px;
+  font-weight:800;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.panel-body{padding:16px}
+
+/* ------------------ Buttons ------------------ */
+.btn{
+  background:var(--brand-blue);
+  border:none;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:12px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s;
+}
+.btn:hover{background:#1F57B6}
+
+.btn-ghost{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  color:var(--text);
+  padding:10px 14px;
+  border-radius:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.badge{
+  padding:6px 10px;
+  border-radius:10px;
+  font-weight:700;
+  background:#f3f4f6;
+}
+
+/* ------------------ Fake Link Game ------------------ */
+.link-row{
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:10px;
+  margin:10px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.right{background:#E8FFF0;border-color:var(--brand-green)}
+.wrong{background:#FFF1F1;border-color:var(--brand-red)}
+
+/* ------------------ OTP Scam Popup ------------------ */
+.overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;align-items:center;justify-content:center;
+  z-index:50;
+}
+.popup{
+  background:#1F2A37;
+  color:#fff;
+  width:420px;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.popup-header{background:#111827;padding:14px 16px;font-weight:800}
+.popup-body{padding:16px}
+.pop-actions{display:flex;gap:10px;margin-top:14px}
+
+/* ------------------ Caller Game ------------------ */
+.row{
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:12px;
+  margin:10px 0;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.call-name{font-weight:800}
+.call-sub{color:var(--muted);font-size:0.9rem}
+
+/* ------------------ Drag & Drop ------------------ */
+.zone{
+  min-height:160px;
+  border:2px dashed #cbd5e1;
+  border-radius:14px;
+  padding:12px;
+}
+.zone.safe{background:#F1FFF6}
+.zone.scam{background:#FFF5F5}
+
+.msg-chip{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:10px;
+  margin:8px 0;
+  cursor:grab;
+  box-shadow:var(--shadow);
+}
+
+/* ------------------ Videos ------------------ */
+.yt{
+  width:100%;
+  height:315px;
+  border:none;
+  border-radius:16px;
+  box-shadow:var(--shadow);
+}
+
+/* ------------------ Checklist ------------------ */
+.checklist li{
+  padding:6px 0;
+  font-size:1rem;
+}
+
+/* ------------------ Quiz ------------------ */
+.q-item{
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:12px;
+  margin:12px 0;
+}
+.q-item b{display:block;margin-bottom:6px}
+
+.q-item.right{background:#E8FFF0;border-color:var(--brand-green)}
+.q-item.wrong{background:#FFF1F1;border-color:var(--brand-red)}
+
+.footer{
+  text-align:center;
+  padding:30px;
+  margin-top:24px;
+  color:var(--muted);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<header class="header">
+  <div class="brand">
+    <a href="ds.html"><img src="digisakhi.png" class="logo"></a>
+    <div>
+      <div class="title">DigiSakhi</div>
+      <div style="font-size:12px;color:var(--muted)" data-key="tagline">Empowering Women Through Digital Skills</div>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <select id="langSelect" class="lang-select">
+      <option value="en">English</option>
+      <option value="hi">हिन्दी</option>
+      <option value="mr">मराठी</option>
+    </select>
+
+    <div class="profile">
+      <img id="profilePic" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"/>
+      <div class="dropdown">
+        <a href="profile.html">My Profile</a>
+        <a href="settings.html">Settings</a>
+        <a href="login.html">Logout</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 data-key="hero-title">Understanding OTP & Scams</h1>
+  <p data-key="hero-desc">Never share your OTP. Identify fake links and stay safe online.</p>
+</section>
+
+<!-- What is OTP -->
+<section class="section">
+  <div class="grid">
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-shield-halved"></i></div>
+      <h3 data-key="otp-what">What is OTP?</h3>
+      <p data-key="otp-what-desc">A one-time password used for secure login and payments. It should be kept secret.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-key"></i></div>
+      <h3 data-key="otp-when">When is OTP used?</h3>
+      <p data-key="otp-when-desc">Banking/UPI login, adding a new device, or confirming a transaction you initiated.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+      <h3 data-key="otp-never">Never share OTP</h3>
+      <p data-key="otp-never-desc">Banks, police, delivery agents, electricity dept, or helpdesks will NEVER ask for your OTP.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-lock"></i></div>
+      <h3 data-key="otp-safety">Safer choices</h3>
+      <p data-key="otp-safety-desc">Install apps only from Play Store, avoid unknown links, and enable device lock + UPI PIN.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Safety Steps -->
+<section class="section">
+  <h2 data-key="steps-title">Steps to Stay Safe</h2>
+  <div class="grid">
+    <div class="card"><b>1. </b><span data-key="step1">Never share your OTP with anyone.</span></div>
+    <div class="card"><b>2. </b><span data-key="step2">Check the link—look for misspellings or extra words.</span></div>
+    <div class="card"><b>3. </b><span data-key="step3">Don’t answer unknown international calls.</span></div>
+    <div class="card"><b>4. </b><span data-key="step4">Avoid “parcel stuck, pay fee” messages.</span></div>
+    <div class="card"><b>5. </b><span data-key="step5">Install apps only from trusted stores.</span></div>
+    <div class="card"><b>6. </b><span data-key="step6">Report suspicious activity immediately.</span></div>
+  </div>
+</section>
+
+<!-- Fake Link Game -->
+<div class="panel">
+  <div class="topbar"><i class="fa-solid fa-link-slash"></i> <span data-key="linkgame-title">Game: Spot Fake Links</span></div>
+  <div id="linkGame" class="panel-body"></div>
+
+  <div style="padding:0 16px 16px;display:flex;gap:10px;align-items:center">
+    <button class="btn" id="checkLinks" data-key="check-answers">Check answers</button>
+    <button class="btn-ghost" id="resetLinks" data-key="reset">Reset</button>
+    <span id="linkScore" class="badge">0/0</span>
+  </div>
+</div>
+
+<!-- OTP Scam Simulation -->
+<div class="panel">
+  <div class="topbar"><i class="fa-solid fa-message-exclamation"></i> <span data-key="otpgame-title">Game: OTP Scam Simulation</span></div>
+  <div class="panel-body">
+    <p data-key="otpgame-desc">We’ll show a message trying to trick you. Choose the safest response.</p>
+    <button class="btn" id="startOtpGame" data-key="start">Start</button>
+  </div>
+</div>
+
+<!-- Popup -->
+<div class="overlay" id="otpOverlay">
+  <div class="popup">
+    <div class="popup-header"><i class="fa-solid fa-triangle-exclamation"></i> <span data-key="otp-pop-title">Urgent: KYC Verification Required</span></div>
+    <div class="popup-body">
+      <p id="otpMsg" data-key="otp-pop-msg">Your account KYC is expired. Share OTP now to avoid block.</p>
+
+      <div class="pop-actions">
+        <button class="btn" id="ignoreOtp" data-key="ignore">Ignore</button>
+        <button class="btn-ghost" id="shareOtp" data-key="share-otp">Share OTP</button>
+      </div>
+
+      <p id="otpResult" style="margin-top:10px;font-weight:800"></p>
+    </div>
+  </div>
+</div>
+
+<!-- Caller Game -->
+<div class="panel">
+  <div class="topbar"><i class="fa-solid fa-phone-volume"></i> <span data-key="callgame-title">Game: Caller Safety</span></div>
+  <div id="callList" class="panel-body"></div>
+
+  <div style="padding:0 16px 16px;display:flex;gap:10px;align-items:center">
+    <button class="btn" id="checkCalls" data-key="check-answers">Check answers</button>
+    <button class="btn-ghost" id="resetCalls" data-key="reset">Reset</button>
+    <span id="callScore" class="badge">0/0</span>
+  </div>
+</div>
+
+<!-- Drag & Drop Game -->
+<div class="panel">
+  <div class="topbar"><i class="fa-solid fa-arrows-left-right"></i> <span data-key="sortgame-title">Game: Sort Messages</span></div>
+  <div class="panel-body">
+
+    <div class="dnd-wrap">
+      <div>
+        <div class="zone-title" data-key="drag-title">Drag these messages</div>
+        <div id="pool"></div>
+      </div>
+
+      <div>
+        <div class="zone-title" data-key="drop-title">Drop into a box</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="zone safe" id="zoneSafe">
+            <div class="badge" style="background:#E8FFF0;color:#1DBF73" data-key="safe">SAFE</div>
+          </div>
+          <div class="zone scam" id="zoneScam">
+            <div class="badge" style="background:#FFF1F1;color:#E63946" data-key="scam">SCAM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;align-items:center;margin-top:10px">
+      <button class="btn" id="checkDnd" data-key="check-answers">Check answers</button>
+      <button class="btn-ghost" id="resetDnd" data-key="reset">Reset</button>
+      <span id="dndScore" class="badge">0/0</span>
+    </div>
+  </div>
+</div>
+
+<!-- Videos -->
+<div class="panel">
+  <div class="topbar"><i class="fa-solid fa-circle-play"></i> <span data-key="video-title">Watch & Learn</span></div>
+  <div class="panel-body">
+    <div class="grid">
+      
+      <div class="card" style="text-align:center">
+        <b data-key="v1">What is OTP?</b>
+        <iframe class="yt" src="https://www.youtube.com/embed/2n6w7n8Z7aY"></iframe>
+        <p><a href="https://www.youtube.com/watch?v=2n6w7n8Z7aY" target="_blank" data-key="open-yt">Open in YouTube ↗</a></p>
+      </div>
+
+      <div class="card" style="text-align:center">
+        <b data-key="v2">Common Online Scams</b>
+        <iframe class="yt" src="https://www.youtube.com/embed/9b5Lq9P7ZqU"></iframe>
+        <p><a href="https://www.youtube.com/watch?v=9b5Lq9P7ZqU" target="_blank" data-key="open-yt">Open in YouTube ↗</a></p>
+      </div>
+
+      <div class="card" style="text-align:center">
+        <b data-key="v3">How to Stay Safe</b>
+        <iframe class="yt" src="https://www.youtube.com/embed/xX0N4e0bYt8"></iframe>
+        <p><a href="https://www.youtube.com/watch?v=xX0N4e0bYt8" target="_blank" data-key="open-yt">Open in YouTube ↗</a></p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Checklist -->
+<section class="section card">
+  <h3 data-key="report-title">If You See a Scam</h3>
+  <ul class="checklist">
+    <li data-key="r1">Take screenshots as evidence.</li>
+    <li data-key="r2">Block the number and delete the message.</li>
+    <li data-key="r3">Do not click suspicious links or download APKs.</li>
+    <li data-key="r4">Report at cybercrime.gov.in and inform your bank.</li>
+    <li data-key="r5">Enable two-step verification.</li>
+  </ul>
+</section>
+
+<!-- Quiz -->
+<div class="panel">
+  <div class="topbar"><i class="fa-solid fa-clipboard-question"></i> <span data-key="quiz-title">Mini Safety Quiz</span></div>
+  <div class="panel-body" id="quizBox"></div>
+
+  <div style="padding:0 16px 16px;display:flex;gap:10px;align-items:center">
+    <button class="btn" id="checkQuiz" data-key="check-answers">Check answers</button>
+    <button class="btn-ghost" id="resetQuiz" data-key="reset">Reset</button>
+    <span id="quizScore" class="badge">0/0</span>
+  </div>
+</div>
+
+<footer class="footer">© 2025 DigiSakhi | Digital Literacy for Every Woman</footer>
+
+</div>
+
+<script>
+/* ----------- Profile Picture Load ----------- */
+(function(){
+  const saved = localStorage.getItem("photo");
+  const pic = document.getElementById("profilePic");
+  const uname = localStorage.getItem("username");
+  if(saved){ pic.src = saved; }
+  else if(uname){ pic.src = "https://via.placeholder.com/100x100?text=" + uname.charAt(0).toUpperCase(); }
+})();
+
+/* ----------- Sound Effects ----------- */
+let audioCtx;
+function playTone(type="sine", freq=880, ms=140, gain=0.04){
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = type; o.frequency.value=freq; g.gain.value=gain;
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(); setTimeout(()=>{o.stop();}, ms);
+  }catch(e){}
+}
+function sRight(){ playTone("sine", 900, 150, 0.06); }
+function sWrong(){ playTone("square", 200, 220, 0.06); }
+
+/* ----------- Fake Links Game ----------- */
+const LINKS = [
+  {t:"google.com", safe:true},
+  {t:"sbi.co.in", safe:true},
+  {t:"amazon.in", safe:true},
+
+  {t:"amaz0n.in", safe:false},
+  {t:"sbi-help-verify.co", safe:false},
+  {t:"google-support-lottery.gq", safe:false},
+  {t:"upi.me/secure-pay", safe:false},
+  {t:"irctc.co.in-login.xyz", safe:false},
+
+  {t:"mha.gov.in", safe:true},
+  {t:"whatsapp.safe-check.app", safe:false}
+];
+
+const linkGame=document.getElementById("linkGame");
+
+function renderLinks(){
+  linkGame.innerHTML="";
+  LINKS.forEach((ln,i)=>{
+    const row=document.createElement("div");
+    row.className="link-row";
+    row.innerHTML=`
+      <div class="link-text" style="font-family:monospace">${ln.t}</div>
+      <div class="actions">
+        <label class="badge"><input type="radio" name="l${i}" value="safe"> <span data-key="safe">SAFE</span></label>
+        <label class="badge"><input type="radio" name="l${i}" value="scam"> <span data-key="scam">SCAM</span></label>
+      </div>`;
+    linkGame.appendChild(row);
+  });
+}
+renderLinks();
+
+document.getElementById("checkLinks").addEventListener("click", ()=>{
+  let score=0;
+  [...linkGame.querySelectorAll(".link-row")].forEach((row,i)=>{
+    row.classList.remove("right","wrong","shake");
+    const picked=document.querySelector(`input[name="l${i}"]:checked`)?.value;
+    const ok = LINKS[i].safe?"safe":"scam";
+    if(picked===ok){score++; row.classList.add("right"); sRight();}
+    else{row.classList.add("wrong"); row.classList.add("shake"); sWrong();}
+  });
+  document.getElementById("linkScore").textContent=`${score}/${LINKS.length}`;
+});
+
+document.getElementById("resetLinks").addEventListener("click",()=>{
+  renderLinks();
+  document.getElementById("linkScore").textContent="0/0";
+});
+
+/* ----------- OTP Scam Simulation ----------- */
+const otpOverlay=document.getElementById("otpOverlay");
+
+document.getElementById("startOtpGame").addEventListener("click",()=>{
+  otpOverlay.style.display="flex";
+});
+
+document.getElementById("ignoreOtp").addEventListener("click",()=>{
+  const res=document.getElementById("otpResult");
+  res.style.color="#1DBF73";
+  res.textContent="✔ Correct! Never share OTP.";
+  sRight();
+  setTimeout(()=>otpOverlay.style.display="none",900);
+});
+
+document.getElementById("shareOtp").addEventListener("click",()=>{
+  const res=document.getElementById("otpResult");
+  res.style.color="#E63946";
+  res.textContent="✘ Wrong! This is a scam. Banks will never ask for OTP.";
+  sWrong();
+});
+
+otpOverlay.addEventListener("click",e=>{
+  if(e.target===otpOverlay) otpOverlay.style.display="none";
+});
+
+/* ----------- Caller Scam Game ----------- */
+const CALLS=[
+  {name:"+91 639-XXX-XXXX", sub:"Electricity Dept", scam:true},
+  {name:"+234 55X-XXXX", sub:"International Call", scam:true},
+  {name:"+91 889-XXX-XXXX", sub:"Lottery Refund", scam:true},
+  {name:"Mom", sub:"Family", scam:false},
+  {name:"Doctor", sub:"Reminder", scam:false},
+  {name:"+91 740-XXX-XXXX", sub:"Parcel Fee", scam:true},
+];
+
+const callList=document.getElementById("callList");
+
+function renderCalls(){
+  callList.innerHTML="";
+  CALLS.forEach((c,i)=>{
+    const row=document.createElement("div");
+    row.className="row";
+    row.innerHTML=`
+      <div class="call-meta">
+        <div class="call-name">${c.name}</div>
+        <div class="call-sub">${c.sub}</div>
+      </div>
+      <div>
+        <label class="badge"><input type="radio" name="c${i}" value="safe">SAFE</label>
+        <label class="badge"><input type="radio" name="c${i}" value="scam">SCAM</label>
+      </div>`;
+    callList.appendChild(row);
+  });
+}
+renderCalls();
+
+document.getElementById("checkCalls").addEventListener("click",()=>{
+  let score=0;
+  [...callList.querySelectorAll(".row")].forEach((row,i)=>{
+    row.classList.remove("right","wrong","shake");
+    const picked=document.querySelector(`input[name="c${i}"]:checked`)?.value;
+    const ok=CALLS[i].scam?"scam":"safe";
+    if(picked===ok){score++; row.classList.add("right"); sRight();}
+    else{row.classList.add("wrong"); row.classList.add("shake"); sWrong();}
+  });
+  document.getElementById("callScore").textContent=`${score}/${CALLS.length}`;
+});
+
+document.getElementById("resetCalls").addEventListener("click",()=>{
+  renderCalls();
+  document.getElementById("callScore").textContent="0/0";
+});
+
+/* ----------- Drag & Drop Game ----------- */
+const POOL_MSGS=[
+  {t:"Click to win ₹5000!", scam:true},
+  {t:"Mom: Where are you?", scam:false},
+  {t:"Your parcel stuck—pay ₹50", scam:true},
+  {t:"School PTM tomorrow", scam:false},
+  {t:"Install APK for cashback", scam:true},
+  {t:"Doctor appointment confirmed", scam:false},
+  {t:"Your bank KYC expired", scam:true},
+  {t:"Community meeting 6 PM", scam:false},
+];
+
+const pool=document.getElementById("pool");
+const zoneSafe=document.getElementById("zoneSafe");
+const zoneScam=document.getElementById("zoneScam");
+
+function makeChip(msg,idx){
+  const d=document.createElement("div");
+  d.className="msg-chip";
+  d.draggable=true;
+  d.textContent=msg.t;
+  d.dataset.idx=idx;
+  d.addEventListener("dragstart",e=>e.dataTransfer.setData("text/plain",idx));
+  return d;
+}
+
+function renderPool(){
+  pool.innerHTML="";
+  zoneSafe.innerHTML=`<div class="badge" style="background:#E8FFF0;color:#1DBF73" data-key="safe">SAFE</div>`;
+  zoneScam.innerHTML=`<div class="badge" style="background:#FFF1F1;color:#E63946" data-key="scam">SCAM</div>`;
+  POOL_MSGS.forEach((m,i)=>pool.appendChild(makeChip(m,i)));
+}
+
+renderPool();
+
+[zoneSafe,zoneScam,pool].forEach(z=>{
+  z.addEventListener("dragover",e=>e.preventDefault());
+  z.addEventListener("drop",e=>{
+    e.preventDefault();
+    const idx=e.dataTransfer.getData("text/plain");
+    const chip=[...document.querySelectorAll(".msg-chip")].find(c=>c.dataset.idx===idx);
+    if(chip) z.appendChild(chip);
+  });
+});
+
+document.getElementById("checkDnd").addEventListener("click",()=>{
+  let score=0,total=POOL_MSGS.length;
+
+  [...zoneSafe.querySelectorAll(".msg-chip")].forEach(ch=>{
+    const ok=!POOL_MSGS[ch.dataset.idx].scam;
+    if(ok){score++; ch.classList.add("right"); sRight();}
+    else{ch.classList.add("wrong"); ch.classList.add("shake"); sWrong();}
+  });
+
+  [...zoneScam.querySelectorAll(".msg-chip")].forEach(ch=>{
+    const ok=POOL_MSGS[ch.dataset.idx].scam;
+    if(ok){score++; ch.classList.add("right"); sRight();}
+    else{ch.classList.add("wrong"); ch.classList.add("shake"); sWrong();}
+  });
+
+  document.getElementById("dndScore").textContent=`${score}/${total}`;
+});
+
+document.getElementById("resetDnd").addEventListener("click",()=>{
+  renderPool();
+  document.getElementById("dndScore").textContent="0/0";
+});
+
+/* ----------- Mini Safety Quiz ----------- */
+const QUIZ=[
+  {q:"You should share OTP with:", a:["Customer care","No one"], c:1},
+  {q:"A link says ‘verify bank account’. What do you do?", a:["Click it","Ignore"], c:1},
+  {q:"Unknown INTL call:", a:["Call back","Ignore/block"], c:1},
+  {q:"APK sent on WhatsApp:", a:["Install","Do not install"], c:1},
+  {q:"Best place to install apps:", a:["Random website","Play Store"], c:1},
+];
+
+const quizBox=document.getElementById("quizBox");
+
+function renderQuiz(){
+  quizBox.innerHTML="";
+  QUIZ.forEach((it,i)=>{
+    const div=document.createElement("div");
+    div.className="q-item";
+    div.innerHTML=`
+      <b>${it.q}</b>
+      ${it.a.map((t,j)=>`<label><input type="radio" name="q${i}" value="${j}"> ${t}</label>`).join("")}
+    `;
+    quizBox.appendChild(div);
+  });
+}
+renderQuiz();
+
+document.getElementById("checkQuiz").addEventListener("click",()=>{
+  let score=0;
+  QUIZ.forEach((it,i)=>{
+    const picked=document.querySelector(`input[name="q${i}"]:checked`);
+    const box=document.querySelectorAll(".q-item")[i];
+    box.classList.remove("right","wrong","shake");
+    if(picked && +picked.value===it.c){score++; box.classList.add("right"); sRight();}
+    else{box.classList.add("wrong"); box.classList.add("shake"); sWrong();}
+  });
+  document.getElementById("quizScore").textContent=`${score}/${QUIZ.length}`;
+});
+
+document.getElementById("resetQuiz").addEventListener("click",()=>{
+  renderQuiz();
+  document.getElementById("quizScore").textContent="0/0";
+});
+
+/* ----------- Language Pack ----------- */
+const T={
+  hi:{
+    "hero-title":"ओटीपी व ठगी सुरक्षा समझें",
+    "hero-desc":"ओटीपी कभी साझा न करें। फर्जी लिंक पहचानें और सुरक्षित रहें।",
+    "tagline":"महिलाओं को डिजिटल कौशल से सशक्त करना",
+
+    "otp-what":"ओटीपी क्या है?",
+    "otp-what-desc":"सुरक्षित लॉगिन व भुगतान के लिए एक बार का पासवर्ड। इसे गोपनीय रखें।",
+
+    "otp-when":"ओटीपी कब आता है?",
+    "otp-when-desc":"बैंक/UPI लॉगिन, नया डिवाइस जोड़ते समय या लेन-देन की पुष्टि में।",
+
+    "otp-never":"ओटीपी कभी साझा न करें",
+    "otp-never-desc":"बैंक/पुलिस/डिलीवरी एजेंट/कस्टमर केयर कभी ओटीपी नहीं मांगते।",
+
+    "otp-safety":"सुरक्षित आदतें",
+    "otp-safety-desc":"सिर्फ Play Store से ऐप डाउनलोड करें और संदिग्ध लिंक से बचें।",
+
+    "steps-title":"सुरक्षित रहने के कदम",
+    "step1":"अपना ओटीपी किसी को न दें।",
+    "step2":"लिंक जांचें—गलत वर्तनी देखें।",
+    "step3":"अंतरराष्ट्रीय अजनबी कॉल का जवाब न दें।",
+    "step4":"“पार्सल अटका है” जैसे संदेशों से बचें।",
+    "step5":"सुरक्षित ऐप स्टोर से ही इंस्टॉल करें।",
+    "step6":"ठगी तुरंत रिपोर्ट करें।",
+
+    "linkgame-title":"गेम: नकली लिंक पहचानें",
+    "check-answers":"उत्तर जाँचें",
+    "reset":"रीसेट",
+
+    "otpgame-title":"गेम: ओटीपी ठगी सिमुलेशन",
+    "otpgame-desc":"हम एक ठगी मैसेज दिखाएंगे। सुरक्षित विकल्प चुनें।",
+    "start":"शुरू करें",
+
+    "otp-pop-title":"तत्काल: KYC सत्यापन आवश्यक",
+    "otp-pop-msg":"आपका KYC समाप्त हो गया है। खाता ब्लॉक से बचने के लिए OTP बताएं।",
+    "ignore":"इग्नोर",
+    "share-otp":"OTP साझा करें",
+
+    "callgame-title":"गेम: कॉलर सुरक्षा",
+
+    "sortgame-title":"गेम: संदेश SAFE/SCAM में रखें",
+    "drag-title":"इन संदेशों को ड्रैग करें",
+    "drop-title":"किसी बॉक्स में छोड़ें",
+
+    "safe":"SAFE",
+    "scam":"SCAM",
+
+    "video-title":"देखें और सीखें",
+    "v1":"ओटीपी क्या है?",
+    "v2":"ऑनलाइन ठगी के प्रकार",
+    "v3":"कैसे सुरक्षित रहें?",
+    "open-yt":"YouTube में खोलें ↗",
+
+    "report-title":"यदि ठगी दिखे तो:",
+    "r1":"स्क्रीनशॉट लें।",
+    "r2":"नंबर ब्लॉक करें।",
+    "r3":"लिंक/APK पर क्लिक न करें।",
+    "r4":"cybercrime.gov.in पर रिपोर्ट करें।",
+    "r5":"टू-स्टेप वेरिफिकेशन ऑन करें।",
+
+    "quiz-title":"मिनी सुरक्षा क्विज़"
+  },
+
+  mr:{
+    "hero-title":"ओटीपी व फसवणूक सुरक्षितता",
+    "hero-desc":"ओटीपी कधीही शेअर करू नका. बनावट लिंक ओळखा आणि सुरक्षित रहा.",
+    "tagline":"महिलांना डिजिटल कौशल्यांनी सक्षम करणे",
+
+    "otp-what":"ओटीपी म्हणजे काय?",
+    "otp-what-desc":"लॉगिन व पेमेंटसाठी एकदा वापरणारा पासवर्ड.",
+
+    "otp-when":"ओटीपी कधी येतो?",
+    "otp-when-desc":"बँक/UPI लॉगिन, नवीन डिव्हाइस किंवा पेमेंट पुष्टीत.",
+
+    "otp-never":"ओटीपी कधीही शेअर करू नका",
+    "otp-never-desc":"बँक/पोलीस/डिलिव्हरी/हेल्पडेस्क ओटीपी विचारत नाहीत.",
+
+    "otp-safety":"सुरक्षित सवयी",
+    "otp-safety-desc":"फक्त Play Store वरूनच अॅप इंस्टॉल करा.",
+
+    "steps-title":"सुरक्षित राहण्याची पावले",
+    "step1":"ओटीपी कोणालाही देऊ नका.",
+    "step2":"लिंक तपासा—चुकीची स्पेलिंग पहा.",
+    "step3":"अनोळखी आंतरराष्ट्रीय कॉलला प्रतिसाद देऊ नका.",
+    "step4":"‘पार्सल अडकलं’ संदेश टाळा.",
+    "step5":"विश्वसनीय स्टोअर वापरा.",
+    "step6":"फसवणूक त्वरित नोंदवा.",
+
+    "linkgame-title":"गेम: बनावट लिंक ओळखा",
+    "check-answers":"उत्तरे तपासा",
+    "reset":"रीसेट",
+
+    "otpgame-title":"गेम: ओटीपी फसवणूक",
+    "otpgame-desc":"आम्ही संदेश दाखवू—सुरक्षित पर्याय निवडा.",
+    "start":"सुरू करा",
+
+    "otp-pop-title":"तात्काळ: KYC तपासणी",
+    "otp-pop-msg":"तुमचे KYC संपले आहे. खाता ब्लॉक टाळण्यासाठी OTP सांगा.",
+    "ignore":"इग्नोर",
+    "share-otp":"OTP शेअर करा",
+
+    "callgame-title":"गेम: कॉलर सुरक्षितता",
+
+    "sortgame-title":"गेम: SAFE/SCAM संदेश ठेवा",
+    "drag-title":"हे संदेश ओढा",
+    "drop-title":"बॉक्समध्ये सोडा",
+
+    "safe":"SAFE",
+    "scam":"SCAM",
+
+    "video-title":"पाहा आणि शिका",
+    "v1":"OTP काय आहे?",
+    "v2":"ऑनलाइन फसवणुकीचे प्रकार",
+    "v3":"कसे सुरक्षित राहायचे",
+    "open-yt":"YouTube मध्ये उघडा ↗",
+
+    "report-title":"फसवणूक दिसल्यास:",
+    "r1":"स्क्रीनशॉट घ्या.",
+    "r2":"नंबर ब्लॉक करा.",
+    "r3":"लिंक वर क्लिक करू नका.",
+    "r4":"cybercrime.gov.in वर तक्रार करा.",
+    "r5":"दोन-स्टेप वेरिफिकेशन सुरू करा.",
+
+    "quiz-title":"मिनी सुरक्षा क्विझ"
+  }
+};
+
+document.getElementById("langSelect").addEventListener("change",e=>{
+  const lang=e.target.value;
+  const t=T[lang];
+  if(!t) return;
+
+  Object.entries(t).forEach(([k,v])=>{
+    document.querySelectorAll(`[data-key="${k}"]`)
+      .forEach(el=>el.innerText=v);
+  });
+
+  localStorage.setItem("language",lang);
+});
+
+/* load saved language */
+(function(){
+  const lang=localStorage.getItem("language");
+  if(lang){
+    const sel=document.getElementById("langSelect");
+    sel.value=lang;
+    sel.dispatchEvent(new Event("change"));
+  }
+})();
+</script>
+</body>
+</html>

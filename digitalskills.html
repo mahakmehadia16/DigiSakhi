@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | Digital Skills</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --brand-pink: #ff6b81;
+  --brand-orange: #ffa800;
+  --bg: #fffafc;
+  --text-dark: #2c3e50;
+  --muted: #7f8c8d;
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  font-family: 'Inter', sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text-dark);line-height:1.6;font-family: 'Inter', sans-serif;}
+.container{max-width:1100px;margin:0 auto;padding:25px;}
+/* no underline on card links */
+a.card { text-decoration: none; color: inherit; }
+a.card * { text-decoration: none; }
+a.card { text-decoration: none; color: inherit; }
+a.card * { text-decoration: none; }
+
+
+
+/* HEADER */
+.header{display:flex;align-items:center;justify-content:space-between;padding:10px 0;}
+.brand{display:flex;align-items:center;gap:12px;}
+.logo{height:65px;width:auto;border-radius:10px;}
+.title{font-weight:800;font-size:1.8rem;color:var(--brand-pink);}
+.nav{display:flex;align-items:center;gap:15px;}
+.lang-select{padding:10px 14px;border-radius:var(--radius-md);border:1px solid #e0e0e0;background:white;font-weight:600;color:var(--text-dark);}
+.profile{position:relative;}
+.profile img{height:45px;width:45px;border-radius:50%;cursor:pointer;}
+.dropdown{display:none;position:absolute;top:55px;right:0;background:white;border-radius:var(--radius-md);box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+.dropdown a{display:block;padding:10px 15px;text-decoration:none;color:var(--text-dark);font-weight:600;}
+.dropdown a:hover{background:var(--brand-pink);color:white;}
+.profile:hover .dropdown{display:block;}
+.profile { position: relative; }
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  overflow: hidden;
+  min-width: 150px;
+  z-index: 99;
+}
+.dropdown.show { display: block; }
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--brand-pink),var(--brand-orange));color:white;text-align:center;padding:60px 20px;border-radius:var(--radius-lg);margin-top:10px;box-shadow:0 10px 25px rgba(255,107,129,0.4);}
+.hero h1{font-size:2.5rem;font-weight:900;margin-bottom:10px;}
+.hero p{font-size:1.1rem;max-width:700px;margin:auto;}
+
+/* GRID CARDS */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:25px;margin-top:40px;}
+.card{background:white;padding:25px;border-radius:var(--radius-lg);text-align:center;box-shadow:0 6px 15px rgba(0,0,0,0.1);transition:transform 0.3s, box-shadow 0.3s;}
+.card:hover{transform:translateY(-8px);box-shadow:0 8px 20px rgba(0,0,0,0.15);}
+.card img{height:80px;margin-bottom:10px;transition:transform 0.3s;}
+.card:hover img{transform:scale(1.1);}
+.card h3{margin-bottom:10px;color:var(--text-dark);}
+.card p{font-size:0.95rem;color:var(--muted);}
+.card a{text-decoration:none;color:inherit;}
+
+/* SECTION */
+.section{margin-top:60px;}
+.section h2{text-align:center;font-weight:800;margin-bottom:20px;color:var(--brand-pink);}
+.section p{text-align:center;color:var(--muted);max-width:800px;margin:auto 0 30px auto;}
+iframe{display:block;margin:0 auto;border-radius:var(--radius-lg);box-shadow:0 6px 15px rgba(0,0,0,0.1);}
+
+/* PIN GAME */
+.pin-game{background:white;padding:25px;border-radius:var(--radius-lg);box-shadow:0 6px 15px rgba(0,0,0,0.1);text-align:center;margin-top:40px;}
+.pin-input{display:flex;justify-content:center;gap:10px;margin:15px 0;}
+.pin-input input{width:45px;height:45px;text-align:center;font-size:1.3rem;border:2px solid var(--brand-pink);border-radius:10px;outline:none;}
+.pin-input input:focus{border-color:var(--brand-orange);}
+button{background:var(--brand-pink);color:white;border:none;padding:10px 20px;border-radius:var(--radius-md);font-weight:600;cursor:pointer;}
+button:hover{background:var(--brand-orange);}
+#pin-result{margin-top:10px;font-weight:600;}
+
+/* FOOTER */
+.footer{text-align:center;padding:30px 0;margin-top:50px;color:var(--muted);border-top:1px solid #eee;font-size:14px;}
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- HEADER -->
+  <header class="header">
+    <div class="brand">
+      <a href="ds.html"><img src="digisakhi.png" alt="DigiSakhi Logo" class="logo"></a>
+      <div>
+        <div class="title" id="brand-title">DigiSakhi</div>
+        <div style="font-size:13px;color:var(--muted)" id="tagline" data-key="tagline">Empowering Women Through Digital Skills</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <select class="lang-select" id="langSelect">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="mr">मराठी</option>
+      </select>
+      <div class="profile">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile">
+       <div class="dropdown">
+  <a href="profile.html">My Profile</a>
+  <a href="settings.html">My Settings</a>
+  <a href="login.html">Logout</a>
+</div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1 id="hero-title" data-key="hero-title">Master Essential Digital Skills</h1>
+    <p id="hero-text" data-key="hero-text">Learn WhatsApp use, OTP safety, and phone basics with DigiSakhi.</p>
+  </section>
+
+  <!-- SKILL CARDS -->
+  <section class="grid" id="skills-section">
+    <a href="whatsapp.html" class="card">
+  <img src="https://cdn-icons-png.flaticon.com/512/2504/2504957.png" alt="WhatsApp Mastery">
+  <h3 data-key="card1-title">WhatsApp Mastery</h3>
+  <p data-key="card1-text">Learn how to send messages, make video calls, and use privacy settings safely.</p>
+</a>
+
+
+    <a href="scam.html" class="card">
+  <img src="https://cdn-icons-png.flaticon.com/512/5659/5659696.png" alt="OTP & Scam Safety">
+  <h3 data-key="card-scam-title">OTP & Scam Safety</h3>
+  <p data-key="card-scam-text">Learn how to identify fake links, avoid fraud calls, and stay safe online.</p>
+</a>
+
+
+    <div class="card">
+      <a href="camera.html" class="card"></a>
+      <img src="https://cdn-icons-png.flaticon.com/512/2920/2920104.png" alt="Camera Basics">
+      <h3 data-key="card3-title">Basics of Camera</h3>
+      <p data-key="card3-text">Learn how to click photos, record videos, and adjust settings easily.</p>
+    </div>
+
+    <div class="card">
+            <a href="location.html" class="card"></a>
+
+      <img src="https://cdn-icons-png.flaticon.com/512/854/854878.png" alt="Location">
+      <h3 data-key="card4-title">Using Location Features</h3>
+      <p data-key="card4-text">Share your live location safely and use maps for easy navigation.</p>
+    </div>
+  </section>
+
+  <!-- VIDEO SECTION -->
+  <section class="section">
+    <h2 data-key="video-title">Digital Basics for Everyone 💻</h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/watch?v=EtFEXwzCLGw" allowfullscreen></iframe>
+    <p data-key="video-text">Watch this simple tutorial on how to use your phone safely, identify scams, and explore basic digital tools.</p>
+  </section>
+
+  <!-- GAME -->
+  <section class="pin-game">
+    <h2 data-key="pin-title">Try It Yourself: Set Your 4-Digit PIN 🔒</h2>
+    <p data-key="pin-text">Enter a 4-digit number to practice creating a secure PIN — like you would on your mobile apps!</p>
+    <div class="pin-input">
+      <input type="password" maxlength="1" id="p1">
+      <input type="password" maxlength="1" id="p2">
+      <input type="password" maxlength="1" id="p3">
+      <input type="password" maxlength="1" id="p4">
+    </div>
+    <button onclick="checkPIN()" data-key="pin-btn">Submit PIN</button>
+    <div id="pin-result"></div>
+  </section>
+
+  <footer class="footer" data-key="footer-text">© 2025 DigiSakhi | Digital Literacy for Every Woman</footer>
+</div>
+
+<script>
+function checkPIN() {
+  const pin = [p1.value, p2.value, p3.value, p4.value].join('');
+  const result = document.getElementById('pin-result');
+  if (pin.length < 4 || pin.includes(' ')) {
+    result.style.color = "red";
+    result.textContent = "❌ Please enter a valid 4-digit PIN!";
+  } else {
+    result.style.color = "green";
+    result.textContent = "✅ Great job! You've set your digital PIN safely.";
+  }
+}
+const profile = document.querySelector(".profile img");
+const dropdown = document.querySelector(".profile .dropdown");
+
+profile.addEventListener("click", (e) => {
+  e.stopPropagation();
+  dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", () => dropdown.classList.remove("show"));
+const photo = localStorage.getItem("photo");
+const uname = localStorage.getItem("username");
+const img = document.querySelector(".profile img");
+
+if (photo) {
+  img.src = photo;
+} else if (uname) {
+  img.src = `https://via.placeholder.com/100x100?text=${uname.charAt(0).toUpperCase()}`;
+}
+
+// MULTI-LANGUAGE
+const translations = {
+  hi: {
+    "tagline": "महिलाओं को डिजिटल कौशल के माध्यम से सशक्त बनाना",
+    "hero-title": "ज़रूरी डिजिटल कौशल सीखें",
+    "hero-text": "व्हाट्सएप, ओटीपी सुरक्षा और मोबाइल की मूल बातें सीखें।",
+    "card1-title": "व्हाट्सएप महारत",
+    "card1-text": "संदेश भेजना, वीडियो कॉल करना और गोपनीयता सेटिंग्स का सुरक्षित उपयोग करना सीखें।",
+    "card2-title": "ओटीपी और घोटाले समझें",
+    "card2-text": "अपना ओटीपी कभी साझा न करें। नकली लिंक पहचानें और ऑनलाइन सुरक्षित रहें।",
+    "card3-title": "कैमरा की मूल बातें",
+    "card3-text": "फोटो खींचना, वीडियो रिकॉर्ड करना और सेटिंग्स समायोजित करना सीखें।",
+    "card4-title": "लोकेशन का उपयोग",
+    "card4-text": "अपना लोकेशन सुरक्षित रूप से साझा करें और नेविगेशन के लिए मैप्स का उपयोग करें।",
+    "video-title": "सभी के लिए डिजिटल मूल बातें 💻",
+    "video-text": "अपने फोन का सुरक्षित उपयोग, धोखाधड़ी पहचानने और बुनियादी डिजिटल टूल सीखने पर यह सरल वीडियो देखें।",
+    "pin-title": "खुद आज़माएं: 4-अंकों का पिन सेट करें 🔒",
+    "pin-text": "4-अंकों का नंबर दर्ज करें और सुरक्षित पिन बनाना सीखें।",
+    "pin-btn": "पिन सबमिट करें",
+    "footer-text": "© 2025 DigiSakhi | हर महिला के लिए डिजिटल साक्षरता"
+  },
+  mr: {
+    "tagline": "महिलांना डिजिटल कौशल्यांद्वारे सक्षम करणे",
+    "hero-title": "महत्त्वाची डिजिटल कौशल्ये शिका",
+    "hero-text": "व्हॉट्सअॅप, ओटीपी सुरक्षा आणि मोबाईलची मूलभूत माहिती शिका.",
+    "card1-title": "व्हॉट्सअॅप मास्टरी",
+    "card1-text": "मेसेज पाठवणे, व्हिडिओ कॉल करणे आणि प्रायव्हसी सेटिंग सुरक्षित वापरणे शिका.",
+    "card2-title": "ओटीपी आणि फसवणूक समजून घ्या",
+    "card2-text": "तुमचा ओटीपी कधीही शेअर करू नका. बनावट लिंक ओळखा आणि ऑनलाइन सुरक्षित राहा.",
+    "card3-title": "कॅमेराच्या मूलभूत गोष्टी",
+    "card3-text": "फोटो क्लिक करणे, व्हिडिओ रेकॉर्ड करणे आणि सेटिंग्ज बदलणे शिका.",
+    "card4-title": "लोकेशन फीचर्स वापरणे",
+    "card4-text": "तुमचे लोकेशन सुरक्षितरित्या शेअर करा आणि नकाशे वापरा.",
+    "video-title": "प्रत्येकासाठी डिजिटल मूलभूत गोष्टी 💻",
+    "video-text": "फोन सुरक्षितपणे वापरणे आणि फसवणूक ओळखणे शिकण्यासाठी हा सोपा व्हिडिओ पाहा.",
+    "pin-title": "स्वतः करून बघा: 4-अंकी पिन सेट करा 🔒",
+    "pin-text": "4-अंकी नंबर टाइप करा आणि सुरक्षित पिन बनवण्याचा सराव करा.",
+    "pin-btn": "पिन सबमिट करा",
+    "footer-text": "© 2025 DigiSakhi | प्रत्येक महिलेसाठी डिजिटल साक्षरता"
+  }
+};
+
+document.getElementById('langSelect').addEventListener('change', e => {
+  const lang = e.target.value;
+  const text = translations[lang];
+  if (!text) return;
+  Object.entries(text).forEach(([key, value]) => {
+    const el = document.querySelector(`[data-key="${key}"]`) || document.getElementById(key);
+    if (el) el.innerText = value;
+  });
+});
+</script>
+</body>
+</html>

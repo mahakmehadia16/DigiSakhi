@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | My Settings</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink: #ff6b81;
+  --orange: #ffa94d;
+  --text-dark: #2c3e50;
+  --muted: #7f8c8d;
+  --bg: #fffaf7;
+  font-family: 'Inter', sans-serif;
+}
+body {
+  background: var(--bg);
+  color: var(--text-dark);
+  margin: 0;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+.header-left {display: flex; align-items: center; gap: 15px;}
+.header-left img {height: 60px; border-radius: 10px;}
+.header-left h2 {font-size: 1.2rem; color: var(--muted); margin: 0;}
+.back-btn {
+  background: var(--pink);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.back-btn:hover {background: var(--orange);}
+
+.settings-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 40px;
+}
+h1 {
+  text-align: center;
+  color: var(--pink);
+  margin-bottom: 30px;
+}
+.setting-group {
+  margin-bottom: 25px;
+}
+.setting-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+select, input[type="checkbox"] {
+  font-size: 1rem;
+}
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  outline: none;
+}
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fffaf7;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+}
+.checkbox-row label {
+  font-weight: 600;
+}
+.save-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--pink);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.save-btn:hover {
+  background: var(--orange);
+}
+footer {
+  text-align: center;
+  padding: 25px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <img src="digisakhi.png" alt="DigiSakhi Logo">
+    <h2>My Settings</h2>
+  </div>
+  <button class="back-btn" onclick="goBack()">← Back</button>
+</header>
+
+<div class="settings-container">
+  <h1>⚙️ Preferences</h1>
+
+  <div class="setting-group">
+    <label for="language">🌐 Preferred Language</label>
+    <select id="language">
+      <option value="en">English</option>
+      <option value="hi">हिन्दी</option>
+      <option value="mr">मराठी</option>
+    </select>
+  </div>
+
+  <div class="setting-group checkbox-row">
+    <label for="notifications">🔔 Enable Notifications</label>
+    <input type="checkbox" id="notifications">
+  </div>
+
+  <div class="setting-group checkbox-row">
+    <label for="darkMode">🌙 Dark Mode</label>
+    <input type="checkbox" id="darkMode">
+  </div>
+
+  <div class="setting-group checkbox-row">
+    <label for="privacy">🔒 Hide My Profile</label>
+    <input type="checkbox" id="privacy">
+  </div>
+
+  <button class="save-btn" onclick="saveSettings()">Save Settings</button>
+</div>
+
+<footer>© 2025 DigiSakhi | Digital Literacy for Every Woman</footer>
+
+<script>
+// Load existing settings
+window.addEventListener("DOMContentLoaded", () => {
+  const lang = localStorage.getItem("language") || "en";
+  const notify = localStorage.getItem("notifications") === "true";
+  const dark = localStorage.getItem("darkMode") === "true";
+  const privacy = localStorage.getItem("privacy") === "true";
+
+  document.getElementById("language").value = lang;
+  document.getElementById("notifications").checked = notify;
+  document.getElementById("darkMode").checked = dark;
+  document.getElementById("privacy").checked = privacy;
+
+  if (dark) document.body.style.background = "#2c2c2c";
+});
+
+// Save settings
+function saveSettings() {
+  const lang = document.getElementById("language").value;
+  const notify = document.getElementById("notifications").checked;
+  const dark = document.getElementById("darkMode").checked;
+  const privacy = document.getElementById("privacy").checked;
+
+  localStorage.setItem("language", lang);
+  localStorage.setItem("notifications", notify);
+  localStorage.setItem("darkMode", dark);
+  localStorage.setItem("privacy", privacy);
+
+  alert("✅ Settings saved successfully!");
+
+  // Optional dark mode switch
+  document.body.style.background = dark ? "#2c2c2c" : "#fffaf7";
+}
+
+// Back button
+function goBack() {
+  window.location.href = "ds.html";
+}
+</script>
+
+</body>
+</html>

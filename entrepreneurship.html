@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DigiSakhi | Women Entrepreneurship</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  /* Pink–Purple women entrepreneurship theme */
+  --pink:#ff6b9a;
+  --purple:#7a49ff;
+  --purple-dark:#5a35d8;
+  --bg:#fff7fb;
+  --text:#2c2c35;
+  --muted:#6f7585;
+  --card:#ffffff;
+  --accent:#ffd166;
+  --success:#16a34a;
+  --warning:#ffb020;
+  --danger:#ef4444;
+  --shadow:0 8px 24px rgba(0,0,0,.08);
+  font-family:'Inter',sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);line-height:1.6}
+
+/* Container */
+.container{max-width:1140px;margin:0 auto;padding:24px}
+
+/* Header */
+.header{display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{height:60px;border-radius:12px}
+.title{font-weight:900;font-size:1.8rem;background:linear-gradient(90deg,var(--purple),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav{display:flex;align-items:center;gap:12px}
+.lang-select{padding:10px 14px;border-radius:12px;border:1px solid #e5e7eb;background:#fff;font-weight:700}
+.theme-btn{padding:10px 12px;border-radius:12px;border:1px solid #e5e7eb;background:#fff;font-weight:800;cursor:pointer}
+.profile{position:relative}
+.profile img{height:44px;width:44px;border-radius:50%;object-fit:cover;cursor:pointer}
+.dropdown{display:none;position:absolute;right:0;top:54px;background:#fff;border-radius:12px;box-shadow:var(--shadow);overflow:hidden;z-index:9}
+.dropdown a{display:block;padding:10px 14px;text-decoration:none;color:var(--text);font-weight:700}
+.dropdown a:hover{background:var(--purple);color:#fff}
+.profile:hover .dropdown{display:block}
+
+/* Hero */
+.hero{
+  margin-top:16px;
+  border-radius:20px;
+  padding:36px 24px;
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  color:#fff;
+  display:grid;grid-template-columns:1.1fr .9fr;gap:14px;align-items:center
+}
+.hero h1{font-size:2.4rem;margin:6px 0 8px;font-weight:900}
+.hero p{opacity:.95}
+.hero svg{width:100%;height:auto}
+
+/* Sections & cards */
+.section{margin-top:26px}
+.section-title{
+  display:flex;align-items:center;gap:10px;font-weight:900;color:var(--purple);margin:0 0 10px
+}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{
+  background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:18px;transition:.2s
+}
+.card:hover{transform:translateY(-4px)}
+.card h3{margin:6px 0 8px}
+.card p{color:var(--muted);margin:0}
+.card .icon{font-size:30px;color:var(--pink)}
+
+/* Platform steps */
+.platform{
+  background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:18px
+}
+.platform .head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.platform .head img{height:34px;width:34px;border-radius:8px}
+.step{display:flex;gap:10px;margin:8px 0}
+.step i{color:var(--purple)}
+
+/* Buttons */
+.btn{background:var(--purple);color:#fff;border:none;padding:10px 16px;border-radius:12px;font-weight:800;cursor:pointer;transition:.2s}
+.btn:hover{background:var(--purple-dark)}
+.btn-ghost{background:#fff;border:1px solid #e5e7eb;color:var(--text);padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
+
+/* Games panels */
+.panel{background:#fff;border-radius:20px;box-shadow:var(--shadow);overflow:hidden;margin-top:20px}
+.panel .topbar{background:linear-gradient(90deg,var(--purple),var(--pink));color:#fff;padding:12px 16px;font-weight:900;display:flex;gap:10px;align-items:center}
+.panel-body{padding:16px}
+
+/* Game: Platform picker */
+.p-product{border:1px solid #eee;border-radius:14px;padding:12px;display:flex;align-items:center;gap:12px;margin:10px 0}
+.p-product img{height:56px;width:56px;border-radius:10px;object-fit:cover}
+.p-actions{display:flex;flex-wrap:wrap;gap:8px}
+.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#f5f5f7;font-weight:800}
+.right{background:#eafff1!important;border-color:#22c55e!important}
+.wrong{background:#fff1f1!important;border-color:#ef4444!important}
+
+/* Game: Price it right */
+.price-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:860px){.price-row{grid-template-columns:1fr}}
+.price-card{border:1px solid #eee;border-radius:14px;padding:12px}
+.price-card img{width:100%;height:160px;object-fit:cover;border-radius:10px}
+
+/* Game: Fake job or real */
+.job{border:1px solid #eee;border-radius:14px;padding:12px;margin:10px 0}
+.job b{display:block;margin-bottom:4px}
+
+/* Activity: WhatsApp Business builder */
+.builder{display:grid;grid-template-columns:1.05fr .95fr;gap:14px}
+@media(max-width:980px){.builder{grid-template-columns:1fr}}
+.input{display:flex;flex-direction:column;gap:10px}
+.input input,.input textarea{padding:10px;border-radius:12px;border:1px solid #e5e7eb;font-size:1rem}
+.preview{
+  border:2px dashed #f1e2ff;background:#fdf8ff;color:#432b64;border-radius:18px;padding:16px
+}
+.preview .item{display:flex;gap:12px}
+.preview img{height:70px;width:70px;border-radius:10px;object-fit:cover}
+.preview .price{color:#0e9f6e;font-weight:900}
+
+/* Opportunities */
+.op-card{display:flex;gap:10px;align-items:flex-start}
+.op-card i{color:var(--pink);font-size:22px}
+
+/* Videos */
+.yt{width:100%;height:315px;border:none;border-radius:16px;box-shadow:var(--shadow)}
+
+/* Safety list */
+.check li{margin:8px 0}
+
+/* Quiz */
+.q-item{border:1px solid #eee;border-radius:12px;padding:12px;margin:10px 0}
+.q-item b{display:block;margin-bottom:6px}
+
+/* Progress + badges */
+.progress-wrap{display:flex;align-items:center;gap:10px;margin:8px 0 0}
+.progress{flex:1;height:12px;background:#f0ecff;border-radius:999px;overflow:hidden}
+.progress>span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--pink))}
+.badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{padding:6px 10px;border-radius:999px;background:#fff;border:1px solid #eee;font-weight:800}
+.badge.bronze{background:#fff1df;border-color:#f8c77e}
+.badge.silver{background:#eef2f7;border-color:#c7d2fe}
+.badge.gold{background:#fff7c2;border-color:#facc15}
+
+/* Audio button */
+.audio-btn{border:none;background:#fff;border:1px solid #eee;border-radius:999px;padding:6px 10px;cursor:pointer;font-weight:800}
+
+/* Footer */
+.footer{text-align:center;padding:30px 0;color:var(--muted);border-top:1px solid #eee;margin-top:28px}
+
+/* Dark mode */
+.dark{
+  --bg:#15121a; --text:#f4f4f7; --muted:#c6c7d2; --card:#1b1722; --shadow:0 8px 30px rgba(0,0,0,.35);
+}
+.dark .hero{color:#fff}
+.dark .title{color:#fff;-webkit-text-fill-color:unset}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="brand">
+      <a href="ds.html"><img src="digisakhi.png" class="logo" alt="DigiSakhi"></a>
+      <div class="title">DigiSakhi</div>
+    </div>
+    <nav class="nav">
+      <select id="langSelect" class="lang-select">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="mr">मराठी</option>
+      </select>
+      <button id="themeBtn" class="theme-btn">🌙</button>
+      <div class="profile">
+        <img id="avatar" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile">
+        <div class="dropdown">
+          <a href="profile.html">My Profile</a>
+          <a href="settings.html">Settings</a>
+          <a href="login.html">Logout</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero (A: Woman selling online) -->
+  <section class="hero">
+    <div>
+      <div class="tag" style="display:inline-block;padding:6px 10px;background:#fff;color:#6a37ff;border-radius:999px;font-weight:900">👩‍💻 उद्यमिता • Entrepreneurship</div>
+      <h1 data-key="hero-title">Start & Grow Your Digital Business</h1>
+      <p data-key="hero-text">Use simple apps to sell products, share skills, and earn from home.</p>
+      <div class="progress-wrap">
+        <div class="progress"><span id="progressBar"></span></div>
+        <strong id="progressText">0%</strong>
+      </div>
+      <div class="badges" id="badges" style="margin-top:8px"></div>
+    </div>
+    <!-- SVG Illustration -->
+    <svg viewBox="0 0 560 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="g1" x1="0" x2="1">
+          <stop offset="0%" stop-color="#ff8ad0"/><stop offset="100%" stop-color="#8c7bff"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="560" height="360" rx="24" fill="url(#g1)" opacity=".18"/>
+      <circle cx="420" cy="70" r="30" fill="#ffd166"/>
+      <rect x="80" y="80" width="230" height="160" rx="16" fill="#fff"/>
+      <rect x="90" y="90" width="70" height="70" rx="10" fill="#f5e9ff"/>
+      <rect x="170" y="98" width="130" height="16" rx="8" fill="#e6defc"/>
+      <rect x="170" y="122" width="110" height="12" rx="6" fill="#e6defc"/>
+      <rect x="170" y="146" width="80" height="16" rx="8" fill="#7a49ff"/>
+      <g transform="translate(360,120)">
+        <ellipse cx="70" cy="90" rx="70" ry="14" fill="#000" opacity=".1"/>
+        <circle cx="70" cy="56" r="44" fill="#fff"/>
+        <circle cx="70" cy="48" r="30" fill="#ffdbe9"/>
+        <rect x="36" y="80" width="68" height="50" rx="12" fill="#fff"/>
+        <rect x="42" y="92" width="56" height="10" rx="5" fill="#f0e9ff"/>
+        <rect x="42" y="108" width="32" height="10" rx="5" fill="#7a49ff"/>
+        <circle cx="60" cy="44" r="5" fill="#ff6b9a"/>
+        <circle cx="80" cy="44" r="5" fill="#ff6b9a"/>
+        <path d="M58 58 q12 10 24 0" stroke="#ff6b9a" fill="none" stroke-width="3" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </section>
+
+  <!-- E-commerce Basics -->
+  <section class="section">
+    <div class="section-title">
+      <button class="audio-btn" data-read="basics" title="Play audio">🔊</button>
+      <span data-key="basics-title">E-commerce Basics</span>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="icon">🧺</div><h3 data-key="bas1">What to Sell</h3><p data-key="bas1d">Local crafts, snacks, tailoring, pickles, farming produce, services.</p></div>
+      <div class="card"><div class="icon">📸</div><h3 data-key="bas2">Photos Matter</h3><p data-key="bas2d">Use daylight, simple background, front & close-up shots.</p></div>
+      <div class="card"><div class="icon">💰</div><h3 data-key="bas3">Set Fair Price</h3><p data-key="bas3d">Cost + time + 15–30% margin. Compare with market.</p></div>
+      <div class="card"><div class="icon">📦</div><h3 data-key="bas4">Packaging</h3><p data-key="bas4d">Use clean boxes, label, add thank-you note.</p></div>
+      <div class="card"><div class="icon">🚚</div><h3 data-key="bas5">Delivery</h3><p data-key="bas5d">Local delivery or courier; keep tracking proof.</p></div>
+      <div class="card"><div class="icon">📲</div><h3 data-key="bas6">Payments</h3><p data-key="bas6d">Use UPI QR; avoid sharing OTP or PIN.</p></div>
+    </div>
+  </section>
+
+  <!-- Platforms -->
+  <section class="section">
+    <div class="section-title">
+      <button class="audio-btn" data-read="platforms" title="Play audio">🔊</button>
+      <span data-key="plat-title">Platforms for Women</span>
+    </div>
+    <div class="grid">
+      <div class="platform">
+        <div class="head"><img src="https://cdn-icons-png.flaticon.com/512/732/732228.png" alt="Meesho"><h3>Meesho</h3></div>
+        <div class="step"><i class="fa-solid fa-1"></i><span data-key="me1">Download app → sign up</span></div>
+        <div class="step"><i class="fa-solid fa-2"></i><span data-key="me2">Add product & set margin</span></div>
+        <div class="step"><i class="fa-solid fa-3"></i><span data-key="me3">Share link, confirm order</span></div>
+      </div>
+
+      <div class="platform">
+        <div class="head"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp Business"><h3>WhatsApp Business</h3></div>
+        <div class="step"><i class="fa-solid fa-1"></i><span data-key="wa1">Create profile & catalog</span></div>
+        <div class="step"><i class="fa-solid fa-2"></i><span data-key="wa2">Auto-reply & quick answers</span></div>
+        <div class="step"><i class="fa-solid fa-3"></i><span data-key="wa3">Use UPI QR for payments</span></div>
+      </div>
+
+      <div class="platform">
+        <div class="head"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968209.png" alt="Amazon"><h3>Amazon Saheli</h3></div>
+        <div class="step"><i class="fa-solid fa-1"></i><span data-key="sa1">Apply to Saheli program</span></div>
+        <div class="step"><i class="fa-solid fa-2"></i><span data-key="sa2">Upload products</span></div>
+        <div class="step"><i class="fa-solid fa-3"></i><span data-key="sa3">Ship with Amazon logistics</span></div>
+      </div>
+
+      <div class="platform">
+        <div class="head"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube"><h3>YouTube</h3></div>
+        <div class="step"><i class="fa-solid fa-1"></i><span data-key="yt1">Shoot simple videos</span></div>
+        <div class="step"><i class="fa-solid fa-2"></i><span data-key="yt2">Add title & description</span></div>
+        <div class="step"><i class="fa-solid fa-3"></i><span data-key="yt3">Post regularly, use tags</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Game 1: Pick the Right Platform -->
+  <div class="panel">
+    <div class="topbar"><i class="fa-solid fa-hand-pointer"></i><span data-key="g1-title">Game: Pick the Right Platform</span></div>
+    <div class="panel-body" id="platformGame"></div>
+    <div style="padding:0 16px 16px;display:flex;gap:10px;align-items:center">
+      <button class="btn" id="checkG1" data-key="check">Check</button>
+      <button class="btn-ghost" id="resetG1" data-key="reset">Reset</button>
+      <span class="tag" id="scoreG1">0/0</span>
+    </div>
+  </div>
+
+  <!-- Game 2: Price it Right -->
+  <div class="panel">
+    <div class="topbar"><i class="fa-solid fa-scale-balanced"></i><span data-key="g2-title">Game: Price It Right</span></div>
+    <div class="panel-body">
+      <div class="price-row">
+        <div class="price-card">
+  <img src="https://sassyness.in/cdn/shop/files/boho-jhumka-handmade-earrings-combo-of-4-207952.jpg?v=1723386460">
+  <h4 data-key="g2p1">Handmade earrings</h4>
+  <p data-key="g2p1d">Cost ₹80 (material) + 30 min (₹50 labor). What’s a fair price?</p>
+  <input type="number" id="price1" placeholder="Enter price ₹">
+  <div id="price1out" class="tag" style="margin-top:6px"></div>
+</div>
+<div class="price-card">
+  <img src="https://foodalltime.com/wp-content/uploads/2022/01/10-Best-Achar-and-Pickle-Recipes-of-India-2.png">
+  <h4 data-key="g2p2">Homemade pickles (500g)</h4>
+  <p data-key="g2p2d">Cost ₹70 + jar/label ₹20 + time ₹30. What’s a fair price?</p>
+  <input type="number" id="price2" placeholder="Enter price ₹">
+  <div id="price2out" class="tag" style="margin-top:6px"></div>
+</div>
+
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:10px">
+        <button class="btn" id="checkPrices" data-key="check">Check</button>
+        <span class="tag" id="scoreG2">0/0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game 3: Fake Job or Real Job -->
+  <div class="panel">
+    <div class="topbar"><i class="fa-solid fa-briefcase"></i><span data-key="g3-title">Game: Fake Job or Real Job?</span></div>
+    <div class="panel-body" id="jobGame"></div>
+    <div style="padding:0 16px 16px;display:flex;gap:10px;align-items:center">
+      <button class="btn" id="checkG3" data-key="check">Check</button>
+      <button class="btn-ghost" id="resetG3" data-key="reset">Reset</button>
+      <span class="tag" id="scoreG3">0/0</span>
+    </div>
+  </div>
+
+  <!-- Hands-on: WhatsApp Business catalog builder -->
+  <section class="section">
+    <div class="section-title">
+      <button class="audio-btn" data-read="builder" title="Play audio">🔊</button>
+      <span data-key="builder-title">Hands-On: Create a WhatsApp Business Product</span>
+    </div>
+    <div class="builder">
+      <div class="input">
+        <input id="bizName" placeholder="Business name">
+        <input id="prodName" placeholder="Product name">
+        <input id="prodPrice" type="number" placeholder="Price (₹)">
+        <textarea id="prodDesc" rows="3" placeholder="Short description"></textarea>
+        <label class="btn-ghost" style="display:inline-block;width:max-content">
+          <input id="prodImg" type="file" accept="image/*" hidden>
+          📷 Upload product photo
+        </label>
+        <button class="btn" id="buildCard" data-key="build">Build Preview</button>
+      </div>
+      <div class="preview" id="waPreview">
+        <h4 style="margin:0 0 10px">WhatsApp Business • Catalog</h4>
+        <div class="item">
+          <img id="prevImg" src="https://via.placeholder.com/70x70?text=IMG" alt="preview">
+          <div>
+            <div style="font-weight:900" id="prevName">Sample Product</div>
+            <div class="price" id="prevPrice">₹199</div>
+            <div style="color:#5b5570" id="prevDesc">Short description will appear here.</div>
+            <div style="margin-top:8px"><span class="tag">Buy on WhatsApp</span></div>
+          </div>
+        </div>
+        <div style="margin-top:10px;color:#6d5a9b"><b id="prevBiz">Your Business Name</b> • Auto-reply: Thank you for your message! We’ll reply soon.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Income Opportunities -->
+  <section class="section">
+    <div class="section-title">
+      <button class="audio-btn" data-read="opps" title="Play audio">🔊</button>
+      <span data-key="opps-title">Income Opportunities</span>
+    </div>
+    <div class="grid">
+      <div class="card op-card"><i class="fa-solid fa-shirt"></i><div><b data-key="op1">Tailoring & Alterations</b><p data-key="op1d">Neighborhood orders, WhatsApp catalog, doorstep pickup.</p></div></div>
+      <div class="card op-card"><i class="fa-solid fa-mortar-pestle"></i><div><b data-key="op2">Homemade Snacks</b><p data-key="op2d">Pickles, papad, chakli—sell via WA groups.</p></div></div>
+      <div class="card op-card"><i class="fa-solid fa-leaf"></i><div><b data-key="op3">Farm Produce</b><p data-key="op3d">Weekly fresh-box delivery; collect UPI payments.</p></div></div>
+      <div class="card op-card"><i class="fa-solid fa-pen-nib"></i><div><b data-key="op4">Crafts & Gifts</b><p data-key="op4d">Handmade jewelry, gifts; list on Meesho.</p></div></div>
+      <div class="card op-card"><i class="fa-solid fa-person-chalkboard"></i><div><b data-key="op5">Tuition / Coaching</b><p data-key="op5d">WA broadcast lists for schedule & fees.</p></div></div>
+      <div class="card op-card"><i class="fa-solid fa-wand-magic-sparkles"></i><div><b data-key="op6">Beauty & Mehendi</b><p data-key="op6d">Appointment bookings via WA Business.</p></div></div>
+    </div>
+  </section>
+
+  <!-- Safety Tips -->
+  <section class="section">
+    <div class="section-title">
+      <button class="audio-btn" data-read="safety" title="Play audio">🔊</button>
+      <span data-key="safety-title">Safety Tips (Avoid Scams)</span>
+    </div>
+    <ul class="check">
+      <li data-key="s1">Don’t pay “registration fee” for jobs.</li>
+      <li data-key="s2">Beware of buyers asking for OTP or remote app.</li>
+      <li data-key="s3">Use UPI QR; avoid sharing personal data.</li>
+      <li data-key="s4">Check courier tracking; keep receipts.</li>
+      <li data-key="s5">Use business number (or WA Business).</li>
+    </ul>
+  </section>
+
+  <!-- Videos -->
+  <div class="panel">
+    <div class="topbar"><i class="fa-solid fa-circle-play"></i><span data-key="vid-title">Watch & Learn</span></div>
+    <div class="panel-body">
+      <div class="grid">
+        <div class="card" style="text-align:center">
+          <b data-key="v1">WhatsApp Business Catalog</b>
+          <iframe class="yt" src="https://www.youtube.com/embed/1QyQ7qSL4sY" allowfullscreen></iframe>
+          <p><a href="https://www.youtube.com/watch?v=1QyQ7qSL4sY" target="_blank" rel="noopener" data-key="open-yt">Open in YouTube ↗</a></p>
+        </div>
+        <div class="card" style="text-align:center">
+          <b data-key="v2">Meesho Selling Basics</b>
+          <iframe class="yt" src="https://www.youtube.com/embed/7GQy4v3mY6k" allowfullscreen></iframe>
+          <p><a href="https://www.youtube.com/watch?v=7GQy4v3mY6k" target="_blank" rel="noopener" data-key="open-yt">Open in YouTube ↗</a></p>
+        </div>
+        <div class="card" style="text-align:center">
+          <b data-key="v3">YouTube Video Tips</b>
+          <iframe class="yt" src="https://www.youtube.com/embed/lmYwZf3YB8A" allowfullscreen></iframe>
+          <p><a href="https://www.youtube.com/watch?v=lmYwZf3YB8A" target="_blank" rel="noopener" data-key="open-yt">Open in YouTube ↗</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz -->
+  <div class="panel">
+    <div class="topbar"><i class="fa-solid fa-clipboard-question"></i><span data-key="quiz-title">Mini Quiz</span></div>
+    <div class="panel-body" id="quizBox"></div>
+    <div style="padding:0 16px 16px;display:flex;gap:10px;align-items:center">
+      <button class="btn" id="checkQuiz" data-key="check">Check</button>
+      <button class="btn-ghost" id="resetQuiz" data-key="reset">Reset</button>
+      <span class="tag" id="scoreQuiz">0/0</span>
+    </div>
+  </div>
+
+  <footer class="footer">© 2025 DigiSakhi | Digital Literacy for Every Woman</footer>
+</div>
+
+<script>
+/* ---------- Avatar from localStorage ---------- */
+(function(){
+  const saved = localStorage.getItem("photo");
+  const avatar = document.getElementById("avatar");
+  const uname = localStorage.getItem("username");
+  if(saved){ avatar.src = saved; }
+  else if(uname){ avatar.src = "https://via.placeholder.com/100x100?text="+uname.charAt(0).toUpperCase(); }
+})();
+
+/* ---------- Dark mode ---------- */
+const themeBtn = document.getElementById("themeBtn");
+function setTheme(mode){
+  if(mode==="dark"){ document.documentElement.classList.add("dark"); themeBtn.textContent="☀️"; }
+  else{ document.documentElement.classList.remove("dark"); themeBtn.textContent="🌙"; }
+  localStorage.setItem("theme",mode);
+}
+themeBtn.addEventListener("click",()=>{
+  const current = document.documentElement.classList.contains("dark") ? "dark":"light";
+  setTheme(current==="dark"?"light":"dark");
+});
+setTheme(localStorage.getItem("theme")||"light");
+
+/* ---------- Simple sounds ---------- */
+let audioCtx;
+function tone(type="sine",freq=880,ms=120,g=0.05){
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    const o=audioCtx.createOscillator(), gn=audioCtx.createGain();
+    o.type=type; o.frequency.value=freq; gn.gain.value=g; o.connect(gn); gn.connect(audioCtx.destination);
+    o.start(); setTimeout(()=>o.stop(),ms);
+  }catch(e){}
+}
+const sGood=()=>tone("sine",900,140,.06);
+const sBad =()=>tone("square",200,180,.06);
+
+/* ---------- Progress & badges ---------- */
+const progressBar = document.getElementById("progressBar");
+const progressText = document.getElementById("progressText");
+const badgesBox = document.getElementById("badges");
+const PROGRESS_KEYS = ["g1","g2","g3","builder","quiz"]; // 5 chunks = each worth 20%
+
+function getProgress(){
+  const done = PROGRESS_KEYS.filter(k=>localStorage.getItem("ent_"+k)==="1").length;
+  return Math.round((done/PROGRESS_KEYS.length)*100);
+}
+function updateProgress(){
+  const pct = getProgress();
+  progressBar.style.width = pct+"%";
+  progressText.textContent = pct+"%";
+  badgesBox.innerHTML = "";
+  if(pct>=20) badgesBox.innerHTML += '<span class="badge bronze">🥉 Bronze</span>';
+  if(pct>=60) badgesBox.innerHTML += '<span class="badge silver">🥈 Silver</span>';
+  if(pct>=100) badgesBox.innerHTML += '<span class="badge gold">🥇 Gold</span>';
+}
+updateProgress();
+
+/* ---------- Game 1: Platform Picker ---------- */
+const platformGame = document.getElementById("platformGame");
+const ITEMS = [
+  {img:"https://images.unsplash.com/photo-1518544801976-3e188ea1e9f1?q=80&w=600", name:"Handmade Jewelry", correct:"Meesho"},
+  {img:"https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=600", name:"Homemade Pickles", correct:"WhatsApp"},
+  {img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=600", name:"Craft Tutorials", correct:"YouTube"},
+  {img:"https://images.unsplash.com/photo-1514996937319-344454492b37?q=80&w=600", name:"Saree Reselling", correct:"Meesho"},
+];
+const PLATS = ["Meesho","WhatsApp","Amazon Saheli","YouTube"];
+
+function renderG1(){
+  platformGame.innerHTML="";
+  ITEMS.forEach((it,i)=>{
+    const row=document.createElement("div"); row.className="p-product";
+    row.innerHTML=`
+      <img src="${it.img}" alt="${it.name}">
+      <div style="flex:1">
+        <b>${it.name}</b>
+        <div class="p-actions">
+          ${PLATS.map(p=>`<label class="tag"><input type="radio" name="g1${i}" value="${p}"> ${p}</label>`).join("")}
+        </div>
+      </div>`;
+    platformGame.appendChild(row);
+  });
+}
+renderG1();
+
+document.getElementById("checkG1").addEventListener("click",()=>{
+  let score=0;
+  [...platformGame.querySelectorAll(".p-product")].forEach((row,i)=>{
+    row.classList.remove("right","wrong");
+    const pick = platformGame.querySelector(`input[name="g1${i}"]:checked`)?.value;
+    const ok = ITEMS[i].correct;
+    if(pick===ok){row.classList.add("right"); score++; sGood();} else {row.classList.add("wrong"); sBad();}
+  });
+  document.getElementById("scoreG1").textContent = `${score}/${ITEMS.length}`;
+  if(score===ITEMS.length){ localStorage.setItem("ent_g1","1"); updateProgress(); }
+});
+document.getElementById("resetG1").addEventListener("click",()=>{ renderG1(); document.getElementById("scoreG1").textContent="0/0"; localStorage.removeItem("ent_g1"); updateProgress(); });
+
+/* ---------- Game 2: Price It Right ---------- */
+function judgePrice(costLow,costHigh,input){
+  if(!input) return "";
+  const val = Number(input);
+  if(val < costLow) return "❗ Too low (loss)";
+  if(val > costHigh*1.8) return "⚠️ Too high (won’t sell)";
+  if(val >= costLow && val <= costHigh) return "✅ Good price";
+  return "👌 Okay, but refine";
+}
+document.getElementById("checkPrices").addEventListener("click",()=>{
+  // Earrings: cost ~130 (80+50), suggest 160–220
+  const p1 = document.getElementById("price1").value;
+  const out1 = judgePrice(160,220,p1); document.getElementById("price1out").textContent = out1;
+  // Pickles: 70+20+30=120 → suggest 150–220
+  const p2 = document.getElementById("price2").value;
+  const out2 = judgePrice(150,220,p2); document.getElementById("price2out").textContent = out2;
+
+  let score=0; if(out1.startsWith("✅")) score++; if(out2.startsWith("✅")) score++;
+  document.getElementById("scoreG2").textContent = `${score}/2`;
+  if(score===2){ localStorage.setItem("ent_g2","1"); sGood(); } else sBad();
+  updateProgress();
+});
+
+/* ---------- Game 3: Fake Job or Real ---------- */
+const jobGame = document.getElementById("jobGame");
+const JOBS = [
+  {t:"Earn ₹20,000/day clicking ads", safe:false},
+  {t:"Data entry at official state portal", safe:true},
+  {t:"Pay ₹999 registration fee to start work", safe:false},
+  {t:"YouTube thumbnail design project", safe:true},
+  {t:"Install APK to receive payment", safe:false},
+  {t:"Local tiffin service helper", safe:true},
+  {t:"WhatsApp forwarding job, pay to join", safe:false},
+  {t:"Tailoring orders from neighborhood group", safe:true},
+];
+
+function renderG3(){
+  jobGame.innerHTML="";
+  JOBS.forEach((j,i)=>{
+    const d=document.createElement("div"); d.className="job";
+    d.innerHTML=`
+      <b>${j.t}</b>
+      <label class="tag"><input type="radio" name="j${i}" value="safe"> SAFE</label>
+      <label class="tag"><input type="radio" name="j${i}" value="scam"> SCAM</label>
+    `;
+    jobGame.appendChild(d);
+  });
+}
+renderG3();
+
+document.getElementById("checkG3").addEventListener("click",()=>{
+  let score=0;
+  [...jobGame.querySelectorAll(".job")].forEach((row,i)=>{
+    row.classList.remove("right","wrong");
+    const pick = jobGame.querySelector(`input[name="j${i}"]:checked`)?.value;
+    const ok = JOBS[i].safe ? "safe" : "scam";
+    if(pick===ok){row.classList.add("right"); score++; sGood();} else {row.classList.add("wrong"); sBad();}
+  });
+  document.getElementById("scoreG3").textContent = `${score}/${JOBS.length}`;
+  if(score===JOBS.length){ localStorage.setItem("ent_g3","1"); updateProgress(); }
+});
+document.getElementById("resetG3").addEventListener("click",()=>{ renderG3(); document.getElementById("scoreG3").textContent="0/0"; localStorage.removeItem("ent_g3"); updateProgress(); });
+
+/* ---------- Builder: WhatsApp Business preview ---------- */
+const prodImg = document.getElementById("prodImg");
+prodImg.addEventListener("change",e=>{
+  const f=e.target.files?.[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload = ev=>{ document.getElementById("prevImg").src = ev.target.result; };
+  r.readAsDataURL(f);
+});
+document.getElementById("buildCard").addEventListener("click",()=>{
+  const b = document.getElementById("bizName").value.trim();
+  const n = document.getElementById("prodName").value.trim();
+  const p = document.getElementById("prodPrice").value.trim();
+  const d = document.getElementById("prodDesc").value.trim();
+  if(n) document.getElementById("prevName").textContent = n;
+  if(p) document.getElementById("prevPrice").textContent = "₹"+p;
+  if(d) document.getElementById("prevDesc").textContent = d;
+  if(b) document.getElementById("prevBiz").textContent = b;
+  sGood();
+  localStorage.setItem("ent_builder","1");
+  updateProgress();
+});
+
+/* ---------- Quiz ---------- */
+const QUIZ = [
+  {q:"Best platform for craft tutorials:", a:["Meesho","YouTube"], c:1},
+  {q:"Safe job listing:", a:["Pay fee to join","From official portal"], c:1},
+  {q:"Fair pricing includes:", a:["Only material cost","Cost + time + margin"], c:1},
+  {q:"Best way to take product photos:", a:["Flash at night","Daylight + simple bg"], c:1},
+  {q:"For payments, use:", a:["Share OTP","UPI QR"], c:1},
+  {q:"WA Business feature for product list:", a:["Status","Catalog"], c:1},
+];
+const quizBox = document.getElementById("quizBox");
+function renderQuiz(){
+  quizBox.innerHTML="";
+  QUIZ.forEach((it,i)=>{
+    const d=document.createElement("div"); d.className="q-item";
+    d.innerHTML = `<b>${it.q}</b>` + it.a.map((t,j)=>`<label class="tag"><input type="radio" name="q${i}" value="${j}"> ${t}</label>`).join(" ");
+    quizBox.appendChild(d);
+  });
+}
+renderQuiz();
+document.getElementById("checkQuiz").addEventListener("click",()=>{
+  let score=0;
+  QUIZ.forEach((it,i)=>{
+    const pick = document.querySelector(`input[name="q${i}"]:checked`);
+    if(pick && +pick.value===it.c){ score++; sGood(); } else sBad();
+  });
+  document.getElementById("scoreQuiz").textContent = `${score}/${QUIZ.length}`;
+  if(score===QUIZ.length){ localStorage.setItem("ent_quiz","1"); updateProgress(); }
+});
+document.getElementById("resetQuiz").addEventListener("click",()=>{ renderQuiz(); document.getElementById("scoreQuiz").textContent="0/0"; localStorage.removeItem("ent_quiz"); updateProgress(); });
+
+/* ---------- Audio narration (speechSynthesis) ---------- */
+const READ_TEXT = {
+  basics:"E-commerce basics: what to sell, photos, pricing, packaging, delivery, and UPI payments.",
+  platforms:"Platforms for women: Meesho, WhatsApp Business, Amazon Saheli, and YouTube.",
+  builder:"Hands-on: create a WhatsApp Business product — name, price, photo, and description.",
+  opps:"Income ideas include tailoring, snacks, farm produce, crafts, tuition, and beauty services.",
+  safety:"Safety tips: never pay fees, avoid OTP requests, use UPI QR, and keep receipts."
+};
+function speak(txt){
+  try{
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(txt);
+    u.rate = 1; u.pitch = 1;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+document.querySelectorAll(".audio-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    const key = btn.dataset.read;
+    speak(READ_TEXT[key] || "");
+  });
+});
+
+/* ---------- Multi-language (EN + HI + MR) ---------- */
+const T = {
+  en: {
+    "hero-title": "Start & Grow Your Digital Business",
+    "hero-text": "Use simple apps to sell products, share skills, and earn from home.",
+
+    "basics-title": "E-commerce Basics",
+    "bas1": "What to Sell",
+    "bas1d": "Local crafts, snacks, tailoring, pickles, farming produce, services.",
+    "bas2": "Photos Matter",
+    "bas2d": "Use daylight, simple background, front & close-up shots.",
+    "bas3": "Set Fair Price",
+    "bas3d": "Cost + time + 15–30% margin. Compare with market.",
+    "bas4": "Packaging",
+    "bas4d": "Use clean boxes, label, add thank-you note.",
+    "bas5": "Delivery",
+    "bas5d": "Local delivery or courier; keep tracking proof.",
+    "bas6": "Payments",
+    "bas6d": "Use UPI QR; avoid sharing OTP or PIN.",
+
+    "plat-title": "Platforms for Women",
+    "me1": "Download app → sign up",
+    "me2": "Add product & set margin",
+    "me3": "Share link, confirm order",
+    "wa1": "Create profile & catalog",
+    "wa2": "Auto-reply & quick answers",
+    "wa3": "Use UPI QR for payments",
+    "sa1": "Apply to Saheli program",
+    "sa2": "Upload products",
+    "sa3": "Ship with Amazon logistics",
+    "yt1": "Shoot simple videos",
+    "yt2": "Add title & description",
+    "yt3": "Post regularly, use tags",
+
+    "g1-title": "Game: Pick the Right Platform",
+    "g2-title": "Game: Price It Right",
+    "g3-title": "Game: Fake Job or Real Job?",
+
+    "builder-title": "Hands-On: Create a WhatsApp Business Product",
+
+    "opps-title": "Income Opportunities",
+    "op1": "Tailoring & Alterations",
+    "op1d": "Neighborhood orders, WhatsApp catalog, doorstep pickup.",
+    "op2": "Homemade Snacks",
+    "op2d": "Pickles, papad, chakli — sell via WA groups.",
+    "op3": "Farm Produce",
+    "op3d": "Weekly fresh-box delivery; collect UPI payments.",
+    "op4": "Crafts & Gifts",
+    "op4d": "Handmade jewelry, gifts; list on Meesho.",
+    "op5": "Tuition / Coaching",
+    "op5d": "WA broadcast lists for schedule & fees.",
+    "op6": "Beauty & Mehendi",
+    "op6d": "Appointments through WA Business.",
+
+    "safety-title": "Safety Tips (Avoid Scams)",
+    "s1": "Don’t pay “registration fee” for jobs.",
+    "s2": "Beware of buyers asking for OTP or remote app.",
+    "s3": "Use UPI QR; avoid sharing personal data.",
+    "s4": "Check courier tracking; keep receipts.",
+    "s5": "Use business number (or WA Business).",
+
+    "vid-title": "Watch & Learn",
+
+    "quiz-title": "Mini Quiz",
+
+    "check": "Check",
+    "reset": "Reset",
+    "build": "Build Preview",
+    "open-yt": "Open in YouTube ↗"
+  },
+  hi:{
+    "hero-title":"अपना डिजिटल व्यवसाय शुरू करें",
+    "hero-text":"सरल ऐप्स से उत्पाद बेचें, कौशल साझा करें और घर से कमाएँ।",
+    "basics-title":"ई-कॉमर्स की मूल बातें",
+    "bas1":"क्या बेचें","bas1d":"स्थानीय क्राफ्ट, स्नैक्स, सिलाई, अचार, खेती-उत्पाद, सेवाएँ।",
+    "bas2":"फोटो महत्वपूर्ण","bas2d":"दिन की रोशनी, सादा बैकग्राउंड, नज़दीकी शॉट।",
+    "bas3":"उचित कीमत","bas3d":"लागत + समय + 15–30% मार्जिन।",
+    "bas4":"पैकेजिंग","bas4d":"साफ बॉक्स, लेबल, धन्यवाद नोट।",
+    "bas5":"डिलीवरी","bas5d":"लोकल डिलीवरी/कूरियर, ट्रैकिंग रखें।",
+    "bas6":"भुगतान","bas6d":"UPI QR इस्तेमाल करें; OTP/PIN साझा न करें।",
+    "plat-title":"महिलाओं के लिए प्लेटफॉर्म",
+    "me1":"ऐप डाउनलोड करें → साइन अप","me2":"प्रोडक्ट जोड़ें व मार्जिन सेट करें","me3":"लिंक शेयर करें, ऑर्डर कन्फर्म करें",
+    "wa1":"प्रोफाइल व कैटलॉग बनाएं","wa2":"ऑटो-रिप्लाई व क्विक आंसर","wa3":"भुगतान के लिए UPI QR",
+    "sa1":"सहेली प्रोग्राम के लिए आवेदन","sa2":"प्रोडक्ट अपलोड करें","sa3":"अमेज़न लॉजिस्टिक्स से शिप करें",
+    "yt1":"सरल वीडियो शूट करें","yt2":"टाइटल व विवरण जोड़ें","yt3":"नियमित पोस्ट करें व टैग लगाएँ",
+    "g1-title":"गेम: सही प्लेटफॉर्म चुनें",
+    "g2-title":"गेम: सही कीमत लगाएँ",
+    "g3-title":"गेम: नकली नौकरी या असली?",
+    "builder-title":"हैंड्स-ऑन: WhatsApp Business प्रोडक्ट बनाएँ",
+    "opps-title":"आय के अवसर",
+    "op1":"सिलाई व अल्टरशन","op1d":"पड़ोस ऑर्डर, WA कैटलॉग, पिक-अप।",
+    "op2":"घर के स्नैक्स","op2d":"अचार/पापड़—WA ग्रुप पर बेचें।",
+    "op3":"खेती-उत्पाद","op3d":"साप्ताहिक बॉक्स; UPI भुगतान लें।",
+    "op4":"क्राफ्ट व गिफ्ट","op4d":"हैंडमेड ज्वेलरी; Meesho पर लिस्ट करें।",
+    "op5":"ट्यूशन / कोचिंग","op5d":"WA ब्रॉडकास्ट से शेड्यूल/फीस भेजें।",
+    "op6":"ब्यूटी व मेहंदी","op6d":"WA बिज़नेस से अपॉइंटमेंट लें।",
+    "safety-title":"सुरक्षा सुझाव (स्कैम से बचें)",
+    "s1":"नौकरी के लिए फीस न दें।",
+    "s2":"OTP/रिमोट ऐप मांगने वालों से सावधान।",
+    "s3":"UPI QR इस्तेमाल करें, निजी जानकारी न दें।",
+    "s4":"कूरियर ट्रैक करें, रसीद रखें।",
+    "s5":"बिज़नेस नंबर/WA बिज़नेस का उपयोग करें।",
+    "vid-title":"वीडियो देखें व सीखें",
+    "quiz-title":"मिनी क्विज़",
+    "check":"जांचें","reset":"रीसेट","build":"प्रीव्यू बनाएं","open-yt":"YouTube में खोलें ↗"
+  },
+  mr:{
+    "hero-title":"तुमचा डिजिटल व्यवसाय सुरू करा",
+    "hero-text":"सोप्या अॅप्सने उत्पादने विकून, कौशल्ये शेअर करून घरबसल्या कमवा.",
+    "basics-title":"ई-कॉमर्सचे मूलतत्त्व",
+    "bas1":"काय विकायचे","bas1d":"स्थानिक क्राफ्ट, स्नॅक्स, शिवणकाम, लोणची, शेती-उत्पादने.",
+    "bas2":"फोटो महत्त्वाचे","bas2d":"दिवसाची उजेड, साधा पार्श्वभाग, क्लोज-अप शॉट.",
+    "bas3":"योग्य किंमत","bas3d":"खर्च + वेळ + 15–30% मार्जिन.",
+    "bas4":"पॅकेजिंग","bas4d":"स्वच्छ बॉक्स, लेबल, धन्यवाद नोट.",
+    "bas5":"डिलिव्हरी","bas5d":"लोकल डिलिव्हरी/कुरिअर, ट्रॅकिंग ठेवा.",
+    "bas6":"पेमेंट","bas6d":"UPI QR वापरा; OTP/PIN शेअर करू नका.",
+    "plat-title":"महिलांसाठी प्लॅटफॉर्म",
+    "me1":"अ‍ॅप डाउनलोड → साइन अप","me2":"प्रॉडक्ट जोडा व मार्जिन सेट","me3":"लिंक शेअर करा, ऑर्डर कन्फर्म",
+    "wa1":"प्रोफाइल व कॅटलॉग बनवा","wa2":"ऑटो-रिप्लाय व क्विक रिप्लाय","wa3":"पेमेंटसाठी UPI QR",
+    "sa1":"Saheli कार्यक्रमासाठी अर्ज","sa2":"प्रॉडक्ट अपलोड करा","sa3":"Amazon लॉजिस्टिक्सने शिप करा",
+    "yt1":"सोपी व्हिडिओ शूट करा","yt2":"टायटल व वर्णन जोडा","yt3":"नियमित पोस्ट करा व टॅग",
+    "g1-title":"गेम: योग्य प्लॅटफॉर्म निवडा",
+    "g2-title":"गेम: योग्य किंमत ठरवा",
+    "g3-title":"गेम: खोटी की खरी नोकरी?",
+    "builder-title":"हॅन्ड्स-ऑन: WhatsApp Business प्रॉडक्ट तयार करा",
+    "opps-title":"उत्पन्नाच्या संधी",
+    "op1":"शिवणकाम व अल्टरशन","op1d":"शेजारी ऑर्डर, WA कॅटलॉग.",
+    "op2":"घरचे स्नॅक्स","op2d":"लोणची/पापड—WA ग्रुपवर विक्री.",
+    "op3":"शेती-उत्पादने","op3d":"साप्ताहिक बॉक्स; UPI पेमेंट.",
+    "op4":"क्राफ्ट व गिफ्ट","op4d":"हँडमेड ज्वेलरी; Meesho लिस्टिंग.",
+    "op5":"ट्युशन / कोचिंग","op5d":"WA ब्रॉडकास्टने वेळापत्रक/फी.",
+    "op6":"ब्युटी व मेहेंदी","op6d":"WA बिजनेसमधून अपॉइंटमेंट.",
+    "safety-title":"सुरक्षा टिप्स (फसवणुकीपासून वाचा)",
+    "s1":"नोकरीसाठी फी भरू नका.",
+    "s2":"OTP/remote अॅप मागणाऱ्यांपासून सावध.",
+    "s3":"UPI QR वापरा; वैयक्तिक माहिती नका द्या.",
+    "s4":"कुरिअर ट्रॅक करा, पावत्या ठेवा.",
+    "s5":"बिझनेस नंबर/WA Business वापरा.",
+    "vid-title":"व्हिडिओ पाहा व शिका",
+    "quiz-title":"मिनी क्विझ",
+    "check":"तपासा","reset":"रीसेट","build":"प्रीव्ह्यू बनवा","open-yt":"YouTube मध्ये उघडा ↗"
+  }
+};
+
+function applyLang(lang){
+  const t=T[lang]; if(!t) return;
+  document.querySelectorAll("[data-key]").forEach(el=>{
+    const key=el.getAttribute("data-key");
+    if(t[key]) el.innerText=t[key];
+  });
+  localStorage.setItem("language",lang);
+}
+const langSel=document.getElementById("langSelect");
+langSel.addEventListener("change",e=>applyLang(e.target.value));
+(function(){
+  const saved=localStorage.getItem("language")||"en";
+  langSel.value=saved; applyLang(saved);
+})();
+</script>
+</body>
+</html>

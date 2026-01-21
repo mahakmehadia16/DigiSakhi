@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --brand-pink: #ff6b81;
+  --brand-orange: #ffa800;
+  --bg: #fffafc;
+  --text-dark: #2c3e50;
+  --muted: #7f8c8d;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  font-family: 'Inter', sans-serif;
+}
+body {
+  background: var(--bg);
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-dark);
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, var(--brand-pink), var(--brand-orange));
+  color: white;
+  padding: 15px 40px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.header-left img {
+  height: 55px;
+  border-radius: 10px;
+}
+.header-left h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+.profile-menu {
+  position: relative;
+}
+.profile-icon {
+  background: white;
+  color: var(--brand-pink);
+  font-weight: 700;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  background: white;
+  color: var(--text-dark);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+.dropdown a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+.dropdown a:hover {
+  background: var(--brand-pink);
+  color: white;
+}
+.profile-menu:hover .dropdown {
+  display: block;
+}
+
+/* Dashboard Content */
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 25px;
+}
+h2 {
+  font-weight: 800;
+  color: var(--brand-pink);
+  margin-bottom: 25px;
+}
+
+/* Metrics Grid */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+.card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 25px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: 0.3s;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+.card i {
+  font-size: 2rem;
+  color: var(--brand-orange);
+  margin-bottom: 10px;
+}
+.card h3 {
+  margin: 5px 0;
+  color: var(--brand-pink);
+  font-weight: 700;
+}
+.card p {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Activity Section */
+.activity {
+  background: white;
+  padding: 30px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  margin-top: 40px;
+}
+.activity h3 {
+  color: var(--brand-pink);
+  margin-bottom: 15px;
+}
+.activity table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.activity th, .activity td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid #eee;
+}
+.activity th {
+  color: var(--brand-orange);
+  font-weight: 700;
+}
+.activity td {
+  color: var(--text-dark);
+}
+.footer {
+  text-align: center;
+  margin-top: 50px;
+  padding: 20px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  border-top: 1px solid #eee;
+}
+button {
+  padding: 10px 15px;
+  background: var(--brand-pink);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+}
+button:hover {
+  background: var(--brand-orange);
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <img src="digisakhi.png" alt="DigiSakhi Logo">
+    <h1>Admin Dashboard</h1>
+  </div>
+  <div class="profile-menu">
+    <div class="profile-icon" id="adminInitial">A</div>
+    <div class="dropdown">
+      <a href="admin-profile.html">Admin Profile</a>
+      <a href="login.html">Logout</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <h2>📊 Dashboard Overview</h2>
+
+  <div class="metrics">
+    <div class="card">
+      <i class="fa-solid fa-users"></i>
+      <h3 id="totalUsers">1,245</h3>
+      <p>Total Registered Users</p>
+    </div>
+
+    <div class="card">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <h3 id="activeLearners">864</h3>
+      <p>Active Learners This Week</p>
+    </div>
+
+    <div class="card">
+      <i class="fa-solid fa-chart-line"></i>
+      <h3 id="completionRate">72%</h3>
+      <p>Average Module Completion</p>
+    </div>
+
+    <div class="card">
+      <i class="fa-solid fa-laptop-code"></i>
+      <h3 id="courses">6</h3>
+      <p>Active Learning Modules</p>
+    </div>
+  </div>
+
+  <div class="activity">
+    <h3>📅 Recent User Activity</h3>
+    <table>
+      <tr>
+        <th>User</th>
+        <th>Module Accessed</th>
+        <th>Date</th>
+      </tr>
+      <tr>
+        <td>Rita Sharma</td>
+        <td>Digital Skills</td>
+        <td>3 Nov 2025</td>
+      </tr>
+      <tr>
+        <td>Anita Patel</td>
+        <td>Health & Wellness</td>
+        <td>3 Nov 2025</td>
+      </tr>
+      <tr>
+        <td>Sunita Joshi</td>
+        <td>Legal Rights</td>
+        <td>2 Nov 2025</td>
+      </tr>
+      <tr>
+        <td>Neha Verma</td>
+        <td>Entrepreneurship</td>
+        <td>1 Nov 2025</td>
+      </tr>
+    </table>
+    <div style="text-align:right;margin-top:15px;">
+      <button onclick="loadMore()">View All Activity</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">© 2025 DigiSakhi | Admin Portal | Empowering Women Digitally</footer>
+
+<script>
+// ✅ Display admin's initial if username is stored in localStorage
+window.onload = function() {
+  const uname = localStorage.getItem("username");
+  const icon = document.getElementById("adminInitial");
+  if (uname && icon) {
+    icon.textContent = uname.charAt(0).toUpperCase();
+  }
+};
+
+// Placeholder for future backend activity data
+function loadMore() {
+  alert("🔗 Backend feature coming soon — will display full user activity logs!");
+}
+</script>
+</body>
+</html>

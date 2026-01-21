@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | Legal Rights & Safety</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a2d9d5a64a.js" crossorigin="anonymous"></script>
+<style>
+:root {
+  --brand-pink: #ff6b81;
+  --brand-orange: #ffa800;
+  --text-dark: #2c3e50;
+  --muted: #7f8c8d;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  font-family: 'Inter', sans-serif;
+}
+body { margin:0; background:#fffafc; color:var(--text-dark); }
+header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:15px 30px; background:white;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+}
+.brand { display:flex; align-items:center; gap:10px; }
+.logo { height:60px; border-radius:10px; }
+.brand-title { font-weight:800; color:var(--brand-pink); font-size:1.6rem; }
+nav ul {
+  display:flex; gap:20px; list-style:none; margin:0; padding:0;
+}
+nav a {
+  text-decoration:none; color:var(--text-dark); font-weight:600;
+  padding:8px 14px; border-radius:var(--radius-md);
+  transition:0.3s;
+}
+nav a:hover, nav a.active { background:var(--brand-pink); color:white; }
+
+.profile-lang {
+  display:flex; align-items:center; gap:15px;
+}
+.lang-select {
+  padding:8px; border-radius:8px; border:1px solid #ddd;
+  font-weight:600; cursor:pointer;
+}
+.profile-icon {
+  font-size:1.8rem; color:var(--brand-pink);
+  background:#ffe6ea; padding:10px; border-radius:50%;
+}
+
+main { max-width:1100px; margin:40px auto; padding:0 25px; }
+h1 { color:var(--brand-pink); font-weight:800; text-align:center; margin-bottom:10px; }
+p.intro { text-align:center; font-size:1.1rem; color:var(--muted); margin-bottom:40px; }
+
+.rights-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+  gap:25px;
+  justify-content:center;
+}
+.rights-card {
+  background:white; border-radius:var(--radius-lg);
+  box-shadow:0 6px 15px rgba(0,0,0,0.08);
+  padding:25px;
+  text-align:center;
+  transition:transform 0.3s, box-shadow 0.3s;
+  border-bottom:6px solid var(--brand-orange);
+}
+.rights-card:hover {
+  transform:translateY(-5px);
+  box-shadow:0 10px 20px rgba(0,0,0,0.12);
+}
+.rights-card h2 {
+  color:var(--brand-orange);
+  font-weight:700;
+  margin-top:0;
+}
+.rights-card p { font-size:1rem; color:var(--text-dark); }
+
+.video-section {
+  text-align:center;
+  margin-top:50px;
+}
+.video-section iframe {
+  width:80%; height:400px; border:none; border-radius:var(--radius-lg);
+}
+.video-section p {
+  color:var(--muted);
+  font-size:1rem;
+  margin-top:10px;
+}
+
+.quiz-section {
+  background:#fff2f4;
+  padding:30px;
+  border-radius:var(--radius-lg);
+  margin-top:50px;
+}
+.quiz-section h2 { text-align:center; color:var(--brand-pink); margin-bottom:20px; }
+.quiz-question { margin-bottom:20px; font-weight:600; }
+.quiz-option { margin:5px 0; }
+.quiz-option input { margin-right:8px; }
+#quiz-result { text-align:center; font-weight:700; color:var(--brand-orange); margin-top:15px; }
+
+.resources {
+  background:linear-gradient(135deg, var(--brand-pink), var(--brand-orange));
+  color:white;
+  padding:40px 30px;
+  border-radius:var(--radius-lg);
+  margin-top:50px;
+  text-align:center;
+}
+.resources h2 { font-weight:800; margin-bottom:15px; }
+.resources a {
+  display:inline-block;
+  margin:8px;
+  padding:10px 16px;
+  background:white;
+  color:var(--brand-pink);
+  text-decoration:none;
+  font-weight:700;
+  border-radius:var(--radius-md);
+  transition:0.3s;
+}
+.resources a:hover {
+  background:var(--brand-orange);
+  color:white;
+}
+
+.footer {
+  text-align:center; font-size:0.9rem; color:var(--muted);
+  padding:20px 0; border-top:1px solid #eee; margin-top:40px;
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img src="digisakhi.png" alt="DigiSakhi Logo" class="logo">
+    <div class="brand-title">DigiSakhi</div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="ds.html">Home</a></li>
+      <li><a href="digitalskills.html">Digital Skills</a></li>
+      <li><a href="schemes.html">Schemes</a></li>
+      <li><a href="legalrights.html" class="active">Legal Rights</a></li>
+      <li><a href="health.html">Health</a></li>
+    </ul>
+  </nav>
+  <div class="profile-lang">
+    <select id="language" class="lang-select" onchange="changeLanguage()">
+      <option value="en">English</option>
+      <option value="hi">हिंदी</option>
+      <option value="mr">मराठी</option>
+    </select>
+    <i class="fa-solid fa-user profile-icon"></i>
+  </div>
+</header>
+
+<main>
+  <h1 id="title">Legal Rights & Safety Awareness</h1>
+  <p class="intro" id="intro">Empower yourself by learning about your legal rights and the resources available for women’s protection, equality, and safety.</p>
+
+  <div class="rights-grid">
+    <div class="rights-card"><h2>👩‍⚖️ Right to Equal Pay</h2><p>Women have the legal right to receive equal pay as men for the same work under the Equal Remuneration Act, 1976.</p></div>
+    <div class="rights-card"><h2>🛡️ Protection from Harassment</h2><p>The Sexual Harassment of Women at Workplace Act, 2013 ensures a safe work environment for women.</p></div>
+    <div class="rights-card"><h2>🏠 Right to Residence</h2><p>Under the Domestic Violence Act, every woman has the right to live in a shared household, even if she doesn’t own it.</p></div>
+    <div class="rights-card"><h2>⚖️ Right to Free Legal Aid</h2><p>Women have the right to free legal services through the Legal Services Authorities Act, 1987.</p></div>
+    <div class="rights-card"><h2>📞 Right to Complain Online</h2><p>Women can file online complaints regarding harassment or abuse through portals like the National Commission for Women.</p></div>
+  </div>
+
+  <div class="video-section">
+    <h2 style="color:var(--brand-pink)">🎥 Learn About Women's Legal Rights</h2>
+    <iframe src="https://www.youtube.com/embed/EPj87sYT1oE" allowfullscreen></iframe>
+    <p>A short educational video about key legal protections and rights for women in India.</p>
+  </div>
+
+  <div class="quiz-section">
+    <h2>🧩 Quick Legal Awareness Quiz</h2>
+    <div class="quiz-question">1. Which act ensures protection against workplace harassment?</div>
+    <div class="quiz-option"><input type="radio" name="q1" value="a"> Equal Pay Act</div>
+    <div class="quiz-option"><input type="radio" name="q1" value="b"> Workplace Harassment Act</div>
+    <div class="quiz-option"><input type="radio" name="q1" value="c"> Sexual Harassment of Women at Workplace Act</div>
+
+    <div class="quiz-question">2. Where can women file online complaints?</div>
+    <div class="quiz-option"><input type="radio" name="q2" value="a"> Cyber Hub</div>
+    <div class="quiz-option"><input type="radio" name="q2" value="b"> National Commission for Women</div>
+    <div class="quiz-option"><input type="radio" name="q2" value="c"> Election Commission</div>
+
+    <div class="quiz-question">3. What does NALSA provide?</div>
+    <div class="quiz-option"><input type="radio" name="q3" value="a"> Free Legal Aid</div>
+    <div class="quiz-option"><input type="radio" name="q3" value="b"> Employment Opportunities</div>
+    <div class="quiz-option"><input type="radio" name="q3" value="c"> Housing Benefits</div>
+
+    <button onclick="checkQuiz()" style="margin-top:10px; padding:10px 15px; background:var(--brand-pink); border:none; color:white; border-radius:8px; cursor:pointer;">Check Answers</button>
+    <div id="quiz-result"></div>
+  </div>
+
+  <div class="resources">
+    <h2>Helpful Helplines & Legal Resources</h2>
+    <a href="https://ncw.nic.in/" target="_blank">National Commission for Women</a>
+    <a href="https://nalsa.gov.in/" target="_blank">NALSA - Legal Aid</a>
+    <a href="https://cybercrime.gov.in/" target="_blank">Cyber Crime Reporting Portal</a>
+    <a href="https://shebox.nic.in/" target="_blank">SHe-Box: Workplace Harassment</a>
+  </div>
+</main>
+
+<div class="footer">© 2025 DigiSakhi | Empowering Every Woman Digitally</div>
+
+<script>
+function checkQuiz() {
+  let score = 0;
+  if (document.querySelector('input[name="q1"]:checked')?.value === "c") score++;
+  if (document.querySelector('input[name="q2"]:checked')?.value === "b") score++;
+  if (document.querySelector('input[name="q3"]:checked')?.value === "a") score++;
+  document.getElementById("quiz-result").innerText = "You scored " + score + "/3!";
+}
+
+// Simple language switcher
+function changeLanguage() {
+  const lang = document.getElementById("language").value;
+  const title = document.getElementById("title");
+  const intro = document.getElementById("intro");
+
+  if (lang === "hi") {
+    title.innerText = "कानूनी अधिकार और सुरक्षा जागरूकता";
+    intro.innerText = "महिलाओं की सुरक्षा, समानता और अधिकारों के लिए उपलब्ध कानूनी संसाधनों को जानें।";
+  } else if (lang === "mr") {
+    title.innerText = "कायदेशीर हक्क आणि सुरक्षितता जागरूकता";
+    intro.innerText = "महिलांच्या संरक्षण, समानता आणि अधिकारांसाठी उपलब्ध कायदेशीर साधनांविषयी जाणून घ्या.";
+  } else {
+    title.innerText = "Legal Rights & Safety Awareness";
+    intro.innerText = "Empower yourself by learning about your legal rights and the resources available for women’s protection, equality, and safety.";
+  }
+}
+</script>
+</body>
+</html>

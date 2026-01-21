@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --brand-pink: #ff6b81;
+  --brand-orange: #ffa800;
+  --bg: #fffafc;
+  --text-dark: #2c3e50;
+  --muted: #7f8c8d;
+  --radius-lg: 20px;
+  font-family: 'Inter', sans-serif;
+}
+body {
+  background: linear-gradient(135deg, var(--brand-pink), var(--brand-orange));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  color: var(--text-dark);
+}
+.login-container {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  padding: 40px 50px;
+  width: 400px;
+  text-align: center;
+}
+.logo {
+  height: 80px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+.title {
+  font-weight: 800;
+  font-size: 1.8rem;
+  color: var(--brand-pink);
+}
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-bottom: 25px;
+}
+.input-group {
+  text-align: left;
+  margin-bottom: 18px;
+}
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+input, select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  outline: none;
+}
+input:focus, select:focus {
+  border-color: var(--brand-pink);
+  box-shadow: 0 0 5px rgba(255,107,129,0.3);
+}
+button {
+  width: 100%;
+  padding: 12px;
+  background: var(--brand-pink);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  background: var(--brand-orange);
+}
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 38px;
+  cursor: pointer;
+  color: var(--muted);
+}
+.footer-links {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+.footer-links a {
+  color: var(--brand-pink);
+  text-decoration: none;
+  font-weight: 600;
+}
+.footer-links a:hover {
+  text-decoration: underline;
+}
+.footer {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 30px;
+}
+.error-text {
+  color: #ff3b30;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+</style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="digisakhi.png" alt="DigiSakhi Logo" class="logo">
+    <div class="title">Welcome to DigiSakhi</div>
+    <div class="subtitle">Empowering Women Digitally 🌸</div>
+
+    <form onsubmit="return loginUser()">
+      <div class="input-group">
+        <label for="role">Login As</label>
+        <select id="role" required>
+          <option value="">Select Role</option>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your username" required>
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email / Mobile</label>
+        <input type="text" id="email" placeholder="Enter your email or phone" required>
+      </div>
+
+      <div class="input-group" style="position:relative;">
+        <label for="password">Password / PIN</label>
+        <input type="password" id="password" placeholder="Enter password" required>
+        <i class="fa-solid fa-eye toggle-password" id="togglePass"></i>
+      </div>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="footer-links">
+      <a href="forgot.html">Forgot Password?</a> | 
+      <a href="register.html">Create Account</a>
+    </div>
+
+    <div class="footer">© 2025 DigiSakhi | Digital Literacy for Every Woman</div>
+  </div>
+
+<script>
+const input = document.getElementById("email");
+const togglePass = document.getElementById("togglePass");
+const password = document.getElementById("password");
+
+// ✅ Password show/hide toggle
+togglePass.addEventListener("click", () => {
+  if (password.type === "password") {
+    password.type = "text";
+    togglePass.classList.replace("fa-eye", "fa-eye-slash");
+  } else {
+    password.type = "password";
+    togglePass.classList.replace("fa-eye-slash", "fa-eye");
+  }
+});
+
+// ✅ Real-time validation for email or mobile
+input.addEventListener("input", function () {
+  const val = input.value.trim();
+  let err = document.getElementById("login-error");
+  if (!err) {
+    err = document.createElement("p");
+    err.id = "login-error";
+    err.classList.add("error-text");
+    input.insertAdjacentElement("afterend", err);
+  }
+
+  if (/^\d+$/.test(val)) {
+    if (val.length > 10) {
+      err.textContent = "⚠️ Mobile number cannot exceed 10 digits!";
+      input.value = val.slice(0, 10);
+    } else if (val.length < 10) {
+      err.textContent = "⚠️ Mobile number must be 10 digits long.";
+    } else {
+      err.textContent = "";
+    }
+  } else if (val.includes("@")) {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!pattern.test(val)) {
+      err.textContent = "⚠️ Invalid email address format.";
+    } else {
+      err.textContent = "";
+    }
+  } else {
+    err.textContent = "";
+  }
+});
+
+// ✅ Login validation and redirection
+function loginUser() {
+  const role = document.getElementById("role").value;
+  const uname = document.getElementById("username").value.trim();
+  const contact = input.value.trim();
+  const pass = password.value.trim();
+
+  if (!role) {
+    alert("❌ Please select whether you are a User or Admin!");
+    return false;
+  }
+
+  if (!uname || !contact || !pass) {
+    alert("❌ Please fill all fields!");
+    return false;
+  }
+
+  // Mobile or email validation
+  if (/^\d+$/.test(contact) && contact.length !== 10) {
+    alert("❌ Mobile number must be exactly 10 digits!");
+    return false;
+  }
+
+  if (contact.includes("@")) {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!pattern.test(contact)) {
+      alert("❌ Invalid email format!");
+      return false;
+    }
+  }
+
+  // ✅ Save username for profile/homepage
+  localStorage.setItem("username", uname);
+
+  alert("✅ Login successful!");
+  if (role === "admin") {
+    window.location.href = "admin-dashboard.html";
+  } else {
+    window.location.href = "ds.html";
+  }
+  return false;
+}
+</script>
+</body>
+</html>

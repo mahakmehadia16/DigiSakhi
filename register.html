@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brand-pink: #ff6b81;
+  --brand-orange: #ffa800;
+  --bg: #fffafc;
+  --text-dark: #2c3e50;
+  --muted: #7f8c8d;
+  --radius-lg: 20px;
+  font-family: 'Inter', sans-serif;
+}
+body {
+  background: linear-gradient(135deg, var(--brand-pink), var(--brand-orange));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  color: var(--text-dark);
+}
+.register-container {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  padding: 40px 50px;
+  width: 420px;
+  text-align: center;
+}
+.logo {
+  height: 80px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+.title {
+  font-weight: 800;
+  font-size: 1.8rem;
+  color: var(--brand-pink);
+}
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-bottom: 25px;
+}
+.input-group {
+  text-align: left;
+  margin-bottom: 18px;
+}
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+input, select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  outline: none;
+}
+input:focus, select:focus {
+  border-color: var(--brand-pink);
+  box-shadow: 0 0 5px rgba(255,107,129,0.3);
+}
+button {
+  width: 100%;
+  padding: 12px;
+  background: var(--brand-pink);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  background: var(--brand-orange);
+}
+.login-link {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+.login-link a {
+  color: var(--brand-pink);
+  text-decoration: none;
+  font-weight: 600;
+}
+.login-link a:hover {
+  text-decoration: underline;
+}
+.footer {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 30px;
+}
+</style>
+</head>
+<body>
+  <div class="register-container">
+    <img src="digisakhi.png" alt="DigiSakhi Logo" class="logo">
+    <div class="title">Create Your DigiSakhi Account</div>
+    <div class="subtitle">Join us to empower women through digital literacy 🌸</div>
+
+    <form onsubmit="return registerUser()">
+      <div class="input-group">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" placeholder="Enter your full name" required>
+      </div>
+
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Choose a username" required>
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email / Mobile</label>
+        <input type="text" id="email" placeholder="Enter your email or phone" required>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Create Password / PIN</label>
+        <input type="password" id="password" placeholder="Enter password or 4-digit PIN" required>
+      </div>
+
+      <div class="input-group">
+        <label for="language">Preferred Language</label>
+        <select id="language" required>
+          <option value="">Select</option>
+          <option value="en">English</option>
+          <option value="hi">हिन्दी</option>
+          <option value="mr">मराठी</option>
+        </select>
+      </div>
+
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <div class="login-link">
+      Already have an account? <a href="login.html">Login here</a>
+    </div>
+
+    <div class="footer">© 2025 DigiSakhi | Digital Literacy for Every Woman</div>
+  </div>
+
+<script>
+const contactInput = document.getElementById("email");
+
+// ✅ Real-time validation for mobile or email
+contactInput.addEventListener("input", function () {
+  const val = contactInput.value.trim();
+
+  if (/^\d+$/.test(val)) {
+    if (val.length > 10) {
+      showError("⚠️ Mobile number cannot exceed 10 digits!");
+      contactInput.value = val.slice(0, 10);
+    } else if (val.length < 10) {
+      showError("⚠️ Mobile number must be 10 digits long.");
+    } else {
+      hideError();
+    }
+  } else if (val.includes("@")) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(val)) {
+      showError("⚠️ Please enter a valid email address!");
+    } else {
+      hideError();
+    }
+  } else {
+    hideError();
+  }
+});
+
+// ✅ Helper functions
+function showError(msg) {
+  let errorBox = document.getElementById("error-msg");
+  if (!errorBox) {
+    errorBox = document.createElement("p");
+    errorBox.id = "error-msg";
+    errorBox.style.color = "#ff3b30";
+    errorBox.style.fontWeight = "600";
+    errorBox.style.fontSize = "0.9rem";
+    errorBox.style.marginTop = "5px";
+    contactInput.insertAdjacentElement("afterend", errorBox);
+  }
+  errorBox.textContent = msg;
+}
+
+function hideError() {
+  const errorBox = document.getElementById("error-msg");
+  if (errorBox) errorBox.remove();
+}
+
+// ✅ Final form submission
+function registerUser() {
+  const name = document.getElementById("fullname").value.trim();
+  const uname = document.getElementById("username").value.trim();
+  const contact = contactInput.value.trim();
+  const pass = document.getElementById("password").value.trim();
+  const lang = document.getElementById("language").value;
+
+  if (!name || !uname || !contact || !pass || !lang) {
+    alert("❌ Please fill all fields correctly!");
+    return false;
+  }
+
+  if (/^\\d+$/.test(contact) && contact.length !== 10) {
+    alert("❌ Mobile number must be exactly 10 digits!");
+    return false;
+  }
+
+  if (contact.includes("@")) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(contact)) {
+      alert("❌ Invalid email format!");
+      return false;
+    }
+  }
+
+  // Save registration data (temporary local storage)
+  localStorage.setItem("fullname", name);
+  localStorage.setItem("username", uname);
+  localStorage.setItem("contact", contact);
+  localStorage.setItem("language", lang);
+
+  alert("✅ Registration successful! Redirecting to login page.");
+  window.location.href = "login.html";  // ✅ Correct link to login
+  return false;
+}
+</script>
+</body>
+</html>

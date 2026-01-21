@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | Camera Skills</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --pink:#ff6b9a;
+  --purple:#7a49ff;
+  --purple-dark:#502cd1;
+  --bg:#fff8fb;
+  --text:#2a2a33;
+  --muted:#6f6f82;
+  --card:#ffffff;
+  --shadow:0 8px 24px rgba(0,0,0,.1);
+  font-family:'Inter',sans-serif;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* Container */
+.container{max-width:1150px;margin:auto;padding:24px}
+
+/* Header */
+.header{
+  display:flex;justify-content:space-between;align-items:center;
+}
+.brand{
+  display:flex;align-items:center;gap:12px;
+}
+.logo{
+  height:60px;border-radius:12px;
+}
+.title{
+  font-weight:900;
+  font-size:1.8rem;
+  background:linear-gradient(90deg,var(--purple),var(--pink));
+  background-clip:text;
+  color:transparent;
+}
+.nav{
+  display:flex;align-items:center;gap:12px;
+}
+.lang-select,.theme-btn{
+  padding:10px 14px;
+  border-radius:12px;
+  background:#fff;
+  border:1px solid #dedede;
+  cursor:pointer;
+  font-weight:700;
+}
+.profile img{
+  height:44px;width:44px;border-radius:50%;
+  object-fit:cover;cursor:pointer;
+}
+.dropdown{
+  display:none;position:absolute;right:0;top:50px;
+  background:#fff;border-radius:12px;box-shadow:var(--shadow);
+}
+.profile:hover .dropdown{display:block;}
+.dropdown a{
+  display:block;padding:10px;text-decoration:none;
+  font-weight:700;color:var(--text);
+}
+
+/* HERO */
+.hero{
+  margin-top:22px;
+  padding:40px;
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  color:#fff;
+  border-radius:22px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:18px;align-items:center;
+}
+.hero h1{font-size:2.3rem;margin-bottom:6px;}
+.hero p{opacity:.95;}
+.progress-wrap{
+  margin-top:10px;
+  display:flex;align-items:center;gap:10px;
+}
+.progress{
+  flex:1;height:12px;background:rgba(255,255,255,0.4);
+  border-radius:999px;overflow:hidden;
+}
+.progress span{
+  display:block;height:100%;width:0%;
+  background:#ffd166;
+}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+.badge{
+  padding:6px 10px;
+  border-radius:999px;
+  background:#fff;color:#444;
+  font-weight:800;
+}
+
+/* Hero Illustration — Mix of Woman + Phone Camera */
+.camera-hero{
+  width:100%;height:auto;
+}
+
+/* Section + Cards */
+.section{margin-top:30px;}
+.section-title{
+  display:flex;align-items:center;gap:8px;
+  font-size:1.4rem;font-weight:900;color:var(--purple);
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
+}
+.card{
+  background:var(--card);
+  padding:18px;
+  border-radius:18px;
+  box-shadow:var(--shadow);
+}
+.card .icon{
+  font-size:32px;color:var(--pink);
+}
+
+/* Dark Mode */
+.dark{
+  --bg:#16121f;
+  --text:#f4f4f7;
+  --card:#1e182b;
+  --shadow:0 8px 24px rgba(0,0,0,.5);
+}
+.dark .title{
+  -webkit-text-fill-color:unset;
+  color:#fff;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<header class="header">
+  <div class="brand">
+    <a href="ds.html"><img src="digisakhi.png" class="logo"></a>
+    <div class="title">DigiSakhi</div>
+  </div>
+
+  <div class="nav">
+    <select id="langSelect" class="lang-select">
+      <option value="en">English</option>
+      <option value="hi">हिन्दी</option>
+      <option value="mr">मराठी</option>
+    </select>
+
+    <button id="themeBtn" class="theme-btn">🌙</button>
+
+    <div class="profile">
+      <img id="avatar" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+      <div class="dropdown">
+        <a href="profile.html">My Profile</a>
+        <a href="settings.html">Settings</a>
+        <a href="login.html">Logout</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div>
+    <div class="tag" style="display:inline-block;padding:6px 10px;background:#fff;color:#6a37ff;border-radius:999px;font-weight:900">
+      📸 Camera Skills
+    </div>
+
+    <h1 data-key="hero-title">Learn to Use Your Phone Camera Easily</h1>
+    <p data-key="hero-text">Take photos, record videos, turn on flash, zoom properly, and save memories beautifully.</p>
+
+    <div class="progress-wrap">
+      <div class="progress"><span id="progressBar"></span></div>
+      <strong id="progressText">0%</strong>
+    </div>
+
+    <div id="badges" class="badges"></div>
+  </div>
+
+  <!-- HERO Illustation mix -->
+  <svg class="camera-hero" viewBox="0 0 550 330">
+    <defs>
+      <linearGradient id="g1" x1="0" x2="1">
+        <stop offset="0%" stop-color="#ffd8ea"/>
+        <stop offset="100%" stop-color="#d6c5ff"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Background -->
+    <rect x="0" y="0" width="550" height="330" rx="20" fill="url(#g1)" opacity="0.3" />
+
+    <!-- Woman -->
+    <g transform="translate(40,55)">
+      <circle cx="100" cy="60" r="50" fill="#fff"/>
+      <circle cx="100" cy="55" r="35" fill="#ffe4f1"/>
+      <rect x="60" y="110" width="80" height="110" rx="15" fill="#fff"/>
+      <rect x="70" y="120" width="60" height="12" rx="6" fill="#d8cffc"/>
+      <rect x="70" y="140" width="40" height="12" rx="6" fill="#7a49ff"/>
+      <circle cx="90" cy="50" r="5" fill="#ff6b9a"/>
+      <circle cx="110" cy="50" r="5" fill="#ff6b9a"/>
+      <path d="M88 62 q12 10 24 0" stroke="#ff6b9a" stroke-width="3" fill="none"/>
+    </g>
+
+    <!-- Phone Camera UI -->
+    <g transform="translate(270,40)">
+      <rect x="0" y="0" width="230" height="250" rx="20" fill="#1a1a1a"/>
+      <rect x="10" y="10" width="210" height="170" rx="12" fill="#000"/>
+      <circle cx="115" cy="220" r="28" fill="#ffe26d"/>
+      <circle cx="190" cy="220" r="14" fill="#fff"/>
+      <rect x="20" y="220" width="40" height="10" rx="5" fill="#fff"/>
+    </g>
+  </svg>
+</section>
+
+<!-- END OF PART 1 -->
+<!-- SECTION: Basics of Using Camera -->
+<section class="section">
+  <div class="section-title">
+    <button class="audio-btn" data-read="basics">🔊</button>
+    <span data-key="basics-title">Camera Basics</span>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="icon">📸</div>
+      <h3 data-key="b1">How to Open Camera</h3>
+      <p data-key="b1d">Swipe up → tap Camera icon, or press double power button.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🎛️</div>
+      <h3 data-key="b2">Modes</h3>
+      <p data-key="b2d">Photo • Video • Portrait • Selfie • Panorama.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">⚡</div>
+      <h3 data-key="b3">Flash</h3>
+      <p data-key="b3d">Use flash in low light: Auto • On • Off.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🔍</div>
+      <h3 data-key="b4">Zoom</h3>
+      <p data-key="b4d">Pinch in/out or tap 1x/2x for better focus.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">✨</div>
+      <h3 data-key="b5">Clarity</h3>
+      <p data-key="b5d">Tap on the subject to focus & brighten.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🖼️</div>
+      <h3 data-key="b6">Where Photos Save?</h3>
+      <p data-key="b6d">Gallery → Camera folder.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: Step-by-step Guide -->
+<section class="section">
+  <div class="section-title">
+    <button class="audio-btn" data-read="steps">🔊</button>
+    <span data-key="steps-title">Step-by-Step Guide</span>
+  </div>
+
+  <ol style="line-height:1.8;font-size:1.1rem;color:var(--muted)">
+    <li data-key="s1">Hold phone steady with both hands.</li>
+    <li data-key="s2">Tap screen to focus.</li>
+    <li data-key="s3">Use flash only when dark.</li>
+    <li data-key="s4">For selfie → tap camera flip button.</li>
+    <li data-key="s5">Press white circle to click photo.</li>
+  </ol>
+</section>
+
+<!-- SECTION: Camera Simulator -->
+<section class="section">
+  <div class="section-title">
+    <button class="audio-btn" data-read="simulator">🔊</button>
+    <span data-key="sim-title">Hands-On: Camera Simulator</span>
+  </div>
+
+  <div class="card" style="text-align:center;padding:20px">
+    <div style="max-width:320px;margin:auto;background:#000;padding:6px;border-radius:20px;">
+
+      <img id="cameraView" src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?q=80&w=600" 
+           style="width:100%;border-radius:14px;height:220px;object-fit:cover">
+
+      <div style="margin-top:10px;display:flex;justify-content:space-between;padding:0 16px">
+
+        <!-- Flash Button -->
+        <button id="flashBtn" class="btn-ghost" style="border:1px solid #fff;color:#fff;background:#000;font-size:1.2rem">
+          ⚡ Auto
+        </button>
+
+        <!-- Shutter -->
+        <button id="shutterBtn"
+          style="width:60px;height:60px;border-radius:50%;border:4px solid white;background:white;cursor:pointer"></button>
+
+        <!-- Switch Camera -->
+        <button id="flipBtn" class="btn-ghost" style="border:1px solid #fff;color:#fff;background:#000;font-size:1.2rem">
+          🔄
+        </button>
+      </div>
+    </div>
+
+    <p id="cameraMsg" style="margin-top:10px;font-weight:700;"></p>
+  </div>
+</section>
+
+<!-- SECTION: Flash Game -->
+<section class="section">
+  <div class="section-title"><button class="audio-btn" data-read="flash">🔊</button>
+    <span data-key="flash-title">Game: Choose the Right Flash</span>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <b data-key="f1">Bright sunlight</b><br>
+      <label class="tag"><input type="radio" name="f0" value="off"> Flash Off</label>
+      <label class="tag"><input type="radio" name="f0" value="on"> Flash On</label>
+    </div>
+
+    <div class="card">
+      <b data-key="f2">Indoor room (not very bright)</b><br>
+      <label class="tag"><input type="radio" name="f1" value="auto"> Auto</label>
+      <label class="tag"><input type="radio" name="f1" value="off"> Off</label>
+    </div>
+
+    <div class="card">
+      <b data-key="f3">Night photo</b><br>
+      <label class="tag"><input type="radio" name="f2" value="on"> On</label>
+      <label class="tag"><input type="radio" name="f2" value="off"> Off</label>
+    </div>
+  </div>
+
+  <button id="checkFlash" class="btn" style="margin-top:10px">Check</button>
+  <span id="flashScore" class="tag">0/0</span>
+</section>
+
+<!-- SECTION: Zoom Practice -->
+<section class="section">
+  <div class="section-title"><button class="audio-btn" data-read="zoom">🔊</button>
+    <span data-key="zoom-title">Practice Zoom</span>
+  </div>
+
+  <div class="card" style="padding:20px;text-align:center">
+    <img id="zoomImg" src="https://images.unsplash.com/photo-1533050487297-09b450131914?q=80&w=600"
+         style="width:80%;max-width:300px;border-radius:12px;transition:.3s">
+    <br><br>
+    <input type="range" min="1" max="3" step="0.1" id="zoomSlider" style="width:90%">
+    <p data-key="zoom-tip">Slide to zoom in/out</p>
+  </div>
+</section>
+
+<!-- SECTION: Video Recording Simulator -->
+<section class="section">
+  <div class="section-title"><button class="audio-btn" data-read="video">🔊</button>
+    <span data-key="video-title">Record Video Practice</span>
+  </div>
+
+  <div class="card" style="text-align:center;padding:20px">
+    <div id="recScreen" style="width:300px;height:180px;margin:auto;background:#000;border-radius:12px;color:#fff;
+        display:flex;align-items:center;justify-content:center;font-size:1.6rem;">
+      🎥
+    </div>
+
+    <button id="recBtn" class="btn" style="margin-top:12px;background:red">● REC</button>
+    <p id="recMsg" style="font-weight:700;margin-top:8px"></p>
+  </div>
+</section>
+
+<!-- SECTION: Upload & Preview -->
+<section class="section">
+  <div class="section-title"><button class="audio-btn" data-read="upload">🔊</button>
+    <span data-key="upload-title">Try: Upload & View a Photo</span>
+  </div>
+
+  <div class="card" style="text-align:center;padding:20px">
+    <input id="uploadInput" type="file" accept="image/*" class="btn-ghost"><br><br>
+    <img id="uploadPreview" style="width:200px;border-radius:12px;display:none;margin:auto">
+  </div>
+</section>
+
+<!-- SECTION: Safety Tips -->
+<section class="section">
+  <div class="section-title"><button class="audio-btn" data-read="safety">🔊</button>
+    <span data-key="safety-title">Safety Tips</span>
+  </div>
+
+  <ul style="color:var(--muted);font-size:1.1rem;line-height:1.8">
+    <li data-key="st1">Do not click photos of documents (Aadhaar, PAN).</li>
+    <li data-key="st2">Do not share personal photos with strangers.</li>
+    <li data-key="st3">Do not open camera links sent by unknown numbers.</li>
+    <li data-key="st4">Keep gallery locked with PIN.</li>
+  </ul>
+</section>
+
+<!-- SECTION: Quiz -->
+<section class="section">
+  <div class="section-title"><button class="audio-btn" data-read="quiz">🔊</button>
+    <span data-key="quiz-title">Mini Quiz</span>
+  </div>
+
+  <div id="quizBox"></div>
+
+  <button id="quizCheck" class="btn" style="margin-top:10px">Check</button>
+  <button id="quizReset" class="btn-ghost" style="margin-top:10px">Reset</button>
+  <span id="quizScore" class="tag">0/0</span>
+</section>
+
+<footer class="footer" style="text-align:center;margin-top:30px;padding:20px;color:var(--muted)">
+  © 2025 DigiSakhi | Camera Skills for Every Woman
+</footer>
+
+<!-- END OF PART 2 -->
+<script>
+/* ---------------- AVATAR LOAD ---------------- */
+(function () {
+  const saved = localStorage.getItem("photo");
+  const avatar = document.getElementById("avatar");
+  const uname = localStorage.getItem("username");
+  if (saved) avatar.src = saved;
+  else if (uname) avatar.src = "https://via.placeholder.com/100.png?text=" + uname[0].toUpperCase();
+})();
+
+/* ---------------- DARK MODE ---------------- */
+const themeBtn = document.getElementById("themeBtn");
+function setTheme(mode) {
+  if (mode === "dark") {
+    document.documentElement.classList.add("dark");
+    themeBtn.textContent = "☀️";
+  } else {
+    document.documentElement.classList.remove("dark");
+    themeBtn.textContent = "🌙";
+  }
+  localStorage.setItem("camera_theme", mode);
+}
+themeBtn.addEventListener("click", () => {
+  const isDark = document.documentElement.classList.contains("dark");
+  setTheme(isDark ? "light" : "dark");
+});
+setTheme(localStorage.getItem("camera_theme") || "light");
+
+/* ---------------- SOUND EFFECTS ---------------- */
+let audioCtx;
+function beep(freq = 700, ms = 160) {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.frequency.value = freq;
+    g.gain.value = 0.1;
+    o.connect(g);
+    g.connect(audioCtx.destination);
+    o.start();
+    setTimeout(() => o.stop(), ms);
+  } catch {}
+}
+
+const sGood = () => beep(850, 150);
+const sBad  = () => beep(200, 180);
+
+/* ---------------- PROGRESS + BADGES ---------------- */
+const PB = document.getElementById("progressBar");
+const PT = document.getElementById("progressText");
+const badgeBox = document.getElementById("badges");
+
+const KEYS = ["sim", "flash", "zoom", "video", "upload", "quiz"];
+
+function getProgress() {
+  let done = KEYS.filter(k => localStorage.getItem("cam_" + k) === "1").length;
+  return Math.round((done / KEYS.length) * 100);
+}
+
+function updateProgress() {
+  const pct = getProgress();
+  PB.style.width = pct + "%";
+  PT.textContent = pct + "%";
+
+  badgeBox.innerHTML = "";
+  if (pct >= 20) badgeBox.innerHTML += `<span class="badge">🥉 Bronze</span>`;
+  if (pct >= 60) badgeBox.innerHTML += `<span class="badge">🥈 Silver</span>`;
+  if (pct >= 100) badgeBox.innerHTML += `<span class="badge">🥇 Gold</span>`;
+}
+updateProgress();
+
+/* ---------------- CAMERA SIMULATOR ---------------- */
+const cameraView = document.getElementById("cameraView");
+const flashBtn = document.getElementById("flashBtn");
+const shutter = document.getElementById("shutterBtn");
+const flipBtn = document.getElementById("flipBtn");
+const camMsg = document.getElementById("cameraMsg");
+
+let flashMode = "auto";
+let frontCam = false;
+
+flashBtn.addEventListener("click", () => {
+  if (flashMode === "auto") flashMode = "on";
+  else if (flashMode === "on") flashMode = "off";
+  else flashMode = "auto";
+
+  flashBtn.textContent = flashMode === "auto" ? "⚡ Auto" :
+                         flashMode === "on" ? "⚡ On" : "⚡ Off";
+  sGood();
+});
+
+flipBtn.addEventListener("click", () => {
+  frontCam = !frontCam;
+  sGood();
+  camMsg.textContent = frontCam ? "Front Camera On" : "Back Camera On";
+});
+
+shutter.addEventListener("click", () => {
+  sGood();
+  camMsg.textContent = "📸 Photo Clicked!";
+  setTimeout(() => camMsg.textContent = "", 1500);
+  localStorage.setItem("cam_sim", "1");
+  updateProgress();
+});
+
+/* ---------------- FLASH GAME ---------------- */
+document.getElementById("checkFlash").addEventListener("click", () => {
+  const answers = ["off", "auto", "on"];
+  let score = 0;
+
+  answers.forEach((ans, i) => {
+    const pick = document.querySelector(`input[name="f${i}"]:checked`);
+    if (pick && pick.value === ans) score++;
+  });
+
+  document.getElementById("flashScore").textContent = `${score}/3`;
+
+  if (score === 3) {
+    sGood();
+    localStorage.setItem("cam_flash", "1");
+  } else sBad();
+
+  updateProgress();
+});
+
+/* ---------------- ZOOM SLIDER ---------------- */
+const zoomImg = document.getElementById("zoomImg");
+const zoomSlider = document.getElementById("zoomSlider");
+
+zoomSlider.addEventListener("input", () => {
+  zoomImg.style.transform = `scale(${zoomSlider.value})`;
+  localStorage.setItem("cam_zoom", "1");
+  updateProgress();
+});
+
+/* ---------------- VIDEO RECORDER ---------------- */
+const recBtn = document.getElementById("recBtn");
+const recScreen = document.getElementById("recScreen");
+const recMsg = document.getElementById("recMsg");
+
+let recording = false;
+let recTimer;
+let time = 0;
+
+recBtn.addEventListener("click", () => {
+  if (!recording) {
+    recording = true;
+    time = 0;
+    recBtn.textContent = "⏹ STOP";
+    recScreen.style.background = "#a00";
+
+    recTimer = setInterval(() => {
+      time++;
+      recMsg.textContent = `Recording: ${time}s`;
+    }, 1000);
+
+  } else {
+    recording = false;
+    clearInterval(recTimer);
+    recBtn.textContent = "● REC";
+    recScreen.style.background = "#000";
+    recMsg.textContent = `Saved video (${time}s)`;
+
+    sGood();
+    localStorage.setItem("cam_video", "1");
+    updateProgress();
+  }
+});
+
+/* ---------------- UPLOAD & PREVIEW ---------------- */
+const uploadInput = document.getElementById("uploadInput");
+const uploadPreview = document.getElementById("uploadPreview");
+
+uploadInput.addEventListener("change", (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+
+  const r = new FileReader();
+  r.onload = (ev) => {
+    uploadPreview.src = ev.target.result;
+    uploadPreview.style.display = "block";
+    sGood();
+    localStorage.setItem("cam_upload", "1");
+    updateProgress();
+  };
+  r.readAsDataURL(f);
+});
+
+/* ---------------- QUIZ ---------------- */
+const quizData = [
+  { q: "Which button takes a photo?", a: ["White circle", "Power button"], c: 0 },
+  { q: "Flash is used for…", a: ["Low light", "Daylight"], c: 0 },
+  { q: "Where do photos save?", a: ["Gallery", "Messages"], c: 0 },
+  { q: "Zoom is used to…", a: ["Bring object closer", "Make photo darker"], c: 0 }
+];
+
+function loadQuiz() {
+  const box = document.getElementById("quizBox");
+  box.innerHTML = "";
+  quizData.forEach((q, i) => {
+    let html = `<div class='card'><b>${q.q}</b><br>`;
+    q.a.forEach((opt, j) => {
+      html += `<label class='tag'><input type='radio' name='q${i}' value='${j}'> ${opt}</label>`;
+    });
+    html += "</div>";
+    box.innerHTML += html;
+  });
+}
+loadQuiz();
+
+document.getElementById("quizCheck").addEventListener("click", () => {
+  let score = 0;
+
+  quizData.forEach((q, i) => {
+    const pick = document.querySelector(`input[name="q${i}"]:checked`);
+    if (pick && Number(pick.value) === q.c) score++;
+  });
+
+  document.getElementById("quizScore").textContent = `${score}/${quizData.length}`;
+
+  if (score === quizData.length) {
+    sGood();
+    localStorage.setItem("cam_quiz", "1");
+  } else sBad();
+
+  updateProgress();
+});
+
+document.getElementById("quizReset").addEventListener("click", () => {
+  localStorage.removeItem("cam_quiz");
+  document.getElementById("quizScore").textContent = "0/0";
+  loadQuiz();
+  updateProgress();
+});
+
+/* ---------------- AUDIO NARRATION (3 Voices) ---------------- */
+function speak(text, lang = "en") {
+  try {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+
+    if (lang === "hi") u.lang = "hi-IN";
+    else if (lang === "mr") u.lang = "mr-IN";
+    else u.lang = "en-IN";
+
+    u.pitch = 1;
+    u.rate = 1;
+    speechSynthesis.speak(u);
+  } catch {}
+}
+
+const READ = {
+  basics: "Learn camera basics such as opening camera, focusing, flash, zoom and where photos save.",
+  steps: "Follow these steps to take a good picture: hold steady, tap to focus, use flash properly, flip camera for selfie and press shutter.",
+  simulator: "Use the on screen camera to try clicking photos.",
+  flash: "Choose which flash mode is correct for each situation.",
+  zoom: "Use the slider to zoom in and out.",
+  video: "Press record to start and stop video recording.",
+  upload: "Upload a photo to see the preview.",
+  safety: "Follow these camera safety rules.",
+  quiz: "Answer the quiz questions."
+};
+
+document.querySelectorAll(".audio-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const key = btn.dataset.read;
+    const lang = localStorage.getItem("camera_lang") || "en";
+    speak(READ[key], lang);
+  });
+});
+
+/* ---------------- LANGUAGE SYSTEM ---------------- */
+const T = {
+  en: {
+    "hero-title":"Learn to Use Your Phone Camera Easily",
+    "hero-text":"Take photos, record videos, use flash & zoom properly.",
+
+    "basics-title":"Camera Basics",
+    "b1":"How to Open Camera","b1d":"Swipe up → tap Camera icon.",
+    "b2":"Modes","b2d":"Photo • Video • Portrait • Selfie.",
+    "b3":"Flash","b3d":"Auto • On • Off modes.",
+    "b4":"Zoom","b4d":"Pinch to zoom.",
+    "b5":"Clarity","b5d":"Tap to focus.",
+    "b6":"Where Photos Save?","b6d":"Gallery → Camera folder.",
+
+    "steps-title":"Step-by-Step Guide",
+    "s1":"Hold phone steady.",
+    "s2":"Tap to focus.",
+    "s3":"Use flash in dark.",
+    "s4":"For selfie tap flip.",
+    "s5":"Tap white circle to click.",
+
+    "sim-title":"Hands-On: Camera Simulator",
+
+    "flash-title":"Game: Choose the Right Flash",
+    "f1":"Bright sunlight",
+    "f2":"Indoor room",
+    "f3":"Night photo",
+
+    "zoom-title":"Practice Zoom",
+    "zoom-tip":"Slide to zoom in/out",
+
+    "video-title":"Record Video Practice",
+
+    "upload-title":"Try: Upload & View a Photo",
+
+    "safety-title":"Safety Tips",
+    "st1":"Don't click ID documents.",
+    "st2":"Don't share personal photos.",
+    "st3":"Avoid unknown camera links.",
+    "st4":"Lock gallery with PIN.",
+
+    "quiz-title":"Mini Quiz"
+  },
+
+  hi: {
+    "hero-title":"अपने फ़ोन कैमरा का इस्तेमाल सीखें",
+    "hero-text":"फोटो लें, वीडियो रिकॉर्ड करें, फ़्लैश और ज़ूम को सही से उपयोग करें।",
+
+    "basics-title":"कैमरा बेसिक्स",
+    "b1":"कैमरा कैसे खोलें","b1d":"स्वाइप करें → कैमरा आइकन पर टैप करें।",
+    "b2":"मोड्स","b2d":"फोटो • वीडियो • पोर्ट्रेट • सेल्फी।",
+    "b3":"फ्लैश","b3d":"ऑटो • ऑन • ऑफ।",
+    "b4":"ज़ूम","b4d":"पिंच करके ज़ूम करें।",
+    "b5":"क्लैरिटी","b5d":"फोकस के लिए स्क्रीन टैप करें।",
+    "b6":"फोटो कहाँ सेव होती हैं?","b6d":"गैलरी → कैमरा फ़ोल्डर।",
+
+    "steps-title":"स्टेप-बाय-स्टेप गाइड",
+    "s1":"फ़ोन को स्थिर रखें।",
+    "s2":"फोकस के लिए टैप करें।",
+    "s3":"अंधेरे में फ्लैश उपयोग करें।",
+    "s4":"सेल्फी के लिए कैमरा फ्लिप करें।",
+    "s5":"सफेद बटन दबाकर फोटो लें।",
+
+    "sim-title":"हैंड्स-ऑन: कैमरा सिम्युलेटर",
+
+    "flash-title":"गेम: सही फ्लैश चुनें",
+    "f1":"तेज़ धूप",
+    "f2":"कम रोशनी वाला कमरा",
+    "f3":"रात की फोटो",
+
+    "zoom-title":"ज़ूम प्रैक्टिस",
+    "zoom-tip":"ज़ूम बदलने के लिए स्लाइड करें",
+
+    "video-title":"वीडियो रिकॉर्डिंग प्रैक्टिस",
+
+    "upload-title":"अपलोड करें और फोटो देखें",
+
+    "safety-title":"सुरक्षा सुझाव",
+    "st1":"आधार/पैन की फोटो न लें।",
+    "st2":"निजी फोटो शेयर न करें।",
+    "st3":"अंजान लिंक न खोलें।",
+    "st4":"गैलरी को PIN से लॉक रखें।",
+
+    "quiz-title":"मिनी क्विज़"
+  },
+
+  mr: {
+    "hero-title":"तुमचा फोन कॅमेरा सहज वापरा",
+    "hero-text":"फोटो काढा, व्हिडिओ रेकॉर्ड करा, फ्लॅश आणि झूम योग्य वापरा.",
+
+    "basics-title":"कॅमेरा बेसिक्स",
+    "b1":"कॅमेरा कसा उघडायचा","b1d":"स्वाइप करून → कॅमेरा आयकॉन टॅप करा.",
+    "b2":"मोड्स","b2d":"फोटो • व्हिडिओ • पोर्ट्रेट • सेल्फी.",
+    "b3":"फ्लॅश","b3d":"ऑटो • ऑन • ऑफ.",
+    "b4":"झूम","b4d":"पिंच करून झूम करा.",
+    "b5":"क्लॅरिटी","b5d":"फोकससाठी स्क्रीन टॅप करा.",
+    "b6":"फोटो कुठे सेव होतात?","b6d":"गॅलरी → कॅमेरा फोल्डर.",
+
+    "steps-title":"स्टेप-बाय-स्टेप मार्गदर्शन",
+    "s1":"फोन स्थिर धरा.",
+    "s2":"फोकससाठी टॅप करा.",
+    "s3":"अंधारात फ्लॅश वापरा.",
+    "s4":"सेल्फीसाठी कॅमेरा फ्लिप करा.",
+    "s5":"पांढरे बटण दाबून फोटो काढा.",
+
+    "sim-title":"हँड्स-ऑन: कॅमेरा सिम्युलेटर",
+
+    "flash-title":"गेम: योग्य फ्लॅश निवडा",
+    "f1":"कडक उन्हात",
+    "f2":"घरातील खोली",
+    "f3":"रात्रीची फोटो",
+
+    "zoom-title":"झूम प्रॅक्टिस",
+    "zoom-tip":"झूम बदलण्यासाठी स्लाइड करा",
+
+    "video-title":"व्हिडिओ रेकॉर्डिंग प्रॅक्टिस",
+
+    "upload-title":"फोटो अपलोड करा आणि पाहा",
+
+    "safety-title":"सुरक्षा टिप्स",
+    "st1":"आधार/पॅनचे फोटो काढू नका.",
+    "st2":"खासगी फोटो शेअर करू नका.",
+    "st3":"अनोळखी लिंक उघडू नका.",
+    "st4":"गॅलरी PIN ने लॉक करा.",
+
+    "quiz-title":"मिनी क्विझ"
+  }
+};
+
+function applyLang(lang) {
+  const dict = T[lang];
+  document.querySelectorAll("[data-key]").forEach(el => {
+    const k = el.getAttribute("data-key");
+    if (dict[k]) el.innerText = dict[k];
+  });
+  localStorage.setItem("camera_lang", lang);
+}
+
+const langSel = document.getElementById("langSelect");
+langSel.addEventListener("change", e => applyLang(e.target.value));
+
+(function () {
+  const saved = localStorage.getItem("camera_lang") || "en";
+  langSel.value = saved;
+  applyLang(saved);
+})();
+</script>
+</body>
+</html>

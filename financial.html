@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | Financial Literacy</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+  --pink: #ff6b9a;
+  --purple: #7a49ff;
+  --purple-dark: #5a35d8;
+  --bg: #fff7fb;
+  --text: #2c2c35;
+  --muted: #6f7585;
+  --card: #ffffff;
+  --success: #16a34a;
+  --warning: #ffb020;
+  --danger: #ef4444;
+  --shadow: 0 8px 24px rgba(0,0,0,0.08);
+  font-family: 'Inter', sans-serif;
+}
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  max-width: 1150px;
+  margin: auto;
+  padding: 24px;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo {
+  height: 60px;
+  border-radius: 12px;
+}
+.title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.lang-select, .theme-btn {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+.profile img {
+  height: 44px;
+  width: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+.dropdown {
+  display: none;
+  position: absolute;
+  background: #fff;
+  right: 0;
+  top: 54px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.profile:hover .dropdown {
+  display: block;
+}
+.dropdown a {
+  display: block;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* HERO */
+.hero {
+  margin-top: 20px;
+  padding: 35px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+}
+.hero h1 {
+  font-size: 2.4rem;
+  margin-bottom: 8px;
+}
+.hero p {
+  opacity: 0.95;
+}
+
+/* Progress */
+.progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.progress {
+  flex: 1;
+  height: 12px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress > span {
+  height: 100%;
+  width: 0%;
+  display: block;
+  background: #ffd166;
+}
+.badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #fff;
+  color: #444;
+  font-weight: 800;
+}
+
+/* Cards */
+.section {
+  margin-top: 35px;
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+  color: var(--purple);
+  margin-bottom: 10px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+  gap: 18px;
+}
+.card {
+  background: var(--card);
+  padding: 18px;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+.card .icon {
+  font-size: 30px;
+  color: var(--pink);
+}
+
+/* Dark Mode */
+.dark {
+  --bg: #15121a;
+  --text: #f4f4f7;
+  --muted: #d3d3dc;
+  --card: #1b1722;
+  --shadow: 0 8px 28px rgba(0,0,0,0.4);
+}
+.dark .title {
+  color: #fff;
+  -webkit-text-fill-color: initial;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<header class="header">
+  <div class="brand">
+    <a href="ds.html"><img src="digisakhi.png" class="logo"></a>
+    <div class="title">DigiSakhi</div>
+  </div>
+
+  <div class="nav">
+    <select id="langSelect" class="lang-select">
+      <option value="en">English</option>
+      <option value="hi">हिन्दी</option>
+      <option value="mr">मराठी</option>
+    </select>
+
+    <button id="themeBtn" class="theme-btn">🌙</button>
+
+    <div class="profile">
+      <img id="avatar" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+      <div class="dropdown">
+        <a href="profile.html">My Profile</a>
+        <a href="settings.html">Settings</a>
+        <a href="login.html">Logout</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO (Woman using UPI on phone) -->
+<section class="hero">
+  <div>
+    <div class="tag" style="display:inline-block;background:#fff;color:#6a37ff;padding:6px 12px;border-radius:999px;font-weight:900">💰 वित्त साक्षरता • Financial Literacy</div>
+
+    <h1 data-key="hero-title">Smart Money, Smart Future</h1>
+    <p data-key="hero-text">Learn to save, use UPI, avoid fraud, and manage money confidently.</p>
+
+    <div class="progress-wrap">
+      <div class="progress"><span id="progressBar"></span></div>
+      <strong id="progressText">0%</strong>
+    </div>
+
+    <div id="badges" class="badges" style="margin-top:8px"></div>
+  </div>
+
+  <!-- HERO Illustration -->
+  <svg viewBox="0 0 500 350" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="grad1" x1="0" x2="1">
+        <stop offset="0%" stop-color="#ffd8ea"/>
+        <stop offset="100%" stop-color="#d6c5ff"/>
+      </linearGradient>
+    </defs>
+
+    <rect width="500" height="350" rx="22" fill="url(#grad1)" opacity="0.3"/>
+    <circle cx="380" cy="70" r="35" fill="#ffd166"/>
+
+    <!-- Woman using UPI -->
+    <g transform="translate(120,80)">
+      <circle cx="100" cy="60" r="50" fill="#fff"/>
+      <circle cx="100" cy="50" r="35" fill="#ffe4f1"/>
+      <rect x="60" y="100" width="80" height="110" rx="15" fill="#fff"/>
+      <rect x="70" y="110" width="60" height="12" rx="6" fill="#d8cffc"/>
+      <rect x="70" y="130" width="40" height="12" rx="6" fill="#7a49ff"/>
+
+      <!-- Phone -->
+      <rect x="150" y="40" width="80" height="140" rx="20" fill="#7a49ff"/>
+      <rect x="160" y="55" width="60" height="110" rx="12" fill="#fff"/>
+      <circle cx="190" cy="140" r="18" fill="#ffd166"/>
+      <text x="178" y="145" font-size="18" fill="#000">₹</text>
+    </g>
+  </svg>
+</section>
+
+<!-- END OF PART 1 -->
+<!-- MONEY BASICS -->
+<section class="section">
+  <div class="section-title">
+    <button class="audio-btn" data-read="basics">🔊</button>
+    <span data-key="basics-title">Money Basics</span>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="icon">💵</div>
+      <h3 data-key="b1">Income</h3>
+      <p data-key="b1d">Money you earn from work or business.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🛍️</div>
+      <h3 data-key="b2">Expenses</h3>
+      <p data-key="b2d">Money you spend on needs and wants.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🐷</div>
+      <h3 data-key="b3">Savings</h3>
+      <p data-key="b3d">Money kept aside for future needs.</p>
+    </div>
+    <div class="card">
+      <div class="icon">📊</div>
+      <h3 data-key="b4">Budget</h3>
+      <p data-key="b4d">A plan to manage income and expenses.</p>
+    </div>
+    <div class="card">
+      <div class="icon">📈</div>
+      <h3 data-key="b5">Interest</h3>
+      <p data-key="b5d">Extra money banks give for saving.</p>
+    </div>
+    <div class="card">
+      <div class="icon">💳</div>
+      <h3 data-key="b6">Digital Payment</h3>
+      <p data-key="b6d">Send/receive money using UPI or QR.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DIGITAL PAYMENTS -->
+<section class="section">
+  <div class="section-title">
+    <button class="audio-btn" data-read="payments">🔊</button>
+    <span data-key="pay-title">Digital Payments (UPI & QR)</span>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="icon">📱</div>
+      <h3 data-key="p1">UPI</h3>
+      <p data-key="p1d">Instant money transfer using mobile apps.</p>
+      <ul style="margin:0;padding-left:18px">
+        <li data-key="p1s1">Open Google Pay / PhonePe</li>
+        <li data-key="p1s2">Enter amount</li>
+        <li data-key="p1s3">Enter UPI PIN</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="icon">🔳</div>
+      <h3 data-key="p2">QR Code</h3>
+      <p data-key="p2d">Scan to pay shopkeepers safely.</p>
+      <ul style="padding-left:18px">
+        <li data-key="p2s1">Open UPI app</li>
+        <li data-key="p2s2">Scan QR</li>
+        <li data-key="p2s3">Confirm amount</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="icon">🆔</div>
+      <h3 data-key="p3">UPI ID</h3>
+      <p data-key="p3d">You can pay using UPI ID (example: name@bank).</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">👛</div>
+      <h3 data-key="p4">Wallets</h3>
+      <p data-key="p4d">Amazon Pay / Paytm for small payments.</p>
+    </div>
+  </div>
+</section>
+
+<!-- UPI PAYMENT SIMULATOR -->
+<div class="section">
+  <div class="section-title">
+    <button class="audio-btn" data-read="upi">🔊</button>
+    <span data-key="upi-title">Practice: UPI Payment Simulator</span>
+  </div>
+
+  <div class="card" style="padding:24px;max-width:500px;margin:auto">
+    <label data-key="upi-to">Send to:</label>
+    <select id="upiContact" style="width:100%;padding:10px;border-radius:12px;margin-bottom:10px">
+      <option>Rina - 9876543210</option>
+      <option>Asha - 9822456789</option>
+      <option>Sita - 9004412391</option>
+    </select>
+
+    <label data-key="upi-amount">Amount (₹)</label>
+    <input id="upiAmount" type="number" style="width:100%;padding:10px;border-radius:12px">
+
+    <label data-key="upi-pin">Enter UPI PIN</label>
+    <input id="upiPin" type="password" maxlength="4" style="width:100%;padding:10px;border-radius:12px">
+
+    <button class="btn" id="upiPay" style="margin-top:14px" data-key="pay-now">Pay Now</button>
+    <div id="upiOutput" style="margin-top:10px;font-weight:900"></div>
+  </div>
+</div>
+
+<!-- QR SCAN PRACTICE -->
+<section class="section">
+  <div class="section-title">
+    <button class="audio-btn" data-read="qr">🔊</button>
+    <span data-key="qr-title">Practice: Scan QR</span>
+  </div>
+
+  <div class="card" style="text-align:center;padding:24px">
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=UPI" 
+     style="width:220px;height:220px;border-radius:12px;" />
+    <p data-key="qr-text">Pretend to scan this QR with your UPI app.</p>
+    <button class="btn" id="qrBtn" data-key="qr-btn">I scanned it!</button>
+    <div id="qrResult" style="margin-top:8px;font-weight:800"></div>
+  </div>
+</section>
+
+<!-- SAFE OR UNSAFE GAME -->
+<div class="section">
+  <div class="section-title">
+    <button class="audio-btn" data-read="safe">🔊</button>
+    <span data-key="safe-title">Game: Safe or Unsafe?</span>
+  </div>
+
+  <div id="safeGame"></div>
+  <button class="btn" id="safeCheck" style="margin-top:10px" data-key="check">Check</button>
+  <button class="btn-ghost" id="safeReset" data-key="reset">Reset</button>
+  <span class="tag" id="safeScore">0/0</span>
+</div>
+
+<!-- BANKING BASICS -->
+<section class="section">
+  <div class="section-title">
+    <button class="audio-btn" data-read="bank">🔊</button>
+    <span data-key="bank-title">Banking Basics</span>
+  </div>
+
+  <div class="grid">
+    <div class="card"><div class="icon">🏦</div><h3 data-key="bk1">Bank Account</h3><p data-key="bk1d">Place to safely store your money.</p></div>
+    <div class="card"><div class="icon">💳</div><h3 data-key="bk2">ATM/Debit Card</h3><p data-key="bk2d">Used to withdraw money or pay.</p></div>
+    <div class="card"><div class="icon">📘</div><h3 data-key="bk3">Passbook</h3><p data-key="bk3d">Shows deposits, withdrawals & balance.</p></div>
+    <div class="card"><div class="icon">💰</div><h3 data-key="bk4">FD/RD</h3><p data-key="bk4d">Long-term saving with interest.</p></div>
+    <div class="card"><div class="icon">🏡</div><h3 data-key="bk5">Loan</h3><p data-key="bk5d">Borrow money & repay with interest.</p></div>
+  </div>
+</section>
+
+<!-- GOVERNMENT SCHEMES -->
+<section class="section">
+  <div class="section-title">
+    <button class="audio-btn" data-read="schemes">🔊</button>
+    <span data-key="scheme-title">Government Schemes for Women</span>
+  </div>
+
+  <div class="grid">
+    <a href="https://www.postoffice.gov.in/Financial/Pages/MSCF.aspx" target="_blank" class="card" style="text-decoration:none;color:inherit">
+      <div class="icon">🌸</div>
+      <h3 data-key="sc1">Mahila Samman Savings</h3>
+      <p data-key="sc1d">Secure savings with good interest.</p>
+    </a>
+
+    <a href="https://pmjdy.gov.in" target="_blank" class="card" style="text-decoration:none;color:inherit">
+      <div class="icon">🏦</div>
+      <h3 data-key="sc2">PM Jan Dhan</h3>
+      <p data-key="sc2d">Zero balance account for everyone.</p>
+    </a>
+
+    <a href="https://www.nsiindia.gov.in/InternalPage.aspx?Id_Pk=89" target="_blank" class="card" style="text-decoration:none;color:inherit">
+      <div class="icon">👧</div>
+      <h3 data-key="sc3">Sukanya Samriddhi</h3>
+      <p data-key="sc3d">Savings scheme for girl children.</p>
+    </a>
+
+    <a href="https://pmsvanidhi.mohua.gov.in" target="_blank" class="card" style="text-decoration:none;color:inherit">
+      <div class="icon">🛒</div>
+      <h3 data-key="sc4">PM Svanidhi</h3>
+      <p data-key="sc4d">Loan scheme for small street vendors.</p>
+    </a>
+  </div>
+</section>
+
+<!-- BANK FORM PRACTICE -->
+<section class="section">
+  <div class="section-title">
+    <button class="audio-btn" data-read="form">🔊</button>
+    <span data-key="form-title">Practice: Fill Bank Form</span>
+  </div>
+
+  <div class="card" style="max-width:600px;margin:auto;padding:20px">
+    <input id="fName" placeholder="Full Name" style="width:100%;padding:10px;margin-bottom:10px;border-radius:12px">
+    <input id="fMobile" placeholder="Mobile Number" style="width:100%;padding:10px;margin-bottom:10px;border-radius:12px">
+    <input id="fAadhaar" placeholder="Aadhaar Number" style="width:100%;padding:10px;margin-bottom:10px;border-radius:12px">
+    <textarea id="fAddress" placeholder="Address" rows="3" style="width:100%;padding:10px;border-radius:12px"></textarea>
+
+    <button class="btn" id="formSubmit" style="margin-top:14px" data-key="submit">Submit</button>
+
+    <div id="formOutput" style="margin-top:10px;font-weight:900"></div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="section">
+  <div class="section-title">
+    <button class="audio-btn" data-read="quiz">🔊</button>
+    <span data-key="quiz-title">Mini Quiz</span>
+  </div>
+
+  <div id="quizBox"></div>
+
+  <button class="btn" id="quizCheck" style="margin-top:10px" data-key="check">Check</button>
+  <button class="btn-ghost" id="quizReset" data-key="reset">Reset</button>
+  <span class="tag" id="quizScore">0/0</span>
+</section>
+
+<footer class="footer" style="text-align:center;padding:20px;margin-top:40px;color:var(--muted)">
+  © 2025 DigiSakhi | Financial Literacy for Every Woman
+</footer>
+
+</div>
+<script>
+/* -----------------------
+   AVATAR LOAD
+------------------------ */
+(function () {
+  const saved = localStorage.getItem("photo");
+  const avatar = document.getElementById("avatar");
+  const uname = localStorage.getItem("username");
+  if (saved) avatar.src = saved;
+  else if (uname) avatar.src = "https://via.placeholder.com/100x100?text=" + uname.charAt(0).toUpperCase();
+})();
+
+/* -----------------------
+   DARK MODE
+------------------------ */
+const themeBtn = document.getElementById("themeBtn");
+
+function setTheme(mode) {
+  if (mode === "dark") {
+    document.documentElement.classList.add("dark");
+    themeBtn.textContent = "☀️";
+  } else {
+    document.documentElement.classList.remove("dark");
+    themeBtn.textContent = "🌙";
+  }
+  localStorage.setItem("theme", mode);
+}
+
+themeBtn.addEventListener("click", () => {
+  const isDark = document.documentElement.classList.contains("dark");
+  setTheme(isDark ? "light" : "dark");
+});
+
+setTheme(localStorage.getItem("theme") || "light");
+
+/* -----------------------
+   SOUND EFFECTS
+------------------------ */
+let audioCtx;
+function tone(freq = 600, dur = 150) {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.frequency.value = freq;
+    gain.gain.value = 0.1;
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    setTimeout(() => osc.stop(), dur);
+  } catch (e) {}
+}
+
+const sGood = () => tone(900, 160);
+const sBad = () => tone(200, 200);
+
+/* -----------------------
+   PROGRESS + BADGES
+------------------------ */
+const progressBar = document.getElementById("progressBar");
+const progressText = document.getElementById("progressText");
+const badgeBox = document.getElementById("badges");
+
+const KEYS = ["upi", "qr", "safe", "form", "quiz"];
+
+function getProgress() {
+  let done = KEYS.filter(k => localStorage.getItem("fin_" + k) === "1").length;
+  return Math.round((done / KEYS.length) * 100);
+}
+
+function updateProgress() {
+  const pct = getProgress();
+  progressBar.style.width = pct + "%";
+  progressText.innerText = pct + "%";
+
+  badgeBox.innerHTML = "";
+  if (pct >= 20) badgeBox.innerHTML += `<span class="badge">🥉 Bronze</span>`;
+  if (pct >= 60) badgeBox.innerHTML += `<span class="badge">🥈 Silver</span>`;
+  if (pct >= 100) badgeBox.innerHTML += `<span class="badge">🥇 Gold</span>`;
+}
+updateProgress();
+
+/* -----------------------
+   UPI PAYMENT SIMULATOR
+------------------------ */
+document.getElementById("upiPay").addEventListener("click", () => {
+  const amt = document.getElementById("upiAmount").value;
+  const pin = document.getElementById("upiPin").value;
+  const out = document.getElementById("upiOutput");
+
+  if (!amt || amt <= 0) {
+    out.innerHTML = "⚠️ Enter a valid amount";
+    sBad();
+    return;
+  }
+  if (pin.length !== 4) {
+    out.innerHTML = "⚠️ Enter 4-digit PIN";
+    sBad();
+    return;
+  }
+
+  out.innerHTML = "✅ Payment Successful!";
+  sGood();
+  localStorage.setItem("fin_upi", "1");
+  updateProgress();
+});
+
+/* -----------------------
+   QR PRACTICE
+------------------------ */
+document.getElementById("qrBtn").addEventListener("click", () => {
+  document.getElementById("qrResult").innerHTML = "✅ QR Scan Successful!";
+  sGood();
+  localStorage.setItem("fin_qr", "1");
+  updateProgress();
+});
+
+/* -----------------------
+   SAFE / UNSAFE GAME
+------------------------ */
+const safeGame = document.getElementById("safeGame");
+const SCENES = [
+  { t: "UPI request from stranger", safe: false },
+  { t: "Payment to shop's verified QR", safe: true },
+  { t: "Job asking for registration fee", safe: false },
+  { t: "UPI ID received from trusted friend", safe: true },
+  { t: "Call asking for OTP", safe: false },
+  { t: "Paying school fee online", safe: true }
+];
+
+function loadSafeGame() {
+  safeGame.innerHTML = "";
+  SCENES.forEach((sc, i) => {
+    safeGame.innerHTML += `
+      <div class="card" style="margin-bottom:10px">
+        <b>${sc.t}</b><br>
+        <label class="tag"><input type="radio" name="s${i}" value="safe"> Safe</label>
+        <label class="tag"><input type="radio" name="s${i}" value="unsafe"> Unsafe</label>
+      </div>
+    `;
+  });
+}
+loadSafeGame();
+
+document.getElementById("safeCheck").addEventListener("click", () => {
+  let score = 0;
+  SCENES.forEach((sc, i) => {
+    const pick = document.querySelector(`input[name="s${i}"]:checked`);
+    if (!pick) return;
+
+    const correct = sc.safe ? "safe" : "unsafe";
+    if (pick.value === correct) score++;
+  });
+
+  document.getElementById("safeScore").innerText = `${score}/${SCENES.length}`;
+
+  if (score === SCENES.length) {
+    localStorage.setItem("fin_safe", "1");
+    sGood();
+  } else sBad();
+
+  updateProgress();
+});
+
+document.getElementById("safeReset").addEventListener("click", () => {
+  localStorage.removeItem("fin_safe");
+  document.getElementById("safeScore").innerText = "0/0";
+  loadSafeGame();
+  updateProgress();
+});
+
+/* -----------------------
+   BANK FORM PRACTICE
+------------------------ */
+document.getElementById("formSubmit").addEventListener("click", () => {
+  const name = document.getElementById("fName").value.trim();
+  const mob = document.getElementById("fMobile").value.trim();
+  const aad = document.getElementById("fAadhaar").value.trim();
+
+  if (!name || !mob || !aad) {
+    document.getElementById("formOutput").innerHTML = "⚠️ Fill all fields";
+    sBad();
+    return;
+  }
+
+  document.getElementById("formOutput").innerHTML = "✅ Form Submitted!";
+  sGood();
+  localStorage.setItem("fin_form", "1");
+  updateProgress();
+});
+
+/* -----------------------
+   QUIZ
+------------------------ */
+const QUIZ = [
+  { q: "UPI is used for?", a: ["Money transfer", "Photo editing"], c: 0 },
+  { q: "What should you never share?", a: ["OTP", "Your name"], c: 0 },
+  { q: "Best way to save money?", a: ["FD/RD", "Lottery"], c: 0 },
+  { q: "Which is safe?", a: ["Verified QR", "Unknown payment link"], c: 0 },
+  { q: "Loan must be?", a: ["Repaid with interest", "Free"], c: 0 }
+];
+
+function loadQuiz() {
+  const box = document.getElementById("quizBox");
+  box.innerHTML = "";
+  QUIZ.forEach((q, i) => {
+    let html = `<div class="card" style="margin-bottom:10px"><b>${q.q}</b><br>`;
+    q.a.forEach((opt, j) => {
+      html += `<label class="tag"><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+    });
+    html += "</div>";
+    box.innerHTML += html;
+  });
+}
+loadQuiz();
+
+document.getElementById("quizCheck").addEventListener("click", () => {
+  let score = 0;
+  QUIZ.forEach((q, i) => {
+    const pick = document.querySelector(`input[name="q${i}"]:checked`);
+    if (pick && Number(pick.value) === q.c) score++;
+  });
+
+  document.getElementById("quizScore").innerText = `${score}/${QUIZ.length}`;
+
+  if (score === QUIZ.length) {
+    localStorage.setItem("fin_quiz", "1");
+    sGood();
+  } else sBad();
+
+  updateProgress();
+});
+
+document.getElementById("quizReset").addEventListener("click", () => {
+  localStorage.removeItem("fin_quiz");
+  document.getElementById("quizScore").innerText = "0/0";
+  loadQuiz();
+  updateProgress();
+});
+
+/* -----------------------
+   AUDIO NARRATION
+------------------------ */
+const READ = {
+  basics: "Money basics include income, expense, saving, budgeting and digital payments.",
+  payments: "Digital payments include UPI, QR code, wallets and UPI ID.",
+  upi: "Practice UPI payment by entering amount and PIN.",
+  qr: "Scan the QR code to practice digital payments.",
+  safe: "Learn safe and unsafe financial actions.",
+  bank: "Banking basics include account, ATM card, passbook and deposits.",
+  schemes: "Government schemes include Mahila Samman, Jan Dhan, Sukanya Samriddhi and PM Svanidhi.",
+  form: "Practice filling a bank form.",
+  quiz: "Take the financial literacy quiz."
+};
+
+function speak(txt) {
+  try {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(txt);
+    u.rate = 1;
+    speechSynthesis.speak(u);
+  } catch {}
+}
+
+document.querySelectorAll(".audio-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const key = btn.dataset.read;
+    speak(READ[key] || "");
+  });
+});
+
+/* -----------------------
+   MULTI-LANGUAGE
+------------------------ */
+const T = {
+  en: {
+    "hero-title": "Smart Money, Smart Future",
+    "hero-text": "Learn to save, use UPI, avoid fraud, and manage money confidently.",
+
+    "basics-title": "Money Basics",
+    "b1": "Income", "b1d": "Money you earn from work or business.",
+    "b2": "Expenses", "b2d": "Money you spend on needs and wants.",
+    "b3": "Savings", "b3d": "Money kept aside for future needs.",
+    "b4": "Budget", "b4d": "A plan to manage income and expenses.",
+    "b5": "Interest", "b5d": "Extra money banks give for saving.",
+    "b6": "Digital Payment", "b6d": "Send/receive money using UPI or QR.",
+
+    "pay-title": "Digital Payments (UPI & QR)",
+    "p1": "UPI", "p1d": "Instant money transfer using mobile apps.",
+    "p1s1": "Open Google Pay / PhonePe",
+    "p1s2": "Enter amount",
+    "p1s3": "Enter UPI PIN",
+    "p2": "QR Code", "p2d": "Scan to pay shopkeepers safely.",
+    "p2s1": "Open UPI app",
+    "p2s2": "Scan QR",
+    "p2s3": "Confirm amount",
+    "p3": "UPI ID", "p3d": "You can pay using UPI ID (example: name@bank).",
+    "p4": "Wallets", "p4d": "Amazon Pay / Paytm for small payments.",
+
+    "upi-title": "Practice: UPI Payment Simulator",
+    "upi-to": "Send to:",
+    "upi-amount": "Amount (₹)",
+    "upi-pin": "Enter UPI PIN",
+    "pay-now": "Pay Now",
+
+    "qr-title": "Practice: Scan QR",
+    "qr-text": "Pretend to scan this QR with your UPI app.",
+    "qr-btn": "I scanned it!",
+
+    "safe-title": "Game: Safe or Unsafe?",
+
+    "bank-title": "Banking Basics",
+    "bk1": "Bank Account", "bk1d": "Place to safely store your money.",
+    "bk2": "ATM/Debit Card", "bk2d": "Used to withdraw money or pay.",
+    "bk3": "Passbook", "bk3d": "Shows deposits, withdrawals & balance.",
+    "bk4": "FD/RD", "bk4d": "Long-term saving with interest.",
+    "bk5": "Loan", "bk5d": "Borrow money & repay with interest.",
+
+    "scheme-title": "Government Schemes for Women",
+    "sc1": "Mahila Samman Savings", "sc1d": "Secure savings with good interest.",
+    "sc2": "PM Jan Dhan", "sc2d": "Zero balance account for everyone.",
+    "sc3": "Sukanya Samriddhi", "sc3d": "Savings scheme for girl children.",
+    "sc4": "PM Svanidhi", "sc4d": "Loan scheme for small street vendors.",
+
+    "form-title": "Practice: Fill Bank Form",
+    "submit": "Submit",
+
+    "quiz-title": "Mini Quiz",
+    "check": "Check",
+    "reset": "Reset"
+  },
+
+  hi: {
+    "hero-title": "स्मार्ट पैसा, स्मार्ट भविष्य",
+    "hero-text": "बचत, UPI, धोखाधड़ी से बचना और धन प्रबंधन सीखें।",
+
+    "basics-title": "पैसे की मूल बातें",
+    "b1": "आय", "b1d": "काम या व्यवसाय से मिलने वाला पैसा।",
+    "b2": "खर्च", "b2d": "ज़रूरतों और इच्छाओं पर खर्च किया पैसा।",
+    "b3": "बचत", "b3d": "भविष्य के लिए रखा गया पैसा।",
+    "b4": "बजट", "b4d": "आय और खर्च का प्रबंधन।",
+    "b5": "ब्याज", "b5d": "बैंक बचत पर अतिरिक्त पैसा देते हैं।",
+    "b6": "डिजिटल भुगतान", "b6d": "UPI या QR से भुगतान।",
+
+    "pay-title": "डिजिटल भुगतान (UPI & QR)",
+    "p1": "UPI", "p1d": "मोबाइल ऐप से तुरंत भुगतान।",
+    "p1s1": "गूगल पे/फोनपे खोलें",
+    "p1s2": "राशि दर्ज करें",
+    "p1s3": "UPI PIN डालें",
+    "p2": "QR कोड", "p2d": "दुकानों पर सुरक्षित भुगतान।",
+    "p2s1": "UPI ऐप खोलें",
+    "p2s2": "QR स्कैन करें",
+    "p2s3": "राशि कन्फर्म करें",
+    "p3": "UPI ID", "p3d": "उदाहरण: name@bank",
+    "p4": "वॉलेट", "p4d": "छोटे भुगतान के लिए।",
+
+    "upi-title": "प्रैक्टिस: UPI भुगतान",
+    "upi-to": "किसे भेजें:",
+    "upi-amount": "राशि (₹)",
+    "upi-pin": "UPI PIN दर्ज करें",
+    "pay-now": "भुगतान करें",
+
+    "qr-title": "प्रैक्टिस: QR स्कैन",
+    "qr-text": "कल्पना करें कि आपने QR स्कैन किया।",
+    "qr-btn": "स्कैन किया!",
+
+    "safe-title": "गेम: सुरक्षित या असुरक्षित?",
+
+    "bank-title": "बैंकिंग बेसिक्स",
+    "bk1": "बैंक खाता", "bk1d": "पैसा सुरक्षित रखने की जगह।",
+    "bk2": "ATM/डेबिट कार्ड", "bk2d": "पैसा निकालने/भुगतान करने के लिए।",
+    "bk3": "पासबुक", "bk3d": "जमा, निकासी और बैलेंस दिखाती है।",
+    "bk4": "FD/RD", "bk4d": "लंबी अवधि की बचत।",
+    "bk5": "लोन", "bk5d": "ब्याज सहित वापस करना होता है।",
+
+    "scheme-title": "महिलाओं के लिए सरकारी योजनाएँ",
+    "sc1": "महिला सम्मान बचत", "sc1d": "सुरक्षित बचत।",
+    "sc2": "प्रधानमंत्री जन धन", "sc2d": "ज़ीरो बैलेंस खाता।",
+    "sc3": "सुकन्या समृद्धि", "sc3d": "बेटियों के लिए योजना।",
+    "sc4": "PM स्वनिधि", "sc4d": "छोटे कारोबार के लिए ऋण योजना।",
+
+    "form-title": "प्रैक्टिस: बैंक फॉर्म भरें",
+    "submit": "सबमिट करें",
+
+    "quiz-title": "मिनी क्विज़",
+    "check": "जांचें",
+    "reset": "रीसेट"
+  },
+
+  mr: {
+    "hero-title": "स्मार्ट पैसा, स्मार्ट भविष्य",
+    "hero-text": " बचत, UPI, फसवणूक टाळणे आणि पैशाचे व्यवस्थापन शिका.",
+
+    "basics-title": "पैशाच्या मूलभूत गोष्टी",
+    "b1": "उत्पन्न", "b1d": "काम किंवा व्यवसायातून मिळणारा पैसा.",
+    "b2": "खर्च", "b2d": "गरजांसाठी आणि इच्छांसाठी वापरलेला पैसा.",
+    "b3": "बचत", "b3d": "भविष्यासाठी ठेवलेला पैसा.",
+    "b4": "बजेट", "b4d": "उत्पन्न-खर्च व्यवस्थापन.",
+    "b5": "व्याज", "b5d": "बँक बचतीवर अतिरिक्त रक्कम देतात.",
+    "b6": "डिजिटल पेमेंट", "b6d": "UPI किंवा QR द्वारे पैसे पाठवा/घ्या.",
+
+    "pay-title": "डिजिटल पेमेंट (UPI & QR)",
+    "p1": "UPI", "p1d": "मोबाईल अ‍ॅपद्वारे तात्काळ पेमेंट.",
+    "p1s1": "गुगल पे/फोनपे उघडा",
+    "p1s2": "रक्कम भरा",
+    "p1s3": "UPI PIN भरा",
+    "p2": "QR कोड", "p2d": "दुकानांवर सुरक्षित पेमेंट.",
+    "p2s1": "UPI अ‍ॅप उघडा",
+    "p2s2": "QR स्कॅन करा",
+    "p2s3": "रक्कम कन्फर्म करा",
+    "p3": "UPI ID", "p3d": "उदा. name@bank",
+    "p4": "वॉलेट", "p4d": "लहान पेमेंटसाठी.",
+
+    "upi-title": "प्रॅक्टिस: UPI पेमेंट",
+    "upi-to": "कोणाला पाठवायचे:",
+    "upi-amount": "रक्कम (₹)",
+    "upi-pin": "UPI PIN भरा",
+    "pay-now": "पे करा",
+
+    "qr-title": "प्रॅक्टिस: QR स्कॅन",
+    "qr-text": "कल्पना करा की तुम्ही QR स्कॅन केला.",
+    "qr-btn": "स्कॅन केले!",
+
+    "safe-title": "गेम: सुरक्षित कि असुरक्षित?",
+
+    "bank-title": "बँकिंग बेसिक्स",
+    "bk1": "बँक खाते", "bk1d": "पैसे सुरक्षित ठेवायची जागा.",
+    "bk2": "ATM/डेबिट कार्ड", "bk2d": "पैसे काढण्यासाठी/पे करण्यासाठी.",
+    "bk3": "पासबुक", "bk3d": "जमा, पैसे काढणे आणि शिल्लक दाखवते.",
+    "bk4": "FD/RD", "bk4d": "दीर्घकालीन बचत.",
+    "bk5": "कर्ज", "bk5d": "व्याजासह परत करायचे असते.",
+
+    "scheme-title": "महिलांसाठी सरकारी योजना",
+    "sc1": "महिला सन्मान बचत", "sc1d": "सुरक्षित बचत.",
+    "sc2": "प्रधानमंत्री जन धन", "sc2d": "शून्य शिल्लक खाते.",
+    "sc3": "सुकन्या समृद्धी", "sc3d": "मुलींसाठी बचत योजना.",
+    "sc4": "PM स्वनिधी", "sc4d": "लघु व्यवसाय कर्ज.",
+
+    "form-title": "प्रॅक्टिस: बँक फॉर्म भरा",
+    "submit": "सबमिट करा",
+
+    "quiz-title": "मिनी क्विझ",
+    "check": "तपासा",
+    "reset": "रीसेट"
+  }
+};
+
+/* APPLY LANGUAGE */
+function applyLang(lang) {
+  const t = T[lang];
+  if (!t) return;
+
+  document.querySelectorAll("[data-key]").forEach(el => {
+    const key = el.getAttribute("data-key");
+    if (t[key]) el.innerText = t[key];
+  });
+
+  localStorage.setItem("financial_lang", lang);
+}
+
+const langSel = document.getElementById("langSelect");
+langSel.addEventListener("change", (e) => applyLang(e.target.value));
+
+(function () {
+  const saved = localStorage.getItem("financial_lang") || "en";
+  langSel.value = saved;
+  applyLang(saved);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DigiSakhi | WhatsApp Mastery</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --brand-pink:#ff6b81; --brand-orange:#ffa800; --bg:#fffafc;
+  --text:#2c3e50; --muted:#7f8c8d; --wa:#25D366; --wa-dark:#128C7E;
+  --r-lg:20px; --r-md:12px;
+  font-family:'Inter',sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:1100px;margin:0 auto;padding:24px}
+
+/* DigiSakhi header (same) */
+.header{display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{height:60px;border-radius:10px}
+.title{font-size:1.8rem;font-weight:900;color:var(--brand-pink)}
+.nav{display:flex;gap:14px;align-items:center}
+.lang-select{padding:10px 14px;border:1px solid #e0e0e0;border-radius:12px;font-weight:600;background:#fff}
+.profile{position:relative}
+.profile img{height:44px;width:44px;border-radius:50%;cursor:pointer;object-fit:cover}
+.dropdown{display:none;position:absolute;right:0;top:54px;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.12);overflow:hidden;z-index:9}
+.dropdown a{display:block;padding:10px 14px;text-decoration:none;color:var(--text);font-weight:600}
+.dropdown a:hover{background:var(--brand-pink);color:#fff}
+.profile:hover .dropdown{display:block}
+
+/* Hero */
+.hero{margin-top:16px;background:linear-gradient(135deg,var(--brand-pink),var(--brand-orange));color:#fff;padding:50px 24px;border-radius:20px;text-align:center}
+.hero h1{font-size:2.3rem;margin:0 0 6px}
+
+/* WhatsApp mini-app wrapper */
+.wa-app{margin-top:28px;display:grid;grid-template-columns:320px 1fr;gap:22px}
+@media(max-width:950px){.wa-app{grid-template-columns:1fr}}
+
+.left-col{display:flex;flex-direction:column;gap:18px}
+.card{background:#fff;border-radius:20px;box-shadow:0 6px 14px rgba(0,0,0,.08);padding:18px}
+.sec-title{display:flex;align-items:center;gap:10px;margin:0 0 8px}
+.sec-title i{color:var(--wa)}
+.sub{color:var(--muted);margin:0 0 10px}
+
+/* Contacts + call */
+.contact{display:flex;align-items:center;gap:12px;padding:10px;border-radius:14px;transition:.2s;cursor:pointer}
+.contact:hover{background:#f3fdf7}
+.contact img{height:42px;width:42px;border-radius:50%;object-fit:cover}
+.c-meta{flex:1}
+.c-name{font-weight:700}
+.c-last{font-size:.88rem;color:var(--muted)}
+.call-btn{background:var(--wa);border:none;color:#fff;border-radius:10px;padding:8px 10px;cursor:pointer}
+.call-btn:hover{background:var(--wa-dark)}
+.search{width:100%;padding:10px 12px;border:1px solid #e6e6e6;border-radius:12px;margin-bottom:10px}
+
+/* Panels */
+.panel{background:#fff;border-radius:20px;box-shadow:0 6px 14px rgba(0,0,0,.08);overflow:hidden}
+.panel .topbar{background:var(--wa-dark);color:#fff;padding:12px 16px;font-weight:800}
+
+/* Messaging sim */
+.chat-wrap{padding:14px;height:320px;overflow:auto;background:#E7FCEF}
+.msg{max-width:74%;margin:8px 0;padding:10px 12px;border-radius:14px;background:#fff;display:inline-block;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.me{background:#D9FDD3;margin-left:auto}
+.chat-input{display:flex;gap:8px;padding:10px;border-top:1px solid #eee;background:#fff}
+.chat-input input{flex:1;padding:10px 12px;border:1px solid #ddd;border-radius:12px}
+.chat-input button{background:var(--wa);border:none;color:#fff;padding:10px 16px;border-radius:12px;font-weight:700;cursor:pointer}
+.chat-input button:hover{background:var(--wa-dark)}
+
+/* Call overlay */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:20}
+.call-card{background:#062e27;color:#fff;width:360px;border-radius:22px;overflow:hidden}
+.call-head{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#0b3d35}
+.call-body{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px}
+.call-avatar{height:84px;width:84px;border-radius:50%;object-fit:cover;border:3px solid #fff}
+.end{background:#ff3b30;border:none;color:#fff;border-radius:28px;padding:10px 16px;margin-top:8px;cursor:pointer}
+.small{opacity:.9;font-size:.92rem}
+
+/* Privacy sim */
+.privacy-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px}
+@media(max-width:800px){.privacy-grid{grid-template-columns:1fr}}
+.form-row{display:flex;flex-direction:column;gap:6px}
+select,input[type="file"]{padding:10px;border:1px solid #e6e6e6;border-radius:12px}
+.toggle{display:flex;align-items:center;gap:10px}
+.toggle input{transform:scale(1.2)}
+.save{background:var(--brand-pink);color:#fff;border:none;border-radius:12px;padding:10px 16px;font-weight:800;cursor:pointer}
+.save:hover{background:var(--brand-orange)}
+.note{color:var(--muted);font-size:.9rem}
+.help{padding:16px}
+.help .yt{width:100%;max-width:560px;height:315px;border:none;border-radius:16px;box-shadow:0 6px 14px rgba(0,0,0,.1)}
+
+/* ===== NEW: Safety Quiz ===== */
+.quiz{padding:16px}
+.q-item{border:1px solid #eee;border-radius:12px;padding:12px;margin:10px 0}
+.q-item b{display:block;margin-bottom:6px}
+.q-item label{display:block;margin:6px 0}
+.q-actions{display:flex;gap:10px;margin-top:10px}
+.btn{background:var(--brand-pink);border:none;color:#fff;padding:10px 14px;border-radius:12px;font-weight:800;cursor:pointer}
+.btn:hover{background:var(--brand-orange)}
+.result{font-weight:800;margin-top:10px}
+.correct{background:#eaffea}
+.wrong{background:#ffecec}
+
+/* ===== NEW: Status Maker (phone style) ===== */
+.status-wrap{display:grid;grid-template-columns:340px 1fr;gap:16px;padding:16px}
+@media(max-width:950px){.status-wrap{grid-template-columns:1fr}}
+.phone{width:340px;max-width:100%;border-radius:28px;background:#000;box-shadow:0 12px 24px rgba(0,0,0,.2);overflow:hidden;margin:0 auto}
+.phone-header{background:#075E54;color:#fff;padding:12px 14px;font-weight:800}
+.status-canvas{display:flex;align-items:center;justify-content:center;height:500px;background:#222;color:#fff;font-size:26px;text-align:center;padding:22px}
+.status-controls{background:#fff;padding:14px;border-radius:16px;box-shadow:0 6px 14px rgba(0,0,0,.08)}
+.row{display:flex;gap:8px;margin:8px 0}
+.row input[type="text"]{flex:1;padding:10px;border:1px solid #ddd;border-radius:10px}
+.color{width:32px;height:32px;border-radius:8px;border:1px solid #eee;cursor:pointer}
+.post{background:var(--wa);border:none;color:#fff;padding:10px 16px;border-radius:12px;font-weight:800;cursor:pointer}
+.post:hover{background:var(--wa-dark)}
+.viewer-list{margin-top:10px}
+.viewer{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f1f1f1}
+.viewer img{height:34px;width:34px;border-radius:50%;object-fit:cover}
+
+/* ===== NEW: Hands-on App Settings ===== */
+.sets{padding:16px}
+.switch{display:flex;align-items:center;justify-content:space-between;border:1px solid #eee;padding:12px;border-radius:12px;margin:8px 0}
+.progress{height:10px;background:#eee;border-radius:8px;overflow:hidden;margin-top:6px}
+.progress > div{height:100%;width:0;background:var(--wa);transition:width .6s}
+.info{font-size:.92rem;color:var(--muted)}
+.footer{text-align:center;padding:28px 0;color:var(--muted);margin-top:24px;border-top:1px solid #eee}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="brand">
+      <a href="ds.html"><img src="digisakhi.png" class="logo" alt="DigiSakhi"></a>
+      <div>
+        <div class="title">DigiSakhi</div>
+        <div style="font-size:12px;color:var(--muted)" data-key="tagline">Digital Skills for Every Woman</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <select id="langSelect" class="lang-select">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="mr">मराठी</option>
+      </select>
+      <div class="profile">
+        <img id="profilePic" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile">
+        <div class="dropdown">
+          <a href="profile.html">My Profile</a>
+          <a href="settings.html">Settings</a>
+          <a href="login.html">Logout</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1 data-key="hero-title">WhatsApp Mastery</h1>
+    <p data-key="hero-text">Learn to send messages, make video calls, and use privacy settings safely.</p>
+  </section>
+
+  <!-- WhatsApp Mini-App -->
+  <div class="wa-app">
+    <!-- LEFT -->
+    <div class="left-col">
+      <div class="card">
+        <div class="sec-title"><i class="fa-brands fa-whatsapp"></i><h3 data-key="contacts-title" style="margin:0">Contacts (Tap to call)</h3></div>
+        <p class="sub" data-key="contacts-sub">Choose a contact and press the video icon.</p>
+        <input id="search" class="search" type="text" placeholder="Search contacts…">
+        <div id="contacts"></div>
+      </div>
+
+      <div class="card help">
+        <div class="sec-title"><i class="fa-solid fa-circle-play"></i><h3 style="margin:0" data-key="videos-title">Step-by-step Videos</h3></div>
+        <p class="sub" data-key="videos-sub">If the embed doesn’t load, use the “Open in YouTube” buttons.</p>
+
+        <p><b data-key="v1-title">Send messages</b></p>
+        <iframe class="yt" src="https://www.youtube.com/embed/-iE6Ibm0nP8" allowfullscreen></iframe>
+        <p><a href="https://www.youtube.com/watch?v=-iE6Ibm0nP8" target="_blank" rel="noopener" data-key="open-yt">Open in YouTube ↗</a></p>
+
+        <p style="margin-top:10px"><b data-key="v2-title">Make video calls</b></p>
+        <iframe class="yt" src="https://www.youtube.com/embed/8ZziFj9oE1k" allowfullscreen></iframe>
+        <p><a href="https://www.youtube.com/watch?v=8ZziFj9oE1k" target="_blank" rel="noopener" data-key="open-yt">Open in YouTube ↗</a></p>
+
+        <p style="margin-top:10px"><b data-key="v3-title">Privacy & safety</b></p>
+        <iframe class="yt" src="https://www.youtube.com/embed/zJ2NqU3Cy2E" allowfullscreen></iframe>
+        <p><a href="https://www.youtube.com/watch?v=zJ2NqU3Cy2E" target="_blank" rel="noopener" data-key="open-yt">Open in YouTube ↗</a></p>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-col">
+      <!-- Messaging -->
+      <div class="panel" id="msgPanel">
+        <div class="topbar"><i class="fa-regular fa-message"></i> <span data-key="msg-title">Practice: Send a Message</span></div>
+        <div id="chat" class="chat-wrap">
+          <div class="msg">👋 <span data-key="bot-welcome">Hi! I’m a practice bot. Send any message and I’ll reply.</span></div>
+        </div>
+        <div class="chat-input">
+          <input id="chatInput" type="text" placeholder="Type here…">
+          <button id="sendBtn" data-key="send-btn">Send</button>
+        </div>
+      </div>
+
+      <!-- Privacy -->
+      <div class="panel" style="margin-top:20px">
+        <div class="topbar"><i class="fa-solid fa-user-shield"></i> <span data-key="priv-title">Privacy Settings Simulator</span></div>
+        <div class="privacy-grid">
+          <div class="form-row">
+            <label data-key="priv-lastseen">Last Seen</label>
+            <select id="lastSeen">
+              <option value="everyone" data-key="opt-everyone">Everyone</option>
+              <option value="contacts" data-key="opt-contacts">My Contacts</option>
+              <option value="nobody" data-key="opt-nobody">Nobody</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label data-key="priv-photo">Profile Photo</label>
+            <select id="photoVis">
+              <option value="everyone" data-key="opt-everyone">Everyone</option>
+              <option value="contacts" data-key="opt-contacts">My Contacts</option>
+              <option value="nobody" data-key="opt-nobody">Nobody</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label data-key="priv-about">About</label>
+            <select id="aboutVis">
+              <option value="everyone" data-key="opt-everyone">Everyone</option>
+              <option value="contacts" data-key="opt-contacts">My Contacts</option>
+              <option value="nobody" data-key="opt-nobody">Nobody</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label data-key="priv-status">Status Privacy</label>
+            <select id="statusVis">
+              <option value="contacts" data-key="opt-contacts">My Contacts</option>
+              <option value="except" data-key="opt-except">My contacts except…</option>
+              <option value="only" data-key="opt-only">Only share with…</option>
+              <option value="nobody" data-key="opt-nobody">Nobody</option>
+            </select>
+          </div>
+          <div class="form-row toggle">
+            <input type="checkbox" id="readReceipts" checked>
+            <label for="readReceipts" data-key="priv-reads">Read Receipts (blue ticks)</label>
+          </div>
+          <div class="form-row">
+            <label data-key="priv-upload">Upload Profile Photo</label>
+            <input type="file" id="upload" accept="image/*">
+            <span class="note" data-key="priv-note">Your uploaded photo will also show in the header (demo).</span>
+          </div>
+          <button class="save" id="savePriv" data-key="save">Save</button>
+        </div>
+      </div>
+
+      <!-- ===== NEW: Safety Quiz ===== -->
+      <div class="panel" style="margin-top:20px">
+        <div class="topbar"><i class="fa-solid fa-shield-halved"></i> <span data-key="quiz-title">Safety Quiz</span></div>
+        <div class="quiz" id="quizBox"></div>
+        <div class="q-actions" style="padding:0 16px 16px">
+          <button class="btn" id="checkQuiz" data-key="check-answers">Check answers</button>
+          <button class="btn" id="resetQuiz" data-key="reset">Reset</button>
+          <span id="quizResult" class="result"></span>
+        </div>
+      </div>
+
+      <!-- ===== NEW: Status Maker (phone UI) ===== -->
+      <div class="panel" style="margin-top:20px">
+        <div class="topbar"><i class="fa-regular fa-circle"></i> <span data-key="status-title">Create WhatsApp Status (Demo)</span></div>
+        <div class="status-wrap">
+          <div class="phone">
+            <div class="phone-header">STATUS</div>
+            <div id="statusCanvas" class="status-canvas">Type your status →</div>
+          </div>
+
+          <div>
+            <div class="status-controls">
+              <div class="row">
+                <input id="statusText" type="text" placeholder="Write status text…">
+                <button class="post" id="emojiBtn">😊</button>
+              </div>
+              <div class="row">
+                <div class="color" style="background:#222" data-c="#222"></div>
+                <div class="color" style="background:#075E54" data-c="#075E54"></div>
+                <div class="color" style="background:#1F8A70" data-c="#1F8A70"></div>
+                <div class="color" style="background:#6C63FF" data-c="#6C63FF"></div>
+                <div class="color" style="background:#FF6B6B" data-c="#FF6B6B"></div>
+                <div class="color" style="background:#FFB703" data-c="#FFB703"></div>
+              </div>
+              <div class="row" style="justify-content:space-between">
+                <span class="info" data-key="status-note">Your status visibility follows “Status Privacy”.</span>
+                <button class="post" id="postStatus" data-key="post">Post Status</button>
+              </div>
+            </div>
+
+            <div class="viewer-list" id="viewerList">
+              <!-- viewers (who can see) will appear here based on privacy -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== NEW: Hands-on Settings ===== -->
+      <div class="panel" style="margin-top:20px">
+        <div class="topbar"><i class="fa-solid fa-gear"></i> <span data-key="appset-title">Hands-on WhatsApp Settings</span></div>
+        <div class="sets">
+          <div class="switch">
+            <div>
+              <b data-key="darkmode">Dark Mode</b>
+              <div class="info" data-key="darkmode-info">Switch the app theme to dark.</div>
+            </div>
+            <label><input type="checkbox" id="darkModeToggle"></label>
+          </div>
+
+          <div class="switch">
+            <div>
+              <b data-key="backup">Chat Backup (Demo)</b>
+              <div class="info" data-key="backup-info">Create a simulated backup and restore it.</div>
+              <div class="progress"><div id="bkProgress"></div></div>
+            </div>
+            <div>
+              <button class="btn" id="startBackup" data-key="start">Start</button>
+              <button class="btn" id="restoreBackup" data-key="restore">Restore</button>
+            </div>
+          </div>
+
+          <div class="switch">
+            <div>
+              <b data-key="twostep">Two-step Verification</b>
+              <div class="info" data-key="twostep-info">Adds an extra PIN for better security.</div>
+            </div>
+            <label><input type="checkbox" id="twoStep"></label>
+          </div>
+
+          <div class="switch">
+            <div>
+              <b data-key="autodl">Media Auto-Download</b>
+              <div class="info" data-key="autodl-info">Save data by turning this off on mobile data.</div>
+            </div>
+            <label><input type="checkbox" id="autoDL" checked></label>
+          </div>
+
+          <div class="switch">
+            <div>
+              <b data-key="storage">Storage Manager</b>
+              <div class="info" data-key="storage-info">Learn how to free space safely.</div>
+            </div>
+            <button class="btn" id="showTips" data-key="tips">Tips</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer">© 2025 DigiSakhi | Digital Literacy for Every Woman</footer>
+</div>
+
+<!-- Call Overlay -->
+<div class="overlay" id="callOverlay" role="dialog" aria-modal="true">
+  <div class="call-card">
+    <div class="call-head">
+      <i class="fa-brands fa-whatsapp" style="color:#25D366"></i>
+      <div id="callName">Calling…</div>
+    </div>
+    <div class="call-body">
+      <img id="callAvatar" class="call-avatar" src="" alt="avatar">
+      <div id="callStatus" class="small">Connecting…</div>
+      <button class="end" id="endCall"><i class="fa-solid fa-phone-slash"></i> <span data-key="end-call">End Call</span></button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------- profile from localStorage ---------- */
+(function(){
+  const saved = localStorage.getItem("photo");
+  const pic = document.getElementById("profilePic");
+  const uname = localStorage.getItem("username");
+  if(saved){ pic.src = saved; }
+  else if(uname){ pic.src = "https://via.placeholder.com/100x100?text=" + uname.charAt(0).toUpperCase(); }
+})();
+
+/* ---------- contacts ---------- */
+const CONTACTS = [
+  {name:"Riya Sharma",   avatar:"https://i.pravatar.cc/100?img=5",   last:"Online"},
+  {name:"Aman Verma",    avatar:"https://i.pravatar.cc/100?img=14",  last:"Last seen 2m ago"},
+  {name:"Pooja Singh",   avatar:"https://i.pravatar.cc/100?img=47",  last:"Last seen 1h ago"},
+  {name:"Rahul Mehta",   avatar:"https://i.pravatar.cc/100?img=26",  last:"Online"},
+  {name:"Priya Nair",    avatar:"https://i.pravatar.cc/100?img=32",  last:"Last seen yesterday"},
+  {name:"Ankit Kumar",   avatar:"https://i.pravatar.cc/100?img=18",  last:"Last seen 5m ago"}
+];
+const $contacts = document.getElementById("contacts");
+function renderContacts(list){
+  $contacts.innerHTML = "";
+  list.forEach((c,i)=>{
+    const row = document.createElement("div");
+    row.className="contact";
+    row.innerHTML = `
+      <img src="${c.avatar}" alt="">
+      <div class="c-meta">
+        <div class="c-name">${c.name}</div>
+        <div class="c-last">${c.last}</div>
+      </div>
+      <button class="call-btn" aria-label="Video call ${c.name}" data-ix="${i}">
+        <i class="fa-solid fa-video"></i>
+      </button>`;
+    $contacts.appendChild(row);
+  });
+}
+renderContacts(CONTACTS);
+document.getElementById("search").addEventListener("input",e=>{
+  const q = e.target.value.toLowerCase();
+  renderContacts(CONTACTS.filter(c=>c.name.toLowerCase().includes(q)));
+});
+$contacts.addEventListener("click",e=>{
+  const btn = e.target.closest(".call-btn");
+  if(!btn) return;
+  startCall(CONTACTS[+btn.dataset.ix]);
+});
+
+/* ---------- call overlay ---------- */
+const overlay = document.getElementById("callOverlay");
+const callName = document.getElementById("callName");
+const callAvatar = document.getElementById("callAvatar");
+const callStatus = document.getElementById("callStatus");
+const endCall = document.getElementById("endCall");
+let callTimer;
+function startCall(c){
+  callName.textContent = "Calling " + c.name;
+  callAvatar.src = c.avatar;
+  callStatus.textContent = "Ringing…";
+  overlay.style.display = "flex";
+  clearTimeout(callTimer);
+  callTimer = setTimeout(()=>{ callStatus.textContent = "Connected. (demo)"; }, 1600);
+}
+endCall.addEventListener("click", ()=>{
+  overlay.style.display = "none";
+  clearTimeout(callTimer);
+});
+
+/* ---------- messaging bot ---------- */
+const chat = document.getElementById("chat");
+const chatInput = document.getElementById("chatInput");
+document.getElementById("sendBtn").addEventListener("click", sendMsg);
+chatInput.addEventListener("keydown",e=>{if(e.key==="Enter") sendMsg();});
+function sendMsg(){
+  const text = chatInput.value.trim();
+  if(!text) return;
+  addBubble(text,true);
+  chatInput.value="";
+  setTimeout(()=> addBubble("Thanks! Message received. ✅", false), 700);
+}
+function addBubble(text, mine){
+  const d=document.createElement("div");
+  d.className = "msg" + (mine ? " me":"");
+  d.textContent = text;
+  chat.appendChild(d);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+/* ---------- privacy + upload ---------- */
+const fields = ["lastSeen","photoVis","aboutVis","statusVis"];
+const readReceipts = document.getElementById("readReceipts");
+const upload = document.getElementById("upload");
+const saveBtn = document.getElementById("savePriv");
+(function(){
+  const saved = JSON.parse(localStorage.getItem("ws_privacy")||"{}");
+  fields.forEach(k=>{ if(saved[k]) document.getElementById(k).value = saved[k]; });
+  if(typeof saved.readReceipts==="boolean") readReceipts.checked = saved.readReceipts;
+})();
+saveBtn.addEventListener("click", ()=>{
+  const data = { readReceipts: readReceipts.checked };
+  fields.forEach(k=> data[k] = document.getElementById(k).value );
+  localStorage.setItem("ws_privacy", JSON.stringify(data));
+  alert("✅ Privacy settings saved (demo).");
+});
+upload.addEventListener("change", function(){
+  const f = this.files?.[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = (e)=>{
+    const imgData = e.target.result;
+    document.getElementById("profilePic").src = imgData;
+    localStorage.setItem("photo", imgData);
+    alert("✅ Profile photo updated (demo).");
+  };
+  r.readAsDataURL(f);
+});
+
+/* ---------- NEW: Safety Quiz ---------- */
+const QUIZ = [
+  {q:"Never share your OTP with anyone.", a:["True","False"], c:0},
+  {q:"A message says ‘click to win ₹5000’. What do you do?", a:["Click link","Ignore/Report"], c:1},
+  {q:"Unknown international call rings you at night. You should:", a:["Call back","Block/Ignore"], c:1},
+  {q:"A parcel link asks for card PIN:", a:["Enter quickly","Do not enter"], c:1},
+  {q:"Blue ticks mean:", a:["Message delivered","Message read"], c:1},
+  {q:"Is it safe to install apps from random links?", a:["Yes","No"], c:1},
+  {q:"To stop someone messaging you:", a:["Block the contact","Send password"], c:0},
+];
+const QUIZ_T = {
+  hi:[
+    "अपना ओटीपी किसी से साझा न करें।",
+    "संदेश कहता है ‘₹5000 जीतने के लिए क्लिक करें’। क्या करें?",
+    "रात में अनजान अंतरराष्ट्रीय कॉल आती है। आपको क्या करना चाहिए:",
+    "एक पार्सल लिंक कार्ड का पिन मांगता है:",
+    "नीले टिक का मतलब:",
+    "रैंडम लिंक से ऐप इंस्टॉल करना सुरक्षित है?",
+    "किसी को संदेश भेजने से रोकने के लिए:",
+  ],
+  mr:[
+    "तुमचा OTP कुणालाही देऊ नका.",
+    "मेसेज म्हणतो ‘₹5000 जिंका, क्लिक करा’. काय कराल?",
+    "रात्री अज्ञात आंतरराष्ट्रीय कॉल येते. काय करावे:",
+    "पार्सल लिंक कार्डचा PIN मागते:",
+    "निळ्या टिकचा अर्थ:",
+    "रँडम लिंकवरून अॅप इंस्टॉल करणे सुरक्षित आहे?",
+    "कोणाला मेसेज पाठवणे थांबवण्यासाठी:",
+  ]
+};
+function buildQuiz(){
+  const box=document.getElementById("quizBox");
+  box.innerHTML="";
+  QUIZ.forEach((it,idx)=>{
+    const div=document.createElement("div");
+    div.className="q-item";
+    div.innerHTML=`<b>${it.q}</b>
+      ${it.a.map((t,i)=>`<label><input type="radio" name="q${idx}" value="${i}"> ${t}</label>`).join("")}`;
+    box.appendChild(div);
+  });
+}
+buildQuiz();
+document.getElementById("checkQuiz").addEventListener("click",()=>{
+  let score=0;
+  QUIZ.forEach((it,i)=>{
+    const picked=document.querySelector(`input[name="q${i}"]:checked`);
+    const item=document.querySelectorAll(".q-item")[i];
+    item.classList.remove("correct","wrong");
+    if(picked && +picked.value===it.c){ score++; item.classList.add("correct"); }
+    else item.classList.add("wrong");
+  });
+  document.getElementById("quizResult").textContent=`Score: ${score}/${QUIZ.length}`;
+});
+document.getElementById("resetQuiz").addEventListener("click",()=>{
+  buildQuiz();
+  document.getElementById("quizResult").textContent="";
+});
+
+/* ---------- NEW: Status Maker ---------- */
+const statusCanvas=document.getElementById("statusCanvas");
+const statusText=document.getElementById("statusText");
+document.querySelectorAll(".color").forEach(c=>{
+  c.addEventListener("click", ()=> statusCanvas.style.background = c.dataset.c);
+});
+document.getElementById("emojiBtn").addEventListener("click",()=>{
+  statusText.value += " 😊";
+  updateStatusPreview();
+});
+statusText.addEventListener("input", updateStatusPreview);
+function updateStatusPreview(){ statusCanvas.textContent = statusText.value || "Type your status →"; }
+
+const VIEWERS = [
+  {name:"Riya",  avatar:"https://i.pravatar.cc/80?img=5"},
+  {name:"Aman",  avatar:"https://i.pravatar.cc/80?img=14"},
+  {name:"Pooja", avatar:"https://i.pravatar.cc/80?img=47"},
+  {name:"Rahul", avatar:"https://i.pravatar.cc/80?img=26"},
+  {name:"Priya", avatar:"https://i.pravatar.cc/80?img=32"},
+];
+function showViewers(){
+  const list=document.getElementById("viewerList");
+  const p=JSON.parse(localStorage.getItem("ws_privacy")||"{}");
+  const mode=p.statusVis||"contacts";
+  list.innerHTML="";
+  if(mode==="nobody"){
+    list.innerHTML = `<p class="info" data-key="status-nobody">No one can see your status (per privacy).</p>`;
+    return;
+  }
+  const who = (mode==="only") ? VIEWERS.slice(0,2)
+            : (mode==="except") ? VIEWERS.slice(2)
+            : VIEWERS;
+  who.forEach(v=>{
+    const row=document.createElement("div"); row.className="viewer";
+    row.innerHTML=`<img src="${v.avatar}"><div>${v.name} <span style="color:#999">• can view</span></div>`;
+    list.appendChild(row);
+  });
+}
+showViewers();
+document.getElementById("postStatus").addEventListener("click",()=>{
+  if(!statusText.value.trim()){ alert("Type a status first!"); return; }
+  alert("✅ Status posted (demo). Viewers list updated below.");
+  showViewers();
+});
+
+/* ---------- NEW: Hands-on Settings ---------- */
+const SETTINGS_KEY="ws_settings";
+const darkToggle=document.getElementById("darkModeToggle");
+const twoStep=document.getElementById("twoStep");
+const autoDL=document.getElementById("autoDL");
+const bkBar=document.getElementById("bkProgress");
+function loadSettings(){
+  const s=JSON.parse(localStorage.getItem(SETTINGS_KEY)||"{}");
+  darkToggle.checked=!!s.dark;
+  twoStep.checked=!!s.two;
+  autoDL.checked = s.autoDL!==undefined ? s.autoDL : true;
+  applyDark(s.dark);
+}
+function saveSettings(){
+  const s={dark:darkToggle.checked,two:twoStep.checked,autoDL:autoDL.checked};
+  localStorage.setItem(SETTINGS_KEY,JSON.stringify(s));
+}
+function applyDark(on){ document.body.style.background = on ? "#0f172a" : "var(--bg)"; document.body.style.color = on ? "#e2e8f0" : "var(--text)"; }
+darkToggle.addEventListener("change",()=>{ applyDark(darkToggle.checked); saveSettings(); });
+twoStep.addEventListener("change",()=>{ saveSettings(); alert(twoStep.checked?"✅ Two-step enabled (demo).":"ℹ️ Two-step disabled."); });
+autoDL.addEventListener("change",()=>{ saveSettings(); alert(autoDL.checked?"📥 Auto-download ON (demo).":"📴 Auto-download OFF."); });
+document.getElementById("startBackup").addEventListener("click",()=>{
+  bkBar.style.width="0%";
+  let p=0; const t=setInterval(()=>{ p+=20; bkBar.style.width=p+"%"; if(p>=100){clearInterval(t); localStorage.setItem("ws_backup","ok"); alert("✅ Backup complete (demo).");}},400);
+});
+document.getElementById("restoreBackup").addEventListener("click",()=>{
+  if(localStorage.getItem("ws_backup")==="ok") alert("✅ Backup restored (demo).");
+  else alert("ℹ️ No backup found.");
+});
+document.getElementById("showTips").addEventListener("click",()=>{
+  alert("Storage Tips:\n• Delete large videos from groups\n• Clear forwarded media\n• Use ‘Manage Storage’ to review chats\n• Backup before cleaning");
+});
+loadSettings();
+
+/* ---------- Multi-language ---------- */
+const T={
+  hi:{
+    "tagline":"हर महिला के लिए डिजिटल कौशल",
+    "hero-title":"व्हाट्सऐप मास्टरी",
+    "hero-text":"संदेश भेजना, वीडियो कॉल करना और प्राइवेसी सेटिंग सुरक्षित रूप से सीखें।",
+    "contacts-title":"कॉन्टैक्ट (कॉल करने के लिए टैप करें)","contacts-sub":"कॉन्टैक्ट चुनें और वीडियो आइकन दबाएँ।",
+    "videos-title":"कदम-दर-कदम वीडियो","videos-sub":"यदि एम्बेड नहीं चले तो “YouTube में खोलें” दबाएँ।",
+    "v1-title":"मैसेज भेजना","v2-title":"वीडियो कॉल करना","v3-title":"प्राइवेसी व सुरक्षा","open-yt":"YouTube में खोलें ↗",
+    "msg-title":"अभ्यास: मैसेज भेजें","bot-welcome":"नमस्ते! मैं प्रैक्टिस बॉट हूँ — कोई भी संदेश भेजें, मैं जवाब दूँगा।","send-btn":"भेजें",
+    "priv-title":"प्राइवेसी सेटिंग्स सिम्युलेटर","priv-lastseen":"लास्ट सीन","priv-photo":"प्रोफ़ाइल फोटो","priv-about":"अबाउट",
+    "priv-status":"स्टेटस प्राइवेसी","priv-reads":"रीड रिसीट्स (नीले टिक)","priv-upload":"प्रोफ़ाइल फोटो अपलोड करें",
+    "priv-note":"अपलोड किया फोटो हेडर में भी दिखेगा (डेमो)।","opt-everyone":"Everyone","opt-contacts":"My Contacts",
+    "opt-nobody":"Nobody","opt-except":"मेरे कॉन्टैक्ट्स सिवाय…","opt-only":"केवल साझा करें…","save":"सेव","end-call":"कॉल खत्म करें",
+    /* NEW blocks */
+    "quiz-title":"सुरक्षा क्विज़","check-answers":"उत्तर जाँचें","reset":"रीसेट",
+    "status-title":"व्हाट्सऐप स्टेटस बनाएं (डेमो)","status-note":"आपका स्टेटस ‘Status Privacy’ के अनुसार दिखेगा।","post":"पोस्ट करें",
+    "status-nobody":"प्राइवेसी के कारण कोई भी आपका स्टेटस नहीं देख सकेगा।",
+    "appset-title":"हैंड्स-ऑन व्हाट्सऐप सेटिंग","darkmode":"डार्क मोड","darkmode-info":"ऐप थीम को डार्क करें।",
+    "backup":"चैट बैकअप (डेमो)","backup-info":"सिम्युलेटेड बैकअप बनाएँ और रिस्टोर करें।","start":"शुरू करें","restore":"रिस्टोर",
+    "twostep":"टू-स्टेप वेरिफिकेशन","twostep-info":"अतिरिक्त PIN से सुरक्षा बढ़ती है।",
+    "autodl":"मीडिया ऑटो-डाउनलोड","autodl-info":"मोबाइल डेटा पर इसे बंद रखें तो डाटा बचेगा।",
+    "storage":"स्टोरेज मैनेजर","storage-info":"सुरक्षित तरीके से जगह खाली करना सीखें।","tips":"टिप्स"
+  },
+  mr:{
+    "tagline":"प्रत्येक महिलेसाठी डिजिटल कौशल्ये",
+    "hero-title":"व्हॉट्सअॅप मास्टरी",
+    "hero-text":"मेसेज पाठवणे, व्हिडिओ कॉल आणि प्रायव्हसी सुरक्षितरीत्या शिका.",
+    "contacts-title":"संपर्क (कॉलसाठी टॅप करा)","contacts-sub":"संपर्क निवडा आणि व्हिडिओ आयकॉन दाबा.",
+    "videos-title":"पायरी-पायरीने व्हिडिओ","videos-sub":"एंबेड नसेल चालले तर “YouTube मध्ये उघडा”.",
+    "v1-title":"मेसेज पाठवणे","v2-title":"व्हिडिओ कॉल","v3-title":"प्रायव्हसी व सुरक्षा","open-yt":"YouTube मध्ये उघडा ↗",
+    "msg-title":"सराव: मेसेज पाठवा","bot-welcome":"नमस्कार! मी प्रॅक्टिस बॉट आहे — काहीही लिहा, मी उत्तर देईन.","send-btn":"पाठवा",
+    "priv-title":"प्रायव्हसी सेटिंग्ज सिम्युलेटर","priv-lastseen":"लास्ट सीन","priv-photo":"प्रोफाइल फोटो","priv-about":"अबाउट",
+    "priv-status":"स्टेटस प्रायव्हसी","priv-reads":"रीड रिसीट्स (निळे टिक)","priv-upload":"प्रोफाइल फोटो अपलोड करा",
+    "priv-note":"अपलोड फोटो हेडरमध्येही दिसेल (डेमो).","opt-everyone":"Everyone","opt-contacts":"My Contacts",
+    "opt-nobody":"Nobody","opt-except":"माझे कॉन्टॅक्ट्स वगळता…","opt-only":"फक्त शेअर करा…","save":"सेव्ह","end-call":"कॉल बंद करा",
+    /* NEW blocks */
+    "quiz-title":"सुरक्षा प्रश्नोत्तरी","check-answers":"उत्तरे तपासा","reset":"रीसेट",
+    "status-title":"व्हॉट्सअॅप स्टेटस तयार करा (डेमो)","status-note":"तुमचा स्टेटस ‘Status Privacy’ प्रमाणे दिसेल.","post":"पोस्ट",
+    "status-nobody":"प्रायव्हसीमुळे कोणीही तुमचा स्टेटस पाहू शकणार नाही.",
+    "appset-title":"हँड्स-ऑन व्हॉट्सअॅप सेटिंग","darkmode":"डार्क मोड","darkmode-info":"अॅप थीम डार्क करा.",
+    "backup":"चॅट बॅकअप (डेमो)","backup-info":"सिम्युलेटेड बॅकअप तयार करा व रिस्टोर करा.","start":"सुरू","restore":"रिस्टोर",
+    "twostep":"टू-स्टेप व्हेरिफिकेशन","twostep-info":"अधिक सुरक्षा साठी PIN.",
+    "autodl":"मीडिया ऑटो-डाउनलोड","autodl-info":"मोबाइल डेटावर हे बंद ठेवल्यास डेटा वाचतो.",
+    "storage":"स्टोरेज मॅनेजर","storage-info":"जागा सुरक्षितपणे मोकळी कशी करावी.","tips":"टीप्स"
+  }
+};
+document.getElementById("langSelect").addEventListener("change", e=>{
+  const lang = e.target.value, t = T[lang]; if(!t) return;
+  Object.entries(t).forEach(([k,v])=>{
+    document.querySelectorAll(`[data-key="${k}"]`).forEach(el=> el.innerText=v);
+  });
+  /* translate quiz questions text for HI/MR on the fly */
+  if(lang==="hi"){ QUIZ.forEach((q,i)=> q.q = QUIZ_T.hi[i]); }
+  else if(lang==="mr"){ QUIZ.forEach((q,i)=> q.q = QUIZ_T.mr[i]); }
+  else { // reset to English
+    const base=["Never share your OTP with anyone.","A message says ‘click to win ₹5000’. What do you do?","Unknown international call rings you at night. You should:","A parcel link asks for card PIN:","Blue ticks mean:","Is it safe to install apps from random links?","To stop someone messaging you:"];
+    QUIZ.forEach((q,i)=> q.q = base[i]);
+  }
+  buildQuiz();
+});
+</script>
+</body>
+</html>

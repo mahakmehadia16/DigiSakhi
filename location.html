@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DigiSakhi | Location & Safety</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --mblue:#2a72ff; --mblue-dark:#1d4fd7; --mgreen:#34c759;
+  --bg:#f5f9ff; --text:#1c1c1f; --muted:#616774; --card:#ffffff;
+  --shadow:0 6px 18px rgba(0,0,0,0.08); font-family:'Inter',sans-serif;
+}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text)}
+.header{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:#fff;box-shadow:var(--shadow);position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{height:60px;border-radius:12px}
+.title{font-weight:900;font-size:1.8rem;background:linear-gradient(90deg,var(--mblue),var(--mgreen));-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav{display:flex;align-items:center;gap:12px}
+.lang-select,.theme-btn{padding:10px 14px;border-radius:12px;border:1px solid #d7d9df;background:#fff;font-weight:700;cursor:pointer}
+.profile{position:relative}
+.profile img{height:44px;width:44px;border-radius:50%;object-fit:cover;cursor:pointer}
+.dropdown{position:absolute;right:0;top:55px;background:#fff;display:none;border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
+.profile:hover .dropdown{display:block}
+.dropdown a{display:block;padding:10px 14px;text-decoration:none;color:var(--text);font-weight:700}
+.dropdown a:hover{background:var(--mblue);color:#fff}
+.hero{padding:28px 24px;border-radius:20px;background:linear-gradient(135deg,var(--mblue),var(--mgreen));color:#fff;margin:24px;display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center}
+.hero h1{font-size:2.2rem;font-weight:900;margin:0 0 6px}
+.hero p{font-size:1.05rem;opacity:.95;margin:0}
+.hero-art{width:100%;height:auto;filter:drop-shadow(0 8px 24px rgba(0,0,0,.25));border-radius:16px;background:rgba(255,255,255,.1);padding:8px}
+.progress-wrap{margin-top:14px;display:flex;align-items:center;gap:12px}
+.progress{flex:1;height:12px;background:rgba(255,255,255,.35);border-radius:999px;overflow:hidden}
+.progress>span{display:block;height:100%;width:0;background:#fff;transition:.3s}
+.badges{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.badge{padding:6px 10px;background:rgba(255,255,255,.35);border-radius:14px;font-weight:800;color:#fff}
+.section{margin:26px}
+.section-title{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:1.2rem;font-weight:900;color:#0f42d6}
+.audio-btn{border:1px solid #e2e5ef;background:#fff;border-radius:999px;padding:6px 10px;cursor:pointer;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{background:var(--card);border-radius:20px;padding:18px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.04)}
+.card .icon{font-size:32px;color:var(--mblue)}
+.check{padding-left:18px}.check li{margin:8px 0}
+.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#f4f6ff;border:1px solid #e4e8fb;font-weight:800;color:#0f42d6}
+.right{background:#eafff1!important;border-color:#22c55e!important;color:#14532d!important}
+.wrong{background:#fff1f1!important;border-color:#ef4444!important;color:#7f1d1d!important}
+.icon-btn{border:none;background:#0f42d6;color:#fff;padding:10px 14px;border-radius:12px;font-weight:800;cursor:pointer}
+.icon-btn:hover{background:#0b35b2}
+.q-item{border:1px solid #e7e9f2;border-radius:12px;padding:12px;margin:10px 0}
+.dark{--bg:#0f1115;--text:#f3f3f5;--muted:#c4c6cf;--card:#1a1c23;--shadow:0 8px 26px rgba(0,0,0,.5)}
+.dark .title{color:#fff;-webkit-text-fill-color:unset}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="brand">
+    <a href="ds.html"><img src="digisakhi.png" class="logo" alt="DigiSakhi"></a>
+    <div class="title">DigiSakhi</div>
+  </div>
+  <div class="nav">
+    <select id="langSelect" class="lang-select">
+      <option value="en">English</option><option value="hi">हिन्दी</option><option value="mr">मराठी</option>
+    </select>
+    <button id="themeBtn" class="theme-btn">🌙</button>
+    <div class="profile">
+      <img id="avatar" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile">
+      <div class="dropdown">
+        <a href="profile.html">My Profile</a><a href="settings.html">Settings</a><a href="login.html">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="hero">
+  <div>
+    <h1 data-key="hero-title">Use Location (GPS) Safely</h1>
+    <p data-key="hero-text">Find places, share location safely, and access Maharashtra emergency services.</p>
+    <div class="progress-wrap"><div class="progress"><span id="progressBar"></span></div><strong id="progressText">0%</strong></div>
+    <div class="badges" id="badges"></div>
+  </div>
+  <svg class="hero-art" viewBox="0 0 560 340" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0%" stop-color="#cde1ff"/><stop offset="100%" stop-color="#e9ffe9"/></linearGradient></defs>
+    <rect x="0" y="0" width="560" height="340" rx="20" fill="url(#g1)"/>
+    <rect x="60" y="40" width="180" height="260" rx="24" fill="#0f42d6"/>
+    <rect x="72" y="60" width="156" height="200" rx="12" fill="#ffffff"/>
+    <rect x="80" y="70" width="140" height="40" rx="6" fill="#eef3ff"/>
+    <rect x="80" y="120" width="140" height="40" rx="6" fill="#eefbea"/>
+    <rect x="80" y="170" width="140" height="40" rx="6" fill="#eef3ff"/>
+    <circle cx="150" cy="140" r="14" fill="#ff3159"/><circle cx="150" cy="140" r="5" fill="#fff"/>
+    <path d="M330 180 q40-60 120-40 q40 10 40 50 q0 40-50 60 q-60 20-120-5 q-30-12-30-30 q0-20 40-35 z" fill="#9fe5b6"/>
+    <text x="340" y="210" font-size="18" fill="#0b3a1f" font-weight="800">Maharashtra</text>
+  </svg>
+</section>
+
+<section class="section">
+  <div class="section-title"><button class="audio-btn" data-read="intro">🔊</button><span data-key="intro-title">What is Location (GPS)?</span></div>
+  <div class="grid">
+    <div class="card"><div class="icon">📍</div><h3 data-key="gps1">Your phone uses GPS to know where you are.</h3><p data-key="gps1d">Maps, WhatsApp, Ola and Weather use it.</p></div>
+    <div class="card"><div class="icon">🛰</div><h3 data-key="gps2">How GPS works?</h3><p data-key="gps2d">Phone talks to satellites to find position.</p></div>
+    <div class="card"><div class="icon">🔒</div><h3 data-key="gps3">You control it</h3><p data-key="gps3d">Turn Location ON/OFF anytime.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-title"><button class="audio-btn" data-read="maha">🔊</button><span data-key="maha-title">Why Women in Maharashtra Need Location</span></div>
+  <div class="grid">
+    <div class="card"><div class="icon">🏥</div><h3 data-key="mh1">Find nearest hospital</h3><p data-key="mh1d">GH/PHC appear quickly on Maps.</p></div>
+    <div class="card"><div class="icon">👮‍♀️</div><h3 data-key="mh2">Locate police station</h3><p data-key="mh2d">Useful for emergencies and help.</p></div>
+    <div class="card"><div class="icon">🚌</div><h3 data-key="mh3">MSRTC & Railway</h3><p data-key="mh3d">Find bus stops and stations.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-title"><button class="audio-btn" data-read="toggle">🔊</button><span data-key="toggle-title">How to Turn Location ON / OFF</span></div>
+  <div class="grid">
+    <div class="card"><h3>Android</h3><ol><li data-key="and1">Swipe down from top</li><li data-key="and2">Tap the Location icon</li><li data-key="and3">Blue = ON, Grey = OFF</li><li data-key="and4">Long press → Location settings</li></ol></div>
+    <div class="card"><h3>iPhone</h3><ol><li data-key="ip1">Open Settings</li><li data-key="ip2">Privacy & Security</li><li data-key="ip3">Location Services</li><li data-key="ip4">Toggle ON / OFF</li></ol></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-title"><button class="audio-btn" data-read="g1">🔊</button><span data-key="g1-title">Game: Turn Location ON</span></div>
+  <div class="card" style="text-align:center;padding:20px">
+    <p data-key="g1-info">Tap the correct button to turn Location ON.</p>
+    <div style="display:flex;justify-content:center;gap:14px;margin-top:16px">
+      <button class="icon-btn" data-btn="wifi">WiFi</button>
+      <button class="icon-btn" data-btn="data">Mobile Data</button>
+      <button class="icon-btn" data-btn="loc" id="locBtn">Location</button>
+      <button class="icon-btn" data-btn="bt">Bluetooth</button>
+    </div>
+    <div id="g1Msg" style="margin-top:14px;font-weight:800"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-title"><button class="audio-btn" data-read="g2">🔊</button><span data-key="g2-title">Game: Which one is the Police Station?</span></div>
+  <div class="grid">
+    <div class="card guess" data-right="1" style="text-align:center"><img src="https://cdn-icons-png.flaticon.com/512/2965/2965879.png" style="height:70px" alt=""><h4>Maharashtra Police Station</h4></div>
+    <div class="card guess" data-right="0" style="text-align:center"><img src="https://cdn-icons-png.flaticon.com/512/1946/1946433.png" style="height:70px" alt=""><h4>Garden</h4></div>
+    <div class="card guess" data-right="0" style="text-align:center"><img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" style="height:70px" alt=""><h4>Cafe</h4></div>
+  </div>
+  <p id="g2Msg" style="margin-top:10px;font-weight:800"></p>
+</section>
+
+<section class="section">
+  <div class="section-title"><button class="audio-btn" data-read="live">🔊</button><span data-key="live-title">Hands-On: Share Live Location</span></div>
+  <div class="card" style="padding:20px">
+    <p data-key="live-info">Tap to simulate sharing your live location.</p>
+    <button id="liveBtn" class="icon-btn" style="margin-top:8px">Share Live Location</button>
+    <div id="livePreview" class="tag" style="display:none;margin-top:12px"><span data-key="live-shared">Live Location Shared (15 minutes)</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-title"><button class="audio-btn" data-read="perm">🔊</button><span data-key="perm-title">Practice: Location Permission</span></div>
+  <div class="card" style="padding:20px">
+    <p data-key="perm-info">Choose the safest option:</p>
+    <div style="border:2px solid #dce2f3;padding:14px;border-radius:16px;background:#f7faff">
+      <p><b>Maha Shakti App</b> wants access to your location.</p>
+      <label class="tag"><input type="radio" name="perm" value="best"> Allow only while using the app</label>
+      <label class="tag"><input type="radio" name="perm" value="ok"> Allow once</label>
+      <label class="tag"><input type="radio" name="perm" value="bad"> Don’t Allow</label>
+    </div>
+    <button class="icon-btn" id="permCheck" style="margin-top:10px">Check</button>
+    <div id="permMsg" style="margin-top:12px;font-weight:800"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-title"><button class="audio-btn" data-read="quiz">🔊</button><span data-key="quiz-title">Mini Quiz</span></div>
+  <div class="card" id="quizBox"></div>
+  <div style="margin-top:12px;display:flex;gap:10px">
+    <button class="icon-btn" id="quizCheck" data-key="check">Check</button>
+    <button class="icon-btn" id="quizReset" data-key="reset">Reset</button>
+    <span class="tag" id="quizScore">0/0</span>
+  </div>
+</section>
+
+<footer class="section" style="text-align:center;color:var(--muted)">© 2025 DigiSakhi | Location Safety for Women in Maharashtra</footer>
+
+<script>
+(function(){var saved=localStorage.getItem("photo");var avatar=document.getElementById("avatar");var uname=localStorage.getItem("username");if(saved){avatar.src=saved;}else if(uname){avatar.src="https://via.placeholder.com/100x100?text="+uname.charAt(0).toUpperCase();}})();
+
+var themeBtn=document.getElementById("themeBtn");
+function setTheme(m){if(m==="dark"){document.documentElement.classList.add("dark");themeBtn.textContent="☀️";}else{document.documentElement.classList.remove("dark");themeBtn.textContent="🌙";}localStorage.setItem("theme",m);}
+themeBtn.addEventListener("click",function(){var c=document.documentElement.classList.contains("dark")?"dark":"light";setTheme(c==="dark"?"light":"dark");});
+setTheme(localStorage.getItem("theme")||"light");
+
+/* sounds */
+var audioCtx;
+function tone(type,freq,ms,gain){try{if(!audioCtx){audioCtx=new (window.AudioContext||window.webkitAudioContext)();}var o=audioCtx.createOscillator();var g=audioCtx.createGain();o.type=type||"sine";o.frequency.value=freq||900;g.gain.value=typeof gain==="number"?gain:0.05;o.connect(g);g.connect(audioCtx.destination);o.start();setTimeout(function(){o.stop();},ms||120);}catch(e){}}
+function sGood(){tone("sine",900,130,0.06);} function sBad(){tone("square",210,170,0.06);}
+
+/* progress */
+var progressBar=document.getElementById("progressBar");
+var progressText=document.getElementById("progressText");
+var badgesBox=document.getElementById("badges");
+var KEYS=["loc_g1","loc_g2","loc_g3","loc_quiz"];
+function getProgress(){var c=0;for(var i=0;i<KEYS.length;i++){if(localStorage.getItem(KEYS[i])==="1"){c++;}}return Math.round(c/KEYS.length*100);}
+function updateProgress(){var p=getProgress();progressBar.style.width=p+"%";progressText.textContent=p+"%";badgesBox.innerHTML="";if(p>=25){badgesBox.innerHTML+='<span class="badge">🥉 Bronze</span>';}if(p>=50){badgesBox.innerHTML+='<span class="badge">🥈 Silver</span>';}if(p>=100){badgesBox.innerHTML+='<span class="badge">🥇 Gold</span>';}}
+updateProgress();
+
+/* Game 1 */
+var g1Buttons=document.querySelectorAll("[data-btn]");
+for(var i1=0;i1<g1Buttons.length;i1++){g1Buttons[i1].addEventListener("click",function(){var ok=this.getAttribute("data-btn")==="loc";var msg=document.getElementById("g1Msg");msg.textContent=ok?"Location Enabled Successfully!":"Try again: tap the Location button.";msg.className="tag "+(ok?"right":"wrong");if(ok){localStorage.setItem("loc_g1","1");sGood();updateProgress();}else{sBad();}});}
+
+/* Game 2 */
+var guessCards=document.querySelectorAll(".guess");
+for(var i2=0;i2<guessCards.length;i2++){guessCards[i2].addEventListener("click",function(){var right=this.getAttribute("data-right")==="1";for(var j=0;j<guessCards.length;j++){guessCards[j].classList.remove("right");guessCards[j].classList.remove("wrong");}
+var msg=document.getElementById("g2Msg");if(right){this.classList.add("right");msg.textContent="Correct! This is a police station.";localStorage.setItem("loc_g2","1");sGood();updateProgress();}else{this.classList.add("wrong");msg.textContent="Nope! Try the police icon.";sBad();}});}
+
+/* Live location (g3) */
+document.getElementById("liveBtn").addEventListener("click",function(){document.getElementById("livePreview").style.display="inline-block";localStorage.setItem("loc_g3","1");sGood();updateProgress();});
+
+/* Permission */
+document.getElementById("permCheck").addEventListener("click",function(){var pick=document.querySelector('input[name="perm"]:checked');var out=document.getElementById("permMsg");if(!pick){out.textContent="Select an option.";return;}var v=pick.value;if(v==="best"){out.textContent="Best choice! Allow only while using the app.";out.className="tag right";sGood();}else if(v==="ok"){out.textContent="Okay for one-time use.";out.className="tag";}else{out.textContent="Not recommended. App may not work.";out.className="tag wrong";sBad();}});
+
+/* Quiz */
+var QUIZ=[{q:"What enables maps to show your position?",a:["Bluetooth","GPS"],c:1},{q:"Safe way to share your location:",a:["Post on Facebook","Share with trusted family only"],c:1},{q:"Maharashtra emergency number:",a:["112","999"],c:0},{q:"You should turn ON location for:",a:["Weather, Maps","Random apps"],c:0}];
+var quizBox=document.getElementById("quizBox");
+function renderQuiz(){quizBox.innerHTML="";for(var i=0;i<QUIZ.length;i++){var it=QUIZ[i];var d=document.createElement("div");d.className="q-item";d.innerHTML="<b>"+it.q+"</b> "+
+'<label class="tag"><input type="radio" name="q'+i+'" value="0"> '+it.a[0]+"</label> "+
+'<label class="tag"><input type="radio" name="q'+i+'" value="1"> '+it.a[1]+"</label>";quizBox.appendChild(d);}}
+renderQuiz();
+document.getElementById("quizCheck").addEventListener("click",function(){var sc=0;for(var i=0;i<QUIZ.length;i++){var pick=document.querySelector('input[name="q'+i+'"]:checked');if(pick && Number(pick.value)===QUIZ[i].c){sc++;sGood();}else{sBad();}}document.getElementById("quizScore").textContent=sc+"/"+QUIZ.length;if(sc===QUIZ.length){localStorage.setItem("loc_quiz","1");updateProgress();}});
+document.getElementById("quizReset").addEventListener("click",function(){renderQuiz();document.getElementById("quizScore").textContent="0/0";localStorage.removeItem("loc_quiz");updateProgress();});
+
+/* Audio */
+var READ={en:{intro:"GPS helps your phone know where you are. Use it only when needed.",maha:"In Maharashtra, location helps find hospitals, police stations and safe routes.",toggle:"Turn Location on or off from quick settings.",g1:"Tap the correct button to enable Location.",g2:"Pick the card that shows a police station.",live:"Share live location only with trusted family for a short time.",perm:"Choose the safest permission: Allow only while using the app.",quiz:"Quick check of what you learned."},
+hi:{intro:"GPS आपके फोन को आपकी लोकेशन बताता है। इसे जरूरत पर ही चालू रखें।",maha:"महाराष्ट्र में लोकेशन से अस्पताल, पुलिस स्टेशन और सुरक्षित मार्ग मिलते हैं।",toggle:"क्विक सेटिंग्स से Location ON/OFF करें।",g1:"लोकेशन चालू करने के लिए सही बटन दबाएँ।",g2:"पुलिस स्टेशन दिखाने वाला कार्ड चुनें।",live:"लाइव लोकेशन केवल भरोसेमंद परिवार के साथ थोड़े समय के लिए साझा करें।",perm:"सबसे सुरक्षित अनुमति: केवल ऐप उपयोग के दौरान Allow करें।",quiz:"सीखी हुई चीज़ों की त्वरित जाँच।"},
+mr:{intro:"GPS तुमचा फोन कुठे आहे ते ओळखतो. गरज असेल तेव्हाच चालू ठेवा.",maha:"महाराष्ट्रात लोकेशनने हॉस्पिटल, पोलिस स्टेशन व सुरक्षित मार्ग सापडतात.",toggle:"क्विक सेटिंग्जमधून Location ON/OFF करा.",g1:"लोकेशन सुरू करण्यासाठी योग्य बटण दाबा.",g2:"पोलिस स्टेशन दाखवणारा कार्ड निवडा.",live:"लाईव्ह लोकेशन फक्त विश्वासू कुटुंबासोबत थोड्या वेळासाठी शेअर करा.",perm:"सर्वात सुरक्षित परवानगी: अ‍ॅप वापरताना Allow करा.",quiz:"झटपट तपास."}};
+function speak(txt,lang){try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(txt);u.lang=lang;window.speechSynthesis.speak(u);}catch(e){}}
+var audioBtns=document.querySelectorAll(".audio-btn");
+for(var ai=0;ai<audioBtns.length;ai++){audioBtns[ai].addEventListener("click",function(){var key=this.getAttribute("data-read");var lang=localStorage.getItem("language")||"en";var pack=READ[lang]||READ.en;var text=pack[key]||"";var code=(lang==="hi")?"hi-IN":(lang==="mr")?"mr-IN":"en-IN";speak(text,code);});}
+
+/* Language */
+var T={hi:{"hero-title":"स्थान सेवाओं का सुरक्षित उपयोग करें","hero-text":"महाराष्ट्र में अस्पताल, पुलिस स्टेशन और आपात सेवाएँ खोजें।","intro-title":"लोकेशन (GPS) क्या है?","maha-title":"महाराष्ट्र में लोकेशन क्यों उपयोगी है","toggle-title":"लोकेशन ON/OFF कैसे करें","g1-title":"गेम: लोकेशन चालू करें","g1-info":"लोकेशन चालू करने के लिए सही बटन टैप करें।","g2-title":"गेम: कौन सा पुलिस स्टेशन है?","live-title":"हैंड्स-ऑन: लाइव लोकेशन शेयर करें","live-info":"लाइव लोकेशन का सुरक्षित अभ्यास करें।","live-shared":"लाइव लोकेशन 15 मिनट के लिए साझा हुई","perm-title":"प्रैक्टिस: लोकेशन परमिशन","perm-info":"सबसे सुरक्षित विकल्प चुनें:","quiz-title":"मिनी क्विज़","check":"जांचें","reset":"रीसेट"},
+mr:{"hero-title":"लोकेशन सेवा सुरक्षितपणे वापरा","hero-text":"महाराष्ट्रात हॉस्पिटल, पोलिस स्टेशन व आपत्कालीन सेवा शोधा.","intro-title":"लोकेशन (GPS) म्हणजे काय?","maha-title":"महाराष्ट्रात लोकेशन का उपयुक्त","toggle-title":"लोकेशन ON/OFF कसे करायचे","g1-title":"खेळ: लोकेशन सुरू करा","g1-info":"लोकेशन सुरू करण्यासाठी योग्य बटण टॅप करा.","g2-title":"खेळ: पोलिस स्टेशन कोणते?","live-title":"हँड्स-ऑन: लाईव्ह लोकेशन शेअर करा","live-info":"लाईव्ह लोकेशन सुरक्षितपणे सराव करा.","live-shared":"लाईव्ह लोकेशन 15 मिनिटांसाठी शेअर झाले","perm-title":"प्रॅक्टिस: लोकेशन परवानगी","perm-info":"सुरक्षित पर्याय निवडा:","quiz-title":"मिनी क्विझ","check":"तपासा","reset":"रीसेट"}};
+function applyLang(lang){var dict=T[lang];if(!dict){return;}var tags=document.querySelectorAll("[data-key]");for(var i=0;i<tags.length;i++){var k=tags[i].getAttribute("data-key");if(dict[k]){tags[i].innerText=dict[k];}}localStorage.setItem("language",lang);}
+var langSelect=document.getElementById("langSelect");
+langSelect.addEventListener("change",function(e){applyLang(e.target.value);});
+(function(){var saved=localStorage.getItem("language")||"en";langSelect.value=saved;applyLang(saved);})();
+</script>
+</body>
+</html>

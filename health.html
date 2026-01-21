@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-key="page-title">DigiSakhi | Women's Health & Wellness</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+  --brand-pink: #ff6b81;
+  --brand-orange: #ffa800;
+  --bg: #fffafc;
+  --text-dark: #2c3e50;
+  --muted: #7f8c8d;
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  font-family: 'Inter', sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text-dark);line-height:1.6;font-family: 'Inter', sans-serif;}
+.container{max-width:1100px;margin:0 auto;padding:25px;}
+
+/* HEADER */
+.header{display:flex;align-items:center;justify-content:space-between;padding:10px 0;}
+.brand{display:flex;align-items:center;gap:12px;}
+.logo{height:65px;width:auto;border-radius:10px;}
+.title{font-weight:800;font-size:1.8rem;color:var(--brand-pink);}
+.nav{display:flex;align-items:center;gap:15px;}
+.lang-select{padding:10px 14px;border-radius:var(--radius-md);border:1px solid #e0e0e0;background:white;font-weight:600;color:var(--text-dark);}
+.profile{position:relative;}
+.profile img{height:45px;width:45px;border-radius:50%;cursor:pointer;}
+.dropdown{display:none;position:absolute;top:55px;right:0;background:white;border-radius:var(--radius-md);
+box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+.dropdown a{display:block;padding:10px 15px;text-decoration:none;color:var(--text-dark);font-weight:600;}
+.dropdown a:hover{background:var(--brand-pink);color:white;}
+.profile:hover .dropdown{display:block;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--brand-pink),var(--brand-orange));color:white;
+text-align:center;padding:60px 20px;border-radius:var(--radius-lg);margin-top:10px;
+box-shadow:0 10px 25px rgba(255,107,129,0.4);}
+.hero h1{font-size:2.5rem;font-weight:900;margin-bottom:10px;}
+.hero p{font-size:1.1rem;max-width:700px;margin:auto;}
+
+/* GRID CARDS */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:25px;margin-top:40px;}
+.card{background:white;padding:25px;border-radius:var(--radius-lg);text-align:center;
+box-shadow:0 6px 15px rgba(0,0,0,0.1);transition:transform 0.3s, box-shadow 0.3s;}
+.card:hover{transform:translateY(-8px);box-shadow:0 8px 20px rgba(0,0,0,0.15);}
+.card i{font-size:40px;color:var(--brand-orange);margin-bottom:12px;}
+.card h3{margin-bottom:10px;color:var(--text-dark);}
+.card p{font-size:0.95rem;color:var(--muted);}
+.card a{text-decoration:none;color:inherit;}
+
+/* SECTIONS */
+.section{margin-top:60px;}
+.section h2{text-align:center;font-weight:800;margin-bottom:20px;color:var(--brand-pink);}
+.section p{text-align:center;color:var(--muted);max-width:800px;margin:auto 0 30px auto;}
+iframe{display:block;margin:0 auto;border-radius:var(--radius-lg);box-shadow:0 6px 15px rgba(0,0,0,0.1);}
+
+/* NUTRITION CARDS */
+.nutrition-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:30px;}
+.nutri-card{background:white;padding:20px;border-radius:var(--radius-md);
+box-shadow:0 5px 12px rgba(0,0,0,0.1);text-align:center;}
+.nutri-card h4{color:var(--brand-pink);margin-bottom:10px;}
+.nutri-card img{height:60px;margin-bottom:10px;}
+
+/* SELF-CARE */
+.selfcare{background:white;padding:25px;border-radius:var(--radius-lg);
+box-shadow:0 6px 15px rgba(0,0,0,0.1);margin-top:40px;}
+.selfcare ul{list-style:none;padding:0;}
+.selfcare li{margin-bottom:10px;font-weight:500;}
+.selfcare li::before{content:"🌸 ";}
+
+/* FOOTER */
+.footer{text-align:center;padding:30px 0;margin-top:50px;color:var(--muted);
+border-top:1px solid #eee;font-size:14px;}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <header class="header">
+    <div class="brand">
+      <a href="ds.html"><img src="digisakhi.png" alt="DigiSakhi Logo" class="logo"></a>
+      <div>
+        <div class="title" data-key="brand-title">DigiSakhi</div>
+        <div style="font-size:13px;color:var(--muted)" data-key="brand-tagline">Empowering Women's Health & Wellness</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <select class="lang-select" id="langSelect">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="mr">मराठी</option>
+      </select>
+      <div class="profile">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile">
+        <div class="dropdown">
+          <a href="#">My Profile</a>
+          <a href="#">Logout</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1 data-key="hero-title">Empowering Women's Health & Wellness</h1>
+    <p data-key="hero-text">Access trusted health tools, nutrition guides, and wellness support for women across India.</p>
+  </section>
+
+  <section class="grid">
+    <a href="https://www.aarogyasetu.gov.in/" target="_blank" class="card">
+      <i class="fa-solid fa-heart-pulse"></i>
+      <h3 data-key="card1-title">Aarogya Setu</h3>
+      <p data-key="card1-text">Official health & safety app for awareness and contact tracing.</p>
+    </a>
+    <a href="https://icds-wcd.nic.in/nnm/home.htm" target="_blank" class="card">
+      <i class="fa-solid fa-apple-whole"></i>
+      <h3 data-key="card2-title">Poshan Tracker</h3>
+      <p data-key="card2-text">Track nutrition and wellness for women and children under Poshan Abhiyaan.</p>
+    </a>
+    <a href="https://esanjeevani.in/" target="_blank" class="card">
+      <i class="fa-solid fa-user-doctor"></i>
+      <h3 data-key="card3-title">eSanjeevani</h3>
+      <p data-key="card3-text">Free national telemedicine service connecting doctors and patients online.</p>
+    </a>
+    <a href="https://abdm.gov.in/" target="_blank" class="card">
+      <i class="fa-solid fa-id-card"></i>
+      <h3 data-key="card4-title">Ayushman Bharat Digital Mission</h3>
+      <p data-key="card4-text">Create your ABHA Health ID for easy access to digital medical records.</p>
+    </a>
+    <a href="https://ncwapps.nic.in/helpline/" target="_blank" class="card">
+      <i class="fa-solid fa-phone-volume"></i>
+      <h3 data-key="card5-title">NCW Helpline</h3>
+      <p data-key="card5-text">24×7 support for women in distress: Call +91-7827170170.</p>
+    </a>
+    <a href="https://telemanas.mohfw.gov.in/" target="_blank" class="card">
+      <i class="fa-solid fa-brain"></i>
+      <h3 data-key="card6-title">Tele MANAS</h3>
+      <p data-key="card6-text">Free 24×7 mental health counseling and emotional support (Dial 14416).</p>
+    </a>
+  </section>
+
+  <section class="section">
+    <h2 data-key="video-title">Women's Health & Wellness Video</h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/tLs02jOOiyM" allowfullscreen></iframe>
+    <p data-key="video-text">Learn essential tips for maintaining physical, emotional, and mental health through this wellness video.</p>
+  </section>
+
+  <section class="section">
+    <h2 data-key="nutrition-title">Nutrition & Diet Plans</h2>
+    <div class="nutrition-grid">
+      <div class="nutri-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" alt="Teen Clipart">
+        <h4 data-key="nut1-title">Teenage Girls</h4>
+        <p data-key="nut1-text">Focus on iron, calcium, and protein to support growth and hormonal balance.</p>
+      </div>
+      <div class="nutri-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3121/3121568.png" alt="Pregnant Clipart">
+        <h4 data-key="nut2-title">Pregnant Women</h4>
+        <p data-key="nut2-text">Include folic acid, iron, and fresh fruits for healthy mother and baby.</p>
+      </div>
+      <div class="nutri-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/4151/4151533.png" alt="Working Clipart">
+        <h4 data-key="nut3-title">Working Women</h4>
+        <p data-key="nut3-text">Eat balanced meals with fiber and hydration to manage stress and energy levels.</p>
+      </div>
+      <div class="nutri-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/4139/4139991.png" alt="Senior Clipart">
+        <h4 data-key="nut4-title">Senior Women</h4>
+        <p data-key="nut4-text">Opt for calcium, vitamin D, and regular light exercise for bone strength.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 data-key="mental-title">Mental Health Support</h2>
+    <p data-key="mental-text">💬 Feeling low or anxious? Call <b>Tele-MANAS Helpline 14416</b> for free mental health counseling and emotional support anytime, 24×7.</p>
+  </section>
+
+  <section class="section">
+    <h2 data-key="tele-title">Telemedicine & Emergency Support</h2>
+    <p data-key="tele-text">🏥 Get virtual doctor consultations via <b>eSanjeevani</b> or <b>Aarogya Setu</b>. 🚑 In emergencies, dial <b>108</b> or <b>112</b> for immediate medical aid.</p>
+  </section>
+
+  <section class="section selfcare">
+    <h2 data-key="self-title">Daily Self-Care Tips 🌼</h2>
+    <ul>
+      <li data-key="tip1">Drink 6–8 glasses of water daily 💧</li>
+      <li data-key="tip2">Take a 10-minute mindfulness break 🧘‍♀️</li>
+      <li data-key="tip3">Limit screen time and get good sleep 🌙</li>
+      <li data-key="tip4">Stay socially connected 👭</li>
+      <li data-key="tip5">Exercise or walk for 30 minutes 🚶‍♀️</li>
+    </ul>
+  </section>
+
+  <footer class="footer" data-key="footer-text">© 2025 DigiSakhi | Digital Literacy for Every Woman</footer>
+</div>
+
+<script>
+const translations = {
+  hi: {
+    "page-title": "डिजी सखी | महिलाओं का स्वास्थ्य और कल्याण",
+    "brand-tagline": "महिलाओं के स्वास्थ्य और कल्याण को सशक्त बनाना",
+    "hero-title": "महिलाओं के स्वास्थ्य और कल्याण",
+    "hero-text": "महिलाओं के लिए विश्वसनीय स्वास्थ्य उपकरण, पोषण गाइड और सहायता प्राप्त करें।",
+    "footer-text": "© 2025 डिजी सखी | हर महिला के लिए डिजिटल साक्षरता"
+  },
+  mr: {
+    "page-title": "डिजीसखी | महिलांचे आरोग्य आणि कल्याण",
+    "brand-tagline": "महिलांच्या आरोग्य आणि कल्याणाला सक्षम करणे",
+    "hero-title": "महिलांचे आरोग्य आणि कल्याण",
+    "hero-text": "महिलांसाठी विश्वासार्ह आरोग्य साधने, पोषण मार्गदर्शक आणि मदत मिळवा.",
+    "footer-text": "© 2025 डिजीसखी | प्रत्येक महिलेसाठी डिजिटल साक्षरता"
+  }
+};
+
+document.getElementById('langSelect').addEventListener('change', e => {
+  const lang = e.target.value;
+  const elements = document.querySelectorAll('[data-key]');
+  elements.forEach(el => {
+    const key = el.getAttribute('data-key');
+    const translation = translations[lang]?.[key];
+    if (translation) el.innerText = translation;
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DigiSakhi | Government Digital Schemes</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg: #fdf6e3;
+  --card: #ffffff;
+  --brand-pink: #ff6b81;
+  --brand-orange: #ffa800;
+  --text-dark: #2c3e50;
+  --muted: #7f8c8d;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  font-family: 'Inter', sans-serif;
+}
+body{margin:0;background:var(--bg);color:var(--text-dark);}
+.container{max-width:1200px;margin:0 auto;padding:25px}
+.header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{height:65px;border-radius:10px;}
+.title{font-weight:800;font-size:1.8rem;color:var(--brand-pink);}
+.nav{display:flex;gap:15px;align-items:center;}
+.lang-select{padding:10px 14px;border-radius:var(--radius-md);border:1px solid #e0e0e0;background:white;
+box-shadow:0 2px 5px rgba(0,0,0,0.08);font-weight:600;color:var(--text-dark);}
+.hero{background:linear-gradient(135deg,var(--brand-pink),var(--brand-orange));
+color:white;text-align:center;padding:60px 20px;border-radius:var(--radius-lg);
+box-shadow:0 10px 25px rgba(255,107,129,0.4);}
+.hero h1{font-size:2.5rem;font-weight:900;margin-bottom:10px;}
+.hero p{font-size:1.2rem;font-weight:500;}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:25px;margin-top:40px;}
+.card{background:var(--card);padding:25px;border-radius:var(--radius-lg);
+text-align:center;box-shadow:0 6px 15px rgba(0,0,0,0.1);transition:transform 0.3s;}
+.card:hover{transform:translateY(-10px);}
+.card img{height:70px;margin-bottom:10px;}
+.card h3{color:var(--text-dark);font-weight:800;margin-bottom:10px;}
+.card p{color:var(--muted);font-size:0.95rem;margin-bottom:15px;}
+.card a{display:inline-block;margin-top:10px;background:var(--brand-pink);color:white;
+text-decoration:none;padding:8px 14px;border-radius:var(--radius-md);font-weight:600;}
+.card a:hover{background:var(--brand-orange);}
+.activity{margin-top:60px;text-align:center;padding:40px;background:white;border-radius:var(--radius-lg);
+box-shadow:0 6px 15px rgba(0,0,0,0.1);}
+.activity h2{color:var(--brand-pink);font-weight:800;}
+.activity button{margin:10px;padding:12px 18px;font-weight:700;color:white;background:var(--brand-orange);
+border:none;border-radius:var(--radius-md);cursor:pointer;transition:0.3s;}
+.activity button:hover{background:var(--brand-pink);}
+.qr-section img{height:160px;margin-top:10px;}
+.footer{padding:30px 0;text-align:center;color:var(--muted);font-size:14px;margin-top:40px;
+border-top:1px solid #eee;}
+@media(max-width:900px){
+  .grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:600px){
+  .grid{grid-template-columns:1fr;}
+  .hero h1{font-size:2rem;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="header">
+    <div class="brand">
+      <a href="ds.html"><img src="digisakhi.png" alt="DigiSakhi Logo" class="logo"></a>
+      <div>
+        <div class="title" id="brand-title">DigiSakhi</div>
+        <div style="font-size:13px;color:var(--muted)" id="brand-tagline">Digital skills for every woman</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <select class="lang-select" id="langSelect">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="mr">मराठी</option>
+      </select>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1 id="hero-title">Government Digital Schemes</h1>
+      <p id="hero-text">Empowering women through technology-based welfare programs.</p>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3079/3079280.png" alt="DISHA Icon">
+        <h3 id="card1-title">Digital Saksharta Abhiyan (DISHA)</h3>
+        <p id="card1-desc">A national program to make citizens digitally literate — training on basic computer and internet usage.</p>
+        <a href="https://www.pmgdisha.in/" target="_blank">Learn More</a>
+      </div>
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2331/2331970.png" alt="PMGDISHA Icon">
+        <h3 id="card2-title">PMGDISHA</h3>
+        <p id="card2-desc">Helping rural women learn essential digital skills for day-to-day life.</p>
+        <a href="https://www.pmgdisha.in/" target="_blank">Official Site</a>
+      </div>
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2920/2920318.png" alt="Mahila E-Haat">
+        <h3 id="card3-title">Mahila e-Haat</h3>
+        <p id="card3-desc">An online marketing platform by Ministry of Women & Child Development promoting women entrepreneurship.</p>
+        <a href="https://mahilaehaat-rmk.gov.in/" target="_blank">Visit Portal</a>
+      </div>
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/927/927667.png" alt="UMANG Icon">
+        <h3 id="card4-title">UMANG App</h3>
+        <p id="card4-desc">Unified Mobile Application for New-age Governance — access to over 1000 government services.</p>
+        <a href="https://web.umang.gov.in/" target="_blank">Open UMANG</a>
+      </div>
+    </section>
+
+    <section class="activity">
+      <h2>💳 UPI Hands-on Practice</h2>
+      <p>Try this safe demo to understand how to use UPI for payments, scanning, and balance check!</p>
+      <div class="qr-section">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/UPI-QR-code-sample.svg/1200px-UPI-QR-code-sample.svg.png" alt="QR Code Demo">
+      </div>
+      <button onclick="checkBalance()">Check Balance</button>
+      <button onclick="sendMoney()">Send ₹1</button>
+      <button onclick="receiveMoney()">Receive ₹1</button>
+      <p id="upi-output" style="margin-top:15px;font-weight:700;color:var(--brand-pink);"></p>
+    </section>
+
+    <div style="text-align:center;">
+      <a href="ds.html" class="back-link" id="back-home">← Back to Home</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    © 2025 DigiSakhi | Digital Literacy for Every Woman
+  </footer>
+</div>
+
+<script>
+function checkBalance() {
+  document.getElementById("upi-output").textContent = "Your current balance is ₹1,234.50";
+}
+function sendMoney() {
+  document.getElementById("upi-output").textContent = "You have successfully sent ₹1 ✅";
+}
+function receiveMoney() {
+  document.getElementById("upi-output").textContent = "You received ₹1 successfully 🎉";
+}
+
+// --- Language translation ---
+const translations = {
+  hi: {
+    "brand-tagline": "हर महिला के लिए डिजिटल कौशल",
+    "hero-title": "सरकारी डिजिटल योजनाएं",
+    "hero-text": "प्रौद्योगिकी आधारित योजनाओं के माध्यम से महिलाओं को सशक्त बनाना।",
+    "card1-title": "डिजिटल साक्षरता अभियान (DISHA)",
+    "card1-desc": "नागरिकों को डिजिटल रूप से साक्षर बनाने के लिए राष्ट्रीय कार्यक्रम।",
+    "card2-title": "प्रधानमंत्री ग्रामीण डिजिटल साक्षरता अभियान (PMGDISHA)",
+    "card2-desc": "ग्रामीण महिलाओं को डिजिटल कौशल सिखाने की पहल।",
+    "card3-title": "महिला ई-हाट",
+    "card3-desc": "महिलाओं को ऑनलाइन व्यवसाय का अवसर प्रदान करने वाला मंच।",
+    "card4-title": "उमंग ऐप",
+    "card4-desc": "एकीकृत सरकारी सेवाओं का मोबाइल प्लेटफार्म।",
+    "back-home": "← होम पर जाएं"
+  },
+  mr: {
+    "brand-tagline": "प्रत्येक महिलेसाठी डिजिटल कौशल्ये",
+    "hero-title": "सरकारी डिजिटल योजना",
+    "hero-text": "तंत्रज्ञान आधारित योजनांद्वारे महिलांना सशक्त बनवणे.",
+    "card1-title": "डिजिटल साक्षरता अभियान (DISHA)",
+    "card1-desc": "नागरिकांना डिजिटलदृष्ट्या साक्षर बनवण्यासाठी राष्ट्रीय कार्यक्रम.",
+    "card2-title": "प्रधानमंत्री ग्रामीण डिजिटल साक्षरता अभियान (PMGDISHA)",
+    "card2-desc": "ग्रामीण महिलांना आवश्यक डिजिटल कौशल्ये शिकवण्याची योजना.",
+    "card3-title": "महिला ई-हाट",
+    "card3-desc": "महिलांना ऑनलाइन उद्योजकतेसाठी व्यासपीठ देते.",
+    "card4-title": "उमंग अ‍ॅप",
+    "card4-desc": "एकाच ठिकाणी 1000 हून अधिक सरकारी सेवा देणारा अ‍ॅप.",
+    "back-home": "← होमवर जा"
+  }
+};
+
+document.getElementById("langSelect").addEventListener("change", function() {
+  const lang = this.value;
+  const trans = translations[lang] || {};
+  for (const key in trans) {
+    const el = document.getElementById(key);
+    if (el) el.textContent = trans[key];
+  }
+});
+</script>
+</body>
+</html>
