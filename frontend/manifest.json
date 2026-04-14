@@ -1,0 +1,13 @@
+{
+  "name": "DigiSakhi",
+  "short_name": "DigiSakhi",
+  "description": "Digital Empowerment Platform for Women",
+  "start_url": "/ds.html",
+  "display": "standalone",
+  "background_color": "#fffaf7",
+  "theme_color": "#ff6b81",
+  "icons": [
+    { "src": "digisakhi.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "digisakhi.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

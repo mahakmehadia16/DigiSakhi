@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+body {
+  background: linear-gradient(135deg, #ff6b81 0%, #ffa94d 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.card {
+  background: white;
+  padding: 44px 40px;
+  width: 380px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+  text-align: center;
+}
+.logo { width: 70px; border-radius: 12px; margin-bottom: 8px; }
+h2 { font-size: 1.5rem; color: #2c3e50; margin-bottom: 4px; }
+.sub { color: #888; font-size: 14px; margin-bottom: 24px; }
+.field {
+  position: relative;
+  margin-bottom: 14px;
+  text-align: left;
+}
+.field label { display: block; font-size: 12px; font-weight: 600; color: #555; margin-bottom: 5px; }
+.field input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  transition: border 0.2s;
+}
+.field input:focus { border-color: #ff6b81; }
+.btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #ff6b81, #ffa94d);
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 0.2s;
+}
+.btn:hover { opacity: 0.9; }
+.links { margin-top: 18px; font-size: 13px; color: #888; }
+.links a { color: #ff6b81; text-decoration: none; font-weight: 600; }
+#error-msg { color: #dc3545; font-size: 13px; margin-top: 8px; display: none; }
+.spinner { display: none; }
+.btn.loading .spinner { display: inline-block; }
+.btn.loading .btn-text { display: none; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <img src="digisakhi.png" alt="DigiSakhi" class="logo">
+  <h2>Welcome Back 🌸</h2>
+  <p class="sub">Login to your DigiSakhi account</p>
+
+  <div class="field">
+    <label>Email Address</label>
+    <input type="email" id="email" placeholder="you@example.com" required>
+  </div>
+  <div class="field">
+    <label>Password</label>
+    <input type="password" id="password" placeholder="Your password" required>
+  </div>
+
+  <div id="error-msg"></div>
+
+  <button class="btn" id="loginBtn" onclick="doLogin()">
+    <span class="btn-text">Login</span>
+    <span class="spinner">⏳</span>
+  </button>
+
+  <div class="links">
+    <p>Don't have an account? <a href="register.html">Register here</a></p>
+    <p style="margin-top:8px"><a href="forgot.html">Forgot password?</a></p>
+  </div>
+</div>
+
+<script>
+async function doLogin() {
+  const email    = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const errEl    = document.getElementById("error-msg");
+  const btn      = document.getElementById("loginBtn");
+
+  errEl.style.display = "none";
+  if (!email || !password) { showError("Please fill in all fields."); return; }
+
+  btn.classList.add("loading");
+
+  try {
+    const res  = await fetch("http://localhost:5000/api/auth/login", {
+      method:  "POST",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+
+    if (!res.ok) { showError(data.message || "Login failed"); return; }
+
+    // Store session
+    localStorage.setItem("token",    data.token);
+    localStorage.setItem("userId",   data.user.id);
+    localStorage.setItem("username", data.user.username);
+    localStorage.setItem("lang",     data.user.language || "en");
+    localStorage.setItem("user",     JSON.stringify(data.user));
+
+    window.location.href = "ds.html";
+  } catch {
+    showError("Cannot connect to server. Make sure the backend is running.");
+  } finally {
+    btn.classList.remove("loading");
+  }
+}
+
+function showError(msg) {
+  const el       = document.getElementById("error-msg");
+  el.textContent = msg;
+  el.style.display = "block";
+}
+
+// Enter key support
+document.addEventListener("keydown", (e) => { if (e.key === "Enter") doLogin(); });
+</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+body {
+  background: linear-gradient(135deg, #ffa94d 0%, #ff6b81 100%);
+  display: flex; justify-content: center; align-items: center; min-height: 100vh;
+}
+.card {
+  background: white; padding: 40px; width: 400px;
+  border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.18); text-align: center;
+}
+.logo { width: 70px; border-radius: 12px; margin-bottom: 8px; }
+h2 { font-size: 1.5rem; color: #2c3e50; margin-bottom: 4px; }
+.sub { color: #888; font-size: 14px; margin-bottom: 22px; }
+.field { margin-bottom: 13px; text-align: left; }
+.field label { display: block; font-size: 12px; font-weight: 600; color: #555; margin-bottom: 4px; }
+.field input, .field select {
+  width: 100%; padding: 12px 14px; border: 1.5px solid #ddd;
+  border-radius: 10px; font-size: 14px; outline: none; transition: border 0.2s;
+}
+.field input:focus, .field select:focus { border-color: #ff6b81; }
+.btn {
+  width: 100%; padding: 14px;
+  background: linear-gradient(135deg, #ff6b81, #ffa94d);
+  border: none; color: white; font-weight: 700; font-size: 15px;
+  border-radius: 10px; cursor: pointer; margin-top: 6px;
+}
+.btn:hover { opacity: 0.9; }
+.links { margin-top: 16px; font-size: 13px; color: #888; }
+.links a { color: #ff6b81; font-weight: 600; text-decoration: none; }
+#error-msg { color: #dc3545; font-size: 13px; margin-top: 8px; display: none; }
+.strength-bar { height: 5px; border-radius: 5px; margin-top: 5px; background: #eee; }
+.strength-fill { height: 100%; border-radius: 5px; transition: all 0.3s; width: 0; }
+</style>
+</head>
+<body>
+<div class="card">
+  <img src="digisakhi.png" alt="DigiSakhi" class="logo">
+  <h2>Create Account 🌸</h2>
+  <p class="sub">Join DigiSakhi and start learning today</p>
+
+  <div class="field">
+    <label>Full Name</label>
+    <input type="text" id="name" placeholder="Priya Sharma">
+  </div>
+  <div class="field">
+    <label>Username</label>
+    <input type="text" id="username" placeholder="priya123">
+  </div>
+  <div class="field">
+    <label>Email Address</label>
+    <input type="email" id="email" placeholder="priya@example.com">
+  </div>
+  <div class="field">
+    <label>Password</label>
+    <input type="password" id="password" placeholder="Min 6 characters" oninput="checkStrength(this.value)">
+    <div class="strength-bar"><div class="strength-fill" id="strength-fill"></div></div>
+  </div>
+  <div class="field">
+    <label>Preferred Language</label>
+    <select id="language">
+      <option value="en">English</option>
+      <option value="hi">हिन्दी (Hindi)</option>
+      <option value="mr">मराठी (Marathi)</option>
+    </select>
+  </div>
+
+  <div id="error-msg"></div>
+  <button class="btn" onclick="doRegister()">Create Account</button>
+
+  <div class="links"><p>Already have an account? <a href="login.html">Login here</a></p></div>
+</div>
+
+<script>
+function checkStrength(val) {
+  const fill = document.getElementById("strength-fill");
+  let score = 0;
+  if (val.length >= 6)  score++;
+  if (val.length >= 10) score++;
+  if (/[A-Z]/.test(val)) score++;
+  if (/[0-9]/.test(val)) score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+  const pct = (score / 5) * 100;
+  fill.style.width = pct + "%";
+  fill.style.background = score <= 2 ? "#dc3545" : score <= 3 ? "#ffa94d" : "#28a745";
+}
+
+async function doRegister() {
+  const name     = document.getElementById("name").value.trim();
+  const username = document.getElementById("username").value.trim();
+  const email    = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const language = document.getElementById("language").value;
+  const errEl    = document.getElementById("error-msg");
+
+  errEl.style.display = "none";
+  if (!name || !username || !email || !password) { showError("All fields are required."); return; }
+  if (password.length < 6) { showError("Password must be at least 6 characters."); return; }
+
+  try {
+    const res  = await fetch("http://localhost:5000/api/auth/register", {
+      method:  "POST",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify({ name, username, email, password, language })
+    });
+    const data = await res.json();
+    if (!res.ok) { showError(data.message || "Registration failed"); return; }
+
+    localStorage.setItem("token",    data.token);
+    localStorage.setItem("userId",   data.user.id);
+    localStorage.setItem("username", data.user.username);
+    localStorage.setItem("lang",     language);
+    localStorage.setItem("user",     JSON.stringify(data.user));
+
+    window.location.href = "ds.html";
+  } catch {
+    showError("Cannot connect to server. Is the backend running?");
+  }
+}
+
+function showError(msg) {
+  const el = document.getElementById("error-msg");
+  el.textContent = msg; el.style.display = "block";
+}
+</script>
+</body>
+</html>

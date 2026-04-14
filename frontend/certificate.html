@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | Certificates</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+<style>
+.page { max-width:800px; margin:40px auto; padding:0 20px; }
+h1 { font-size:1.8rem; color:#ff6b81; margin-bottom:8px; }
+.sub { color:#888; margin-bottom:28px; font-size:14px; }
+nav { display:flex; gap:12px; margin-bottom:28px; flex-wrap:wrap; }
+nav a {
+  padding:9px 18px; border-radius:10px; text-decoration:none;
+  font-weight:600; font-size:14px; color:#888; background:white; box-shadow:var(--shadow);
+}
+nav a.active { background:linear-gradient(135deg,#ff6b81,#ffa94d); color:white; }
+.cert-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+.cert-card {
+  background:white; border-radius:16px; padding:28px;
+  box-shadow:var(--shadow); text-align:center; position:relative;
+  border-top:4px solid #ff6b81;
+}
+.cert-card .cert-icon { font-size:3rem; margin-bottom:10px; }
+.cert-card h3 { color:#ff6b81; font-size:1.2rem; margin-bottom:6px; }
+.cert-card p  { color:#888; font-size:13px; margin-bottom:16px; }
+.cert-id { font-size:11px; color:#ccc; font-family:monospace; word-break:break-all; }
+.btn-download {
+  background:linear-gradient(135deg,#ff6b81,#ffa94d); color:white;
+  border:none; padding:10px 22px; border-radius:8px; cursor:pointer;
+  font-weight:700; font-size:13px; margin-top:10px;
+}
+.no-certs {
+  text-align:center; padding:60px 20px; color:#aaa; background:white;
+  border-radius:16px; box-shadow:var(--shadow);
+}
+.no-certs .icon { font-size:4rem; margin-bottom:16px; }
+.verify-section {
+  background:white; border-radius:16px; padding:28px; box-shadow:var(--shadow); margin-top:28px;
+}
+.verify-section h2 { color:#2c3e50; margin-bottom:14px; }
+.verify-row { display:flex; gap:10px; }
+.verify-row input {
+  flex:1; padding:12px 14px; border:1.5px solid #eee; border-radius:10px;
+  font-size:14px; outline:none;
+}
+.verify-row input:focus { border-color:#ff6b81; }
+.btn-verify {
+  background:#2c3e50; color:white; border:none; padding:12px 22px;
+  border-radius:10px; cursor:pointer; font-weight:700;
+}
+#verify-result { margin-top:14px; padding:14px; border-radius:10px; display:none; }
+#verify-result.valid   { background:#d4edda; color:#155724; }
+#verify-result.invalid { background:#f8d7da; color:#721c24; }
+@media(max-width:600px){ .cert-grid { grid-template-columns:1fr; } }
+body.dark .cert-card, body.dark .verify-section { background:var(--card); }
+</style>
+</head>
+<body>
+<script>if (!localStorage.getItem("token")) window.location.href = "login.html";</script>
+
+<div class="page">
+  <nav>
+    <a href="ds.html">🏠 Home</a>
+    <a href="profile.html">👤 Profile</a>
+    <a href="certificate.html" class="active">🏆 Certs</a>
+    <a href="leaderboard.html">🥇 Board</a>
+  </nav>
+
+  <h1>🏆 My Certificates</h1>
+  <p class="sub">Complete modules 100% to earn downloadable PDF certificates, emailed to you automatically.</p>
+
+  <div id="cert-grid" class="cert-grid">
+    <div class="no-certs" style="grid-column:1/-1">
+      <div class="icon">🎓</div>
+      <p>Loading your certificates...</p>
+    </div>
+  </div>
+
+  <!-- Verify section -->
+  <div class="verify-section">
+    <h2>🔍 Verify a Certificate</h2>
+    <p style="color:#888;font-size:14px;margin-bottom:14px">Enter a Certificate ID to check if it's valid.</p>
+    <div class="verify-row">
+      <input type="text" id="verify-input" placeholder="Paste Certificate ID here...">
+      <button class="btn-verify" onclick="verifyCert()">Verify</button>
+    </div>
+    <div id="verify-result"></div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+requireLogin();
+
+const MODULES = [
+  { name:"Digital Skills",     icon:"💻" },
+  { name:"Financial Literacy", icon:"💰" },
+  { name:"Legal Rights",       icon:"⚖️" },
+  { name:"Health & Wellness",  icon:"🌸" },
+  { name:"Entrepreneurship",   icon:"🚀" },
+  { name:"WhatsApp Safety",    icon:"📱" },
+  { name:"Scam Awareness",     icon:"🛡️" },
+  { name:"Govt Schemes",       icon:"🏛️" },
+];
+
+function moduleIcon(name) {
+  return MODULES.find(m => m.name === name)?.icon || "🎓";
+}
+
+async function loadCerts() {
+  const certs = await apiFetch("/api/certificate/mine");
+  const grid  = document.getElementById("cert-grid");
+  if (!certs || !certs.length) {
+    grid.innerHTML = `
+      <div class="no-certs" style="grid-column:1/-1">
+        <div class="icon">🎓</div>
+        <h3>No certificates yet!</h3>
+        <p>Complete any learning module 100% to earn your first certificate.</p>
+        <a href="ds.html" style="color:#ff6b81;font-weight:700;text-decoration:none">→ Go to Modules</a>
+      </div>`;
+    return;
+  }
+  grid.innerHTML = certs.map(c => `
+    <div class="cert-card">
+      <div class="cert-icon">${moduleIcon(c.module)}</div>
+      <h3>${c.module}</h3>
+      <p>Issued: ${new Date(c.issuedAt).toLocaleDateString("en-IN",{year:"numeric",month:"long",day:"numeric"})}</p>
+      <div class="cert-id">ID: ${c.certificateId}</div>
+      <button class="btn-download" onclick="downloadCert('${c.certificateId}')">⬇️ Download PDF</button>
+    </div>
+  `).join("");
+}
+
+function downloadCert(id) {
+  window.open(`http://localhost:5000/api/certificate/download/${id}`, "_blank");
+}
+
+async function verifyCert() {
+  const id      = document.getElementById("verify-input").value.trim();
+  const resultEl = document.getElementById("verify-result");
+  if (!id) return;
+
+  const data = await fetch(`http://localhost:5000/api/certificate/verify/${id}`).then(r=>r.json());
+  resultEl.style.display = "block";
+  if (data.valid) {
+    resultEl.className   = "valid";
+    resultEl.innerHTML   = `✅ <strong>Valid Certificate!</strong><br>
+      Issued to: <strong>${data.userName}</strong><br>
+      Module: <strong>${data.module}</strong><br>
+      Date: ${new Date(data.issuedAt).toLocaleDateString("en-IN",{year:"numeric",month:"long",day:"numeric"})}`;
+  } else {
+    resultEl.className   = "invalid";
+    resultEl.innerHTML   = "❌ <strong>Invalid Certificate.</strong> This ID does not exist in our records.";
+  }
+}
+
+loadCerts();
+</script>
+</body>
+</html>

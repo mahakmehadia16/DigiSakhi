@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | Settings</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+<style>
+.page { max-width:620px; margin:40px auto; padding:0 20px 60px; }
+h1 { font-size:1.8rem; color:#ff6b81; margin-bottom:24px; }
+nav { display:flex; gap:12px; margin-bottom:28px; flex-wrap:wrap; }
+nav a {
+  padding:9px 18px; border-radius:10px; text-decoration:none;
+  font-weight:600; font-size:14px; color:#888; background:white; box-shadow:var(--shadow);
+}
+nav a.active { background:linear-gradient(135deg,#ff6b81,#ffa94d); color:white; }
+.settings-card {
+  background:white; border-radius:16px; padding:28px;
+  box-shadow:var(--shadow); margin-bottom:20px;
+}
+.settings-card h2 { font-size:1.1rem; color:#2c3e50; margin-bottom:18px; }
+.setting-row {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 0; border-bottom:1px solid #f5f5f5;
+}
+.setting-row:last-child { border-bottom:none; }
+.setting-label { font-weight:600; font-size:15px; }
+.setting-desc  { font-size:13px; color:#aaa; margin-top:3px; }
+/* Toggle */
+.toggle { position:relative; width:48px; height:26px; }
+.toggle input { opacity:0; width:0; height:0; }
+.slider {
+  position:absolute; cursor:pointer; top:0;left:0;right:0;bottom:0;
+  background:#ccc; border-radius:26px; transition:.3s;
+}
+.slider:before {
+  position:absolute; content:""; height:20px; width:20px;
+  left:3px; bottom:3px; background:white; border-radius:50%; transition:.3s;
+}
+input:checked + .slider { background:linear-gradient(135deg,#ff6b81,#ffa94d); }
+input:checked + .slider:before { transform:translateX(22px); }
+/* Select */
+.setting-select {
+  padding:8px 12px; border:1.5px solid #eee; border-radius:8px;
+  font-size:14px; font-weight:600; outline:none; background:white;
+}
+.setting-select:focus { border-color:#ff6b81; }
+.btn {
+  background:linear-gradient(135deg,#ff6b81,#ffa94d); color:white;
+  border:none; padding:13px 32px; border-radius:10px; font-weight:700;
+  font-size:15px; cursor:pointer; width:100%; margin-top:6px;
+}
+.danger-btn {
+  background:#dc3545; color:white; border:none; padding:11px 22px;
+  border-radius:10px; font-weight:700; font-size:14px; cursor:pointer;
+}
+body.dark .settings-card { background:var(--card); }
+body.dark .setting-select { background:var(--card); color:var(--text); }
+</style>
+</head>
+<body>
+<script>if (!localStorage.getItem("token")) window.location.href = "login.html";</script>
+<div class="page">
+  <nav>
+    <a href="ds.html">🏠 Home</a>
+    <a href="profile.html">👤 Profile</a>
+    <a href="settings.html" class="active">⚙️ Settings</a>
+  </nav>
+
+  <h1>⚙️ Settings</h1>
+
+  <div class="settings-card">
+    <h2>🌍 Preferences</h2>
+    <div class="setting-row">
+      <div>
+        <div class="setting-label">Language</div>
+        <div class="setting-desc">Choose your preferred language</div>
+      </div>
+      <select class="setting-select" id="lang-select">
+        <option value="en">🌐 English</option>
+        <option value="hi">🇮🇳 हिन्दी</option>
+        <option value="mr">मराठी</option>
+      </select>
+    </div>
+    <div class="setting-row">
+      <div>
+        <div class="setting-label">🌙 Dark Mode</div>
+        <div class="setting-desc">Switch to dark theme</div>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="darkModeToggle" onchange="toggleDark(this.checked)">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="setting-row">
+      <div>
+        <div class="setting-label">🔔 Notifications</div>
+        <div class="setting-desc">Receive daily learning reminders</div>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="notifToggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="setting-row">
+      <div>
+        <div class="setting-label">🔒 Private Profile</div>
+        <div class="setting-desc">Hide from leaderboard</div>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="privacyToggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="settings-card">
+    <h2>🔊 Voice & Accessibility</h2>
+    <div class="setting-row">
+      <div>
+        <div class="setting-label">Test Voice (TTS)</div>
+        <div class="setting-desc">Hear text read aloud</div>
+      </div>
+      <button class="btn" style="width:auto;padding:10px 20px" onclick="speak('DigiSakhi — your digital friend. Stay safe online!')">🔊 Test</button>
+    </div>
+    <div class="setting-row">
+      <div>
+        <div class="setting-label">Stop Speaking</div>
+        <div class="setting-desc">Stop any active voice</div>
+      </div>
+      <button class="btn" style="width:auto;padding:10px 20px;background:#2c3e50" onclick="stopSpeaking()">⏹ Stop</button>
+    </div>
+  </div>
+
+  <div class="settings-card">
+    <h2>🔐 Account</h2>
+    <button class="btn" onclick="saveSettings()">💾 Save All Settings</button>
+    <br><br>
+    <button class="danger-btn" onclick="if(confirm('Logout?')) logout()">🚪 Logout</button>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+requireLogin();
+
+async function loadSettings() {
+  const user = await apiFetch("/api/user/profile");
+  if (!user) return;
+  saveUser(user);
+
+  document.getElementById("lang-select").value   = user.language      || "en";
+  document.getElementById("darkModeToggle").checked = user.darkMode   || false;
+  document.getElementById("notifToggle").checked    = user.notifications !== false;
+  document.getElementById("privacyToggle").checked  = user.privacy    || false;
+
+  if (user.darkMode) document.body.classList.add("dark");
+}
+
+function toggleDark(on) {
+  document.body.classList.toggle("dark", on);
+  localStorage.setItem("darkMode", on);
+}
+
+async function saveSettings() {
+  const language      = document.getElementById("lang-select").value;
+  const darkMode      = document.getElementById("darkModeToggle").checked;
+  const notifications = document.getElementById("notifToggle").checked;
+  const privacy       = document.getElementById("privacyToggle").checked;
+
+  localStorage.setItem("lang", language);
+  const data = await apiFetch("/api/user/settings", {
+    method: "PUT",
+    body:   JSON.stringify({ language, darkMode, notifications, privacy })
+  });
+  if (data) { saveUser(data); toast("Settings saved! ✅"); }
+}
+
+loadSettings();
+</script>
+</body>
+</html>

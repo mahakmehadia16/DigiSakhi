@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiSakhi | Digital Skills</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+<style>
+.module-header {
+  background:linear-gradient(135deg,#ff6b81,#ffa94d);
+  color:white; padding:30px 40px; display:flex; justify-content:space-between; align-items:center;
+}
+.module-header h1 { font-size:1.8rem; }
+.module-header p  { opacity:0.9; margin-top:4px; font-size:14px; }
+.back-btn {
+  background:rgba(255,255,255,0.2); color:white; border:none;
+  padding:10px 18px; border-radius:10px; cursor:pointer; font-weight:700; text-decoration:none;
+}
+.content { max-width:800px; margin:0 auto; padding:30px 20px; }
+.progress-section {
+  background:white; border-radius:14px; padding:20px 24px;
+  box-shadow:var(--shadow); margin-bottom:24px; display:flex; align-items:center; gap:20px;
+}
+.progress-section .pct { font-size:2rem; font-weight:800; color:#ff6b81; min-width:60px; }
+.progress-section .right { flex:1; }
+.progress-section .lbl { font-size:13px; color:#aaa; margin-bottom:6px; }
+.lesson-card {
+  background:white; border-radius:14px; padding:24px; box-shadow:var(--shadow); margin-bottom:18px;
+}
+.lesson-card h3 { color:#ff6b81; font-size:1.1rem; margin-bottom:10px; }
+.lesson-card p  { color:#555; line-height:1.7; font-size:15px; }
+.lesson-actions { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+.btn-listen {
+  background:none; border:2px solid #ffa94d; color:#ffa94d;
+  padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer; font-size:13px;
+}
+.btn-done {
+  background:linear-gradient(135deg,#ff6b81,#ffa94d); color:white;
+  border:none; padding:8px 20px; border-radius:8px; font-weight:700; cursor:pointer; font-size:13px;
+}
+.btn-done.completed { background:#28a745; }
+
+/* Quiz */
+.quiz-card {
+  background:white; border-radius:14px; padding:28px; box-shadow:var(--shadow); margin-top:28px;
+}
+.quiz-card h2 { color:#2c3e50; margin-bottom:20px; }
+.quiz-question { margin-bottom:20px; }
+.quiz-question p { font-weight:700; font-size:15px; color:#333; margin-bottom:12px; }
+.quiz-option {
+  display:block; width:100%; text-align:left; padding:12px 16px;
+  border:1.5px solid #eee; border-radius:10px; background:white; cursor:pointer;
+  font-size:14px; margin-bottom:8px; transition:all 0.2s;
+}
+.quiz-option:hover  { border-color:#ff6b81; background:#fff0f3; }
+.quiz-option.correct { border-color:#28a745; background:#d4edda; color:#155724; }
+.quiz-option.wrong   { border-color:#dc3545; background:#f8d7da; color:#721c24; }
+.quiz-submit {
+  background:linear-gradient(135deg,#ff6b81,#ffa94d); color:white;
+  border:none; padding:14px 32px; border-radius:10px; font-weight:700;
+  font-size:15px; cursor:pointer; margin-top:10px; width:100%;
+}
+#quiz-result { margin-top:16px; padding:16px; border-radius:10px; display:none; font-weight:700; text-align:center; }
+#quiz-result.pass { background:#d4edda; color:#155724; }
+#quiz-result.fail  { background:#fff3cd; color:#856404; }
+body.dark .lesson-card, body.dark .quiz-card, body.dark .progress-section { background:var(--card); }
+body.dark .quiz-option { background:var(--card); border-color:#333; color:var(--text); }
+</style>
+</head>
+<body>
+<script>if (!localStorage.getItem("token")) window.location.href = "login.html";</script>
+
+<div class="module-header">
+  <div>
+    <h1>💻 Digital Skills</h1>
+    <p>Learn smartphone use, internet safety and online tools</p>
+  </div>
+  <a href="ds.html" class="back-btn">← Back</a>
+</div>
+
+<div class="content">
+  <!-- Progress -->
+  <div class="progress-section">
+    <div class="pct" id="pct-display">0%</div>
+    <div class="right">
+      <div class="lbl">Your progress in Digital Skills</div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="pct-bar" style="width:0%"></div>
+      </div>
+    </div>
+    <button class="btn-listen" onclick="speak('You are learning Digital Skills. Great job!')">🔊</button>
+  </div>
+
+  <!-- Lessons -->
+  <div class="lesson-card" id="lesson-0">
+    <h3>📱 Lesson 1: Using Your Smartphone</h3>
+    <p>Your smartphone is a powerful tool. Learn to use the home screen, download apps from the Play Store, manage storage, and set up a screen lock to keep your phone safe. Always keep your phone software updated to protect against viruses.</p>
+    <div class="lesson-actions">
+      <button class="btn-listen" onclick="speak(this.closest('.lesson-card').querySelector('p').textContent)">🔊 Listen</button>
+      <button class="btn-done" id="done-0" onclick="markDone(0)">✓ Mark Complete</button>
+    </div>
+  </div>
+
+  <div class="lesson-card" id="lesson-1">
+    <h3>🌐 Lesson 2: Internet Safety Basics</h3>
+    <p>Be careful about what you share online. Never share your Aadhaar number, OTP, bank details, or home address with strangers. Use strong passwords — mix letters, numbers and symbols. Enable two-factor authentication on important accounts like Google and email.</p>
+    <div class="lesson-actions">
+      <button class="btn-listen" onclick="speak(this.closest('.lesson-card').querySelector('p').textContent)">🔊 Listen</button>
+      <button class="btn-done" id="done-1" onclick="markDone(1)">✓ Mark Complete</button>
+    </div>
+  </div>
+
+  <div class="lesson-card" id="lesson-2">
+    <h3>📧 Lesson 3: Email & Google Account</h3>
+    <p>A Google account gives you access to Gmail, Google Maps, YouTube, and Google Pay. Create one at accounts.google.com. Use a strong password and add your phone number for recovery. Your email is your digital identity — keep it secure.</p>
+    <div class="lesson-actions">
+      <button class="btn-listen" onclick="speak(this.closest('.lesson-card').querySelector('p').textContent)">🔊 Listen</button>
+      <button class="btn-done" id="done-2" onclick="markDone(2)">✓ Mark Complete</button>
+    </div>
+  </div>
+
+  <div class="lesson-card" id="lesson-3">
+    <h3>📷 Lesson 4: Camera & Photos</h3>
+    <p>Your phone camera can scan QR codes for payments, document scanning, and video calls. Use Google Lens to identify objects, translate text, and search the internet using images. Back up your photos to Google Photos for free storage.</p>
+    <div class="lesson-actions">
+      <button class="btn-listen" onclick="speak(this.closest('.lesson-card').querySelector('p').textContent)">🔊 Listen</button>
+      <button class="btn-done" id="done-3" onclick="markDone(3)">✓ Mark Complete</button>
+    </div>
+  </div>
+
+  <!-- Quiz -->
+  <div class="quiz-card">
+    <h2>🧠 Module Quiz</h2>
+    <p style="color:#888;font-size:14px;margin-bottom:20px">Answer all questions to complete this module and earn your certificate!</p>
+
+    <div class="quiz-question" id="q0">
+      <p>1. What should you NEVER share with strangers online?</p>
+      <button class="quiz-option" onclick="selectOption(0,0,false)">Your favourite colour</button>
+      <button class="quiz-option" onclick="selectOption(0,1,true)">Your OTP and Aadhaar number</button>
+      <button class="quiz-option" onclick="selectOption(0,2,false)">Your city name</button>
+    </div>
+
+    <div class="quiz-question" id="q1">
+      <p>2. Where do you download safe apps for your Android phone?</p>
+      <button class="quiz-option" onclick="selectOption(1,0,true)">Google Play Store</button>
+      <button class="quiz-option" onclick="selectOption(1,1,false)">Any website on the internet</button>
+      <button class="quiz-option" onclick="selectOption(1,2,false)">From WhatsApp forwards</button>
+    </div>
+
+    <div class="quiz-question" id="q2">
+      <p>3. A good password should:</p>
+      <button class="quiz-option" onclick="selectOption(2,0,false)">Be your name or birthday</button>
+      <button class="quiz-option" onclick="selectOption(2,1,false)">Be simple like "123456"</button>
+      <button class="quiz-option" onclick="selectOption(2,2,true)">Mix letters, numbers and symbols</button>
+    </div>
+
+    <button class="quiz-submit" onclick="submitQuiz()">Submit Quiz ✅</button>
+    <div id="quiz-result"></div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+requireLogin();
+const MODULE_NAME   = "Digital Skills";
+const TOTAL_LESSONS = 4;
+const TOTAL_QS      = 3;
+let lessonsCompleted = new Set();
+let answers = {};
+
+async function init() {
+  const data = await apiFetch("/api/progress");
+  const mod  = data?.progress?.find(p => p.module === MODULE_NAME);
+  if (mod) updateProgress(mod.percent);
+}
+
+function updateProgress(pct) {
+  document.getElementById("pct-display").textContent = pct + "%";
+  document.getElementById("pct-bar").style.width = pct + "%";
+}
+
+function markDone(idx) {
+  lessonsCompleted.add(idx);
+  const btn = document.getElementById("done-" + idx);
+  btn.textContent = "✅ Completed";
+  btn.classList.add("completed");
+  const lessonPct = Math.round((lessonsCompleted.size / (TOTAL_LESSONS + TOTAL_QS)) * 80);
+  updateProgress(lessonPct);
+  saveProgress(MODULE_NAME, lessonPct);
+  toast(`Lesson ${idx+1} completed! +XP ⭐`);
+}
+
+function selectOption(qIdx, optIdx, isCorrect) {
+  answers[qIdx] = isCorrect;
+  const q    = document.getElementById("q" + qIdx);
+  const opts = q.querySelectorAll(".quiz-option");
+  opts.forEach(o => o.classList.remove("correct","wrong"));
+  opts[optIdx].classList.add(isCorrect ? "correct" : "wrong");
+}
+
+async function submitQuiz() {
+  const answered = Object.keys(answers).length;
+  if (answered < TOTAL_QS) { toast("Please answer all questions first!", "warning"); return; }
+
+  const correct = Object.values(answers).filter(Boolean).length;
+  const score   = Math.round((correct / TOTAL_QS) * 100);
+  const passed  = score >= 66;
+
+  const resultEl = document.getElementById("quiz-result");
+  resultEl.style.display = "block";
+  resultEl.className     = passed ? "pass" : "fail";
+  resultEl.textContent   = passed
+    ? `🎉 Passed! ${correct}/${TOTAL_QS} correct. Certificate earned!`
+    : `Try again! ${correct}/${TOTAL_QS} correct. You need 2/3 to pass.`;
+
+  if (passed) {
+    const finalPct = 100;
+    updateProgress(finalPct);
+    const data = await saveProgress(MODULE_NAME, finalPct);
+
+    // Generate certificate
+    await apiFetch("/api/certificate/generate", {
+      method: "POST",
+      body:   JSON.stringify({ module: MODULE_NAME })
+    });
+
+    if (data?.newBadge) showBadgePopup(data.newBadge);
+    else launchConfetti();
+
+    toast("🏆 Certificate generated! Check your email & Certificates page.");
+  }
+}
+
+init();
+</script>
+
+
+
+</body>
+</html>
