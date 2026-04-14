@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🌸 DigiSakhi – Digital Literacy Platform
 
 DigiSakhi is an AI-powered digital literacy platform designed to empower users (especially women and beginners) with essential digital skills through interactive learning, gamification, and real-time engagement.
@@ -213,3 +214,4 @@ To bridge the digital divide by making technology accessible, understandable, an
 ---
 
 ✨ *“Learn. Empower. Grow.”*
+
