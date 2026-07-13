@@ -200,7 +200,7 @@ npx live-server
 
 ## 👩‍💻 Author
 
-**Mahak Mehadia**
+**Mahak Mehadia and Rashi Pande**
 
 * B.Tech Computer Engineering
 * Developer | AI Enthusiast | Problem Solver
